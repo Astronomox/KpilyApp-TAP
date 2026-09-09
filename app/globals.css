@@ -1,15 +1,41 @@
 :root {
-  --kpily-green: #1c6e50;
-  --kpily-green-dark: #17553f;
-  --kpily-blue: #2f7ea8;
+  /* Real brand tokens, computed directly from the production site's
+     own CSS variables (HSL -> hex), not approximated from a screenshot.
+     --primary: hsl(158,53%,29%) etc, from the live kpily.co build. */
+  --kpily-green: #237154;
+  --kpily-green-dark: #074f1c;
+  --kpily-blue: #10608e;
+  --kpily-blue-light: #468fb9;
+  --kpily-blue-dark: #0d4d73;
+  --kpily-mint: #59c999;
   --kpily-mint-bg: #f9fffd;
   --kpily-text: #1c1c1c;
   --kpily-text-muted: #6b7280;
-  --kpily-border: #d9dedb;
+  --kpily-border: #d1d1d1;
   --kpily-white: #ffffff;
   --kpily-radius-sm: 8px;
   --kpily-radius-md: 14px;
   --kpily-radius-lg: 24px;
+
+  --kpily-fs-headline: 38px;
+  --kpily-fs-label: 13px;
+  --kpily-fs-body: 14px;
+  --kpily-fs-button: 15px;
+
+  /* landing-page tokens */
+  --landing-alt-bg: #f4f8fa;
+  --landing-dark: #262626;
+  --landing-blue: var(--kpily-blue-light);
+  --landing-blue-dark: var(--kpily-blue-dark);
+  --landing-mint: var(--kpily-mint);
+  /* pricing card colors are hardcoded on the real site: bg-[#35A676],
+     bg-[#468EB8], bg-[#6F6F6F], not derived from the HSL tokens */
+  --kpily-green-light: #81dfb6;
+  --kpily-green-80: #166448;
+  --kpily-secondary-80: #0d4f75;
+  --pricing-green: #35a676;
+  --pricing-blue: #468eb8;
+  --pricing-gray: #6f6f6f;
 }
 
 * {
@@ -21,8 +47,10 @@ body {
   margin: 0;
   padding: 0;
   color: var(--kpily-text);
-  font-family: var(--font-body), system-ui, sans-serif;
-  background: var(--kpily-mint-bg);
+  /* the real site sets html/body font-family: Poppins, sans-serif
+     directly, no separate body font, unify on that here too */
+  font-family: var(--font-heading), var(--font-body), system-ui, sans-serif;
+  background: var(--kpily-white);
 }
 
 h1,
@@ -33,13 +61,13 @@ h3 {
 }
 
 button {
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: var(--font-heading), sans-serif;
   cursor: pointer;
 }
 
 input,
 select {
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: var(--font-heading), sans-serif;
 }
 
 a {

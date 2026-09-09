@@ -1,69 +1,52 @@
-"use client";
+import Image from "next/image";
+import { Logo } from "@/components/Logo";
+import styles from "./page.module.css";
 
-import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { AuthSplitLayout } from "@/components/auth/AuthSplitLayout";
-import { FormField } from "@/components/auth/FormField";
-import { Button } from "@/components/auth/Button";
-import { kpilyApi, KpilyApiError } from "@/lib/api/client";
-import { mailVerifyRequestSchema } from "@/lib/schemas/account";
-import { z } from "zod";
+const SOCIALS = [
+  { label: "Twitter", href: "https://twitter.com" },
+  { label: "Facebook", href: "https://facebook.com" },
+  { label: "Instagram", href: "https://instagram.com" },
+  { label: "LinkedIn", href: "https://linkedin.com" },
+  { label: "YouTube", href: "https://youtube.com" },
+];
 
-export default function RegisterPage() {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError(null);
-
-    const parsed = mailVerifyRequestSchema.safeParse({ data: { email } });
-    if (!parsed.success) {
-      setError("Enter a valid work email.");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      await kpilyApi.post("/v1/mail-verify", z.null(), {
-        body: parsed.data,
-      });
-      router.push(`/register/sent?email=${encodeURIComponent(email)}`);
-    } catch (err) {
-      setError(err instanceof KpilyApiError ? err.message : "Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
-  }
-
+export default function RegisterSuccessPage() {
   return (
-    <AuthSplitLayout
-      heroImageSrc="/assets/auth-hero-panel.jpg"
-      heroImageAlt="KPILY team member celebrating a completed task"
-    >
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit} style={{ marginTop: 32 }}>
-        <FormField
-          label="Work Email"
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          error={error ?? undefined}
-          required
-        />
-        <Button type="submit" disabled={loading}>
-          {loading ? "Sending..." : "Send Link"}
-        </Button>
-      </form>
-      <p style={{ marginTop: 24, fontSize: 14, color: "var(--kpily-text-muted)" }}>
-        Already a member?{" "}
-        <Link href="/login">Log in</Link>
-      </p>
-    </AuthSplitLayout>
+    <div className={styles.page}>
+      <Logo className={styles.logo} />
+
+      <div className={styles.content}>
+        <h1>Thank you for signing up!</h1>
+        <p>
+          An activation email was just sent to your inbox to get started.
+          Set up only takes a few minutes!
+        </p>
+
+        <div className={styles.illustrationWrap}>
+          <Image
+            src="/assets/success-illustration.png"
+            alt="Two KPILY team members celebrating"
+            width={340}
+            height={340}
+            className={styles.illustration}
+          />
+        </div>
+
+        <div className={styles.socialRow}>
+          {SOCIALS.map((s) => (
+            <a key={s.label} href={s.href} aria-label={s.label} className={styles.socialIcon}>
+              {s.label[0]}
+            </a>
+          ))}
+        </div>
+
+        <button className={styles.closeButton}>Close</button>
+
+        <p className={styles.resend}>
+          If you do not receive the email, please{" "}
+          <a href="/register">click here</a> to resend.
+        </p>
+      </div>
+    </div>
   );
 }

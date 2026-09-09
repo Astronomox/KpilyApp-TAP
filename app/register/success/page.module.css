@@ -1,6 +1,13 @@
 .page {
+  background: var(--kpily-mint-bg);
   min-height: 100vh;
   padding: 40px;
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+  display: block;
 }
 
 .content {

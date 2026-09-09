@@ -6,12 +6,21 @@ import { NextResponse, type NextRequest } from "next/server";
 // safely do things here that need Node APIs later if the auth layer
 // grows (e.g. verifying a JWT with a Node crypto lib).
 
-const PUBLIC_PATHS = ["/login", "/verify", "/onboard"];
+const PUBLIC_PATHS = [
+  "/",
+  "/login",
+  "/register",
+  "/onboard",
+  "/forgot-password",
+  "/change-password",
+];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const isPublic = PUBLIC_PATHS.some((path) => pathname.startsWith(path));
+  const isPublic =
+    pathname === "/" ||
+    PUBLIC_PATHS.some((path) => path !== "/" && pathname.startsWith(path));
   const token = request.cookies.get("kpily_session")?.value;
 
   if (!isPublic && !token) {
@@ -32,8 +41,8 @@ export const config = {
     /*
      * Match all paths except:
      * - api routes that handle their own auth
-     * - static files, images, favicon
+     * - static files, images, favicon, and anything under /assets
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.png$|.*\\.svg$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|assets/|.*\\.(?:png|jpg|jpeg|svg|gif|webp|ico)$).*)",
   ],
 };

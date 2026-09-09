@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { Logo } from "@/components/Logo";
 import { FormField } from "@/components/auth/FormField";
 import { Button } from "@/components/auth/Button";
 import { kpilyApi, KpilyApiError } from "@/lib/api/client";
@@ -74,13 +75,7 @@ export default function ForgotPasswordPage() {
       </div>
 
       <div className={styles.heroColumn}>
-        <Image
-          src="/assets/logo.png"
-          alt="KPILY"
-          width={140}
-          height={41}
-          className={styles.logo}
-        />
+        <Logo className={styles.logo} />
         <Image
           src="/assets/forgot-pw-panel.jpg"
           alt="KPILY team members"

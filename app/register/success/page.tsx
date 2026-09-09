@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Logo } from "@/components/Logo";
 import styles from "./page.module.css";
 
 const SOCIALS = [
@@ -12,7 +13,7 @@ const SOCIALS = [
 export default function RegisterSuccessPage() {
   return (
     <div className={styles.page}>
-      <Image src="/assets/logo.png" alt="KPILY" width={140} height={41} />
+      <Logo className={styles.logo} />
 
       <div className={styles.content}>
         <h1>Thank you for signing up!</h1>

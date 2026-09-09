@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 import styles from "./AuthSplitLayout.module.css";
 
 type AuthSplitLayoutProps = {
@@ -17,13 +18,7 @@ export function AuthSplitLayout({
     <div className={styles.wrapper}>
       <div className={styles.formColumn}>
         <Link href="/" className={styles.logoLink}>
-          <Image
-            src="/assets/logo.png"
-            alt="KPILY"
-            width={140}
-            height={41}
-            priority
-          />
+          <Logo className={styles.logo} />
         </Link>
         <div className={styles.formContent}>{children}</div>
       </div>

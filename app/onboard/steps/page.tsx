@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Logo } from "@/components/Logo";
 import Link from "next/link";
 import type { Route } from "next";
 import styles from "./page.module.css";
@@ -40,40 +40,42 @@ const STEPS: Step[] = [
 
 export default function OnboardStepsPage() {
   return (
-    <div className={styles.page}>
-      <Image src="/assets/logo.png" alt="KPILY" width={140} height={41} />
-      <h1 className={styles.heading}>Onboard your company</h1>
+    <div className={styles.pageOuter}>
+      <div className={styles.page}>
+        <Logo className={styles.logo} />
+        <h1 className={styles.heading}>Onboard your company</h1>
 
-      <div className={styles.stepList}>
-        {STEPS.map((step) => (
-          <div key={step.number} className={styles.stepCard}>
-            <div className={styles.stepLabel}>
-              <span className={styles.stepNumber}>Step {step.number}</span>
-              {step.subtitle && (
-                <span className={styles.stepSubtitle}>{step.subtitle}</span>
-              )}
+        <div className={styles.stepList}>
+          {STEPS.map((step) => (
+            <div key={step.number} className={styles.stepCard}>
+              <div className={styles.stepLabel}>
+                <span className={styles.stepNumber}>Step {step.number}</span>
+                {step.subtitle && (
+                  <span className={styles.stepSubtitle}>{step.subtitle}</span>
+                )}
+              </div>
+              <div className={styles.stepTitle}>{step.title}</div>
+              <div className={styles.stepStatus}>
+                {step.done ? (
+                  <span className={styles.doneIcon} aria-label="Complete">
+                    ✓
+                  </span>
+                ) : (
+                  <span className={styles.pendingIcon} aria-hidden="true" />
+                )}
+              </div>
+              <Link
+                href={step.href}
+                className={[
+                  styles.stepAction,
+                  step.done ? styles.stepActionDone : "",
+                ].join(" ")}
+              >
+                {step.actionLabel}
+              </Link>
             </div>
-            <div className={styles.stepTitle}>{step.title}</div>
-            <div className={styles.stepStatus}>
-              {step.done ? (
-                <span className={styles.doneIcon} aria-label="Complete">
-                  ✓
-                </span>
-              ) : (
-                <span className={styles.pendingIcon} aria-hidden="true" />
-              )}
-            </div>
-            <Link
-              href={step.href}
-              className={[
-                styles.stepAction,
-                step.done ? styles.stepActionDone : "",
-              ].join(" ")}
-            >
-              {step.actionLabel}
-            </Link>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

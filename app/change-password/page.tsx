@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
+import { Logo } from "@/components/Logo";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/auth/Button";
 import { kpilyApi, KpilyApiError } from "@/lib/api/client";
@@ -114,13 +115,7 @@ export default function ChangePasswordPage() {
       </div>
 
       <div className={styles.heroColumn}>
-        <Image
-          src="/assets/logo.png"
-          alt="KPILY"
-          width={140}
-          height={41}
-          className={styles.logo}
-        />
+        <Logo className={styles.logo} />
         <Image
           src="/assets/change-pw-panel.jpg"
           alt="KPILY team members celebrating"

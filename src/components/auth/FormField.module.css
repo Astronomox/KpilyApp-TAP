@@ -6,7 +6,7 @@
 }
 
 .label {
-  font-size: 13px;
+  font-size: var(--kpily-fs-label);
   font-weight: 500;
   color: var(--kpily-text);
 }
@@ -14,8 +14,9 @@
 .input {
   border: 1px solid var(--kpily-border);
   border-radius: var(--kpily-radius-sm);
-  padding: 12px 14px;
-  font-size: 14px;
+  padding: 0 14px;
+  height: 47px;
+  font-size: var(--kpily-fs-body);
   color: var(--kpily-text);
   background: var(--kpily-white);
   outline: none;

@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+import { Logo } from "@/components/Logo";
 import { FormField } from "@/components/auth/FormField";
 import { Button } from "@/components/auth/Button";
 import { kpilyApi, KpilyApiError } from "@/lib/api/client";
@@ -80,9 +80,10 @@ export default function CompanyInfoPage() {
   }
 
   return (
+    <div className={styles.pageOuter}>
     <div className={styles.page}>
       <div className={styles.header}>
-        <Image src="/assets/logo.png" alt="KPILY" width={140} height={41} />
+        <Logo className={styles.logo} />
         <Link href="/login" className={styles.memberLink}>
           Already a member?
         </Link>
@@ -251,6 +252,7 @@ export default function CompanyInfoPage() {
           </Button>
         </form>
       </div>
+    </div>
     </div>
   );
 }
