@@ -1,0 +1,47 @@
+:root {
+  --kpily-green: #1c6e50;
+  --kpily-green-dark: #17553f;
+  --kpily-blue: #2f7ea8;
+  --kpily-mint-bg: #f9fffd;
+  --kpily-text: #1c1c1c;
+  --kpily-text-muted: #6b7280;
+  --kpily-border: #d9dedb;
+  --kpily-white: #ffffff;
+  --kpily-radius-sm: 8px;
+  --kpily-radius-md: 14px;
+  --kpily-radius-lg: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--kpily-text);
+  font-family: var(--font-body), system-ui, sans-serif;
+  background: var(--kpily-mint-bg);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading), sans-serif;
+  margin: 0;
+}
+
+button {
+  font-family: var(--font-body), system-ui, sans-serif;
+  cursor: pointer;
+}
+
+input,
+select {
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+a {
+  color: var(--kpily-green);
+}

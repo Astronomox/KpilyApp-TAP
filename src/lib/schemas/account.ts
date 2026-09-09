@@ -38,15 +38,41 @@ export const authContentSchema = z.object({
 });
 export type AuthContent = z.infer<typeof authContentSchema>;
 
-// POST /v1/org/onboard (registration, after mail-verify code is confirmed)
-export const onboardRequestSchema = z.object({
-  data: z.object({
-    code: z.string(),
-    fullName: z.string().min(1),
-    password: z.string().min(8),
-    organizationName: z.string().optional(),
-  }),
-});
+// POST /v1/org/onboard (Company Info step, after mail-verify code is confirmed)
+// Field set taken from the actual "Company Info" Figma frame, not the
+// short version we first guessed from the API doc alone.
+export const employeeBandSchema = z.enum(["0-20", "20-50", "50-100", "100+"]);
+
+export const passwordRule = z
+  .string()
+  .min(8, "At least 8 characters")
+  .regex(/[0-9]/, "One numeral")
+  .regex(/[A-Z]/, "One uppercase letter");
+
+export const onboardRequestSchema = z
+  .object({
+    data: z.object({
+      code: z.string().min(1),
+      firstName: z.string().min(1),
+      lastName: z.string().min(1),
+      company: z.string().min(1),
+      workEmail: z.string().email(),
+      employeeBand: employeeBandSchema,
+      phoneCountryCode: z.string().min(1),
+      phoneNumber: z.string().min(1),
+      industry: z.string().min(1),
+      country: z.string().min(1),
+      state: z.string().min(1),
+      password: passwordRule,
+      confirmPassword: z.string(),
+      agreedToTerms: z.literal(true),
+      // companyLogo handled as FormData, not part of the JSON slice
+    }),
+  })
+  .refine((val) => val.data.password === val.data.confirmPassword, {
+    message: "Passwords must match",
+    path: ["data", "confirmPassword"],
+  });
 export type OnboardRequest = z.infer<typeof onboardRequestSchema>;
 
 // PUT /v1/update-profile

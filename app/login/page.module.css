@@ -1,0 +1,40 @@
+.groupLabel {
+  font-size: 13px;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.rowBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  font-size: 13px;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--kpily-text-muted);
+}
+
+.forgotLink {
+  font-weight: 600;
+}
+
+.divider {
+  border-top: 1px dashed var(--kpily-border);
+  margin: 28px 0;
+}
+
+.registerRow {
+  margin-top: 28px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.registerRow a {
+  font-weight: 600;
+}

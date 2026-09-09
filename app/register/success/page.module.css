@@ -1,0 +1,66 @@
+.page {
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.content {
+  max-width: 640px;
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.content h1 {
+  font-size: 32px;
+}
+
+.content p {
+  color: var(--kpily-text-muted);
+  margin-top: 16px;
+  font-size: 15px;
+}
+
+.illustrationWrap {
+  display: flex;
+  justify-content: center;
+  margin: 32px 0;
+}
+
+.illustration {
+  border-radius: var(--kpily-radius-md);
+}
+
+.socialRow {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.socialIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--kpily-green);
+  color: var(--kpily-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.closeButton {
+  background: var(--kpily-green);
+  color: var(--kpily-white);
+  border: none;
+  border-radius: 999px;
+  padding: 13px 40px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.resend {
+  margin-top: 16px;
+  font-size: 13px;
+}

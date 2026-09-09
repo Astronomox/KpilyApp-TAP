@@ -1,0 +1,167 @@
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.memberLink {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--kpily-green);
+}
+
+.body h1 {
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 24px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--kpily-border);
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.input,
+.select {
+  border: 1px solid var(--kpily-border);
+  border-radius: var(--kpily-radius-sm);
+  padding: 12px 14px;
+  font-size: 14px;
+  background: var(--kpily-white);
+  outline: none;
+}
+
+.input:focus,
+.select:focus {
+  border-color: var(--kpily-green);
+}
+
+.bandRow {
+  display: flex;
+  gap: 8px;
+}
+
+.bandButton {
+  flex: 1;
+  border: 1px solid var(--kpily-border);
+  border-radius: var(--kpily-radius-sm);
+  padding: 10px 0;
+  background: var(--kpily-white);
+  font-size: 13px;
+}
+
+.bandButtonActive {
+  border-color: var(--kpily-green);
+  color: var(--kpily-green);
+  font-weight: 600;
+}
+
+.phoneRow {
+  display: flex;
+  gap: 8px;
+}
+
+.phoneCode {
+  width: 70px;
+  border: 1px solid var(--kpily-border);
+  border-radius: var(--kpily-radius-sm);
+  padding: 12px 10px;
+  font-size: 14px;
+}
+
+.phoneNumber {
+  flex: 1;
+  border: 1px solid var(--kpily-border);
+  border-radius: var(--kpily-radius-sm);
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+.uploadRow {
+  position: relative;
+  border: 1px solid var(--kpily-border);
+  border-radius: var(--kpily-radius-sm);
+  padding: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fileInput {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.uploadButton {
+  background: #e9ebea;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.checklist {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.checkOk {
+  color: var(--kpily-green);
+}
+
+.checkFail {
+  color: var(--kpily-text-muted);
+}
+
+.termsRow {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  margin: 8px 0 24px;
+}
+
+.termsRow a {
+  font-weight: 600;
+}
+
+.formError {
+  grid-column: 1 / -1;
+  color: #c0392b;
+  font-size: 13px;
+  margin: 0 0 12px;
+}
