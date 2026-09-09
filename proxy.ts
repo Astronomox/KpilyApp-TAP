@@ -29,7 +29,16 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  if (isPublic && token && pathname !== "/onboard") {
+  // Authenticated users on auth-only pages (login, register, forgot-password)
+  // get sent to dashboard. But the landing page "/" and onboard flow stay
+  // accessible regardless of auth state.
+  const isAuthOnlyPage =
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/register") ||
+    pathname.startsWith("/forgot-password") ||
+    pathname.startsWith("/change-password");
+
+  if (isAuthOnlyPage && token) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
