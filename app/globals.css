@@ -36,6 +36,16 @@
   --pricing-green: #35a676;
   --pricing-blue: #468eb8;
   --pricing-gray: #6f6f6f;
+
+  /* dashboard tokens — colors read off the leaderboard/progress/
+     feedback Figma exports (not on the marketing site, so these
+     are eyeballed from the screens rather than lifted from a
+     CSS var like the ones above) */
+  --kpily-teal: #14b8a6;
+  --kpily-gold: #f5b400;
+  --kpily-gauge-track: #dceaf1;
+  --kpily-tag-bg: #dbe9f2;
+  --kpily-card-shadow: 0 8px 24px rgba(28, 28, 28, 0.06);
 }
 
 * {
