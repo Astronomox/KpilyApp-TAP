@@ -1,0 +1,159 @@
+.wrap {
+  position: relative;
+  max-width: 620px;
+  padding: 50px 0 60px;
+}
+
+.shieldBadge {
+  position: absolute;
+  top: -20px;
+  left: 220px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--kpily-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.progressCard {
+  position: relative;
+  background: var(--kpily-white);
+  border-radius: var(--kpily-radius-lg);
+  box-shadow: var(--kpily-card-shadow);
+  padding: 40px 32px 0;
+  overflow: hidden;
+}
+
+.starBadge {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #47be94, #106190);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.headline {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.body {
+  color: var(--kpily-text-muted);
+  font-size: var(--kpily-fs-body);
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+.pointsBar {
+  margin-top: 28px;
+  background: var(--kpily-blue);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  padding: 32px 32px 24px;
+  display: flex;
+  align-items: center;
+}
+
+.pointsValue {
+  color: var(--kpily-white);
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.reviewerCard {
+  position: absolute;
+  top: 90px;
+  right: -20px;
+  width: 220px;
+  background: var(--kpily-white);
+  border-radius: var(--kpily-radius-md);
+  box-shadow: var(--kpily-card-shadow);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+
+.reviewerAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #c4675a;
+}
+
+.reviewerTag {
+  background: var(--kpily-green);
+  color: var(--kpily-white);
+  font-weight: 700;
+  font-size: var(--kpily-fs-label);
+  padding: 6px 16px;
+  border-radius: 999px;
+}
+
+.reviewerName {
+  color: var(--kpily-blue);
+  font-weight: 700;
+}
+
+.calendarIcon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.assignedCard {
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+  background: var(--kpily-white);
+  border-radius: var(--kpily-radius-md);
+  box-shadow: var(--kpily-card-shadow);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 3;
+}
+
+.assignedAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #9aa5b1;
+  flex-shrink: 0;
+}
+
+.assignedText {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--kpily-fs-body);
+}
+
+.assignedAt {
+  color: var(--kpily-text-muted);
+  font-size: var(--kpily-fs-label);
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 40px 0 160px;
+  }
+
+  .reviewerCard {
+    top: auto;
+    bottom: 70px;
+    right: 0;
+  }
+
+  .assignedCard {
+    right: 0;
+  }
+}

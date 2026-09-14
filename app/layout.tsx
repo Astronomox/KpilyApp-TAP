@@ -14,7 +14,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "KPILY",
+  title: "Home | KPILY",
   description: "KPILY Performance Management",
 };
 

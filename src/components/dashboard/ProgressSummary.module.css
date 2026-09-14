@@ -1,0 +1,126 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 24px;
+  max-width: 900px;
+}
+
+.gaugeCard {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.gauge {
+  width: 100%;
+  max-width: 320px;
+}
+
+.gaugeLabel {
+  position: absolute;
+  bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gaugePercent {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--kpily-green);
+  line-height: 1;
+}
+
+.gaugeCaption {
+  font-size: var(--kpily-fs-body);
+  color: var(--kpily-green);
+  font-weight: 600;
+}
+
+.taskPointsCard {
+  background: var(--kpily-blue);
+  border-radius: var(--kpily-radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--kpily-white);
+  position: relative;
+}
+
+.taskPointsLabel {
+  font-weight: 700;
+  font-size: var(--kpily-fs-body);
+}
+
+.taskPointsValue {
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.taskPointsCaption {
+  font-size: var(--kpily-fs-label);
+  opacity: 0.9;
+}
+
+.receivedCard {
+  grid-column: span 1;
+  background: var(--kpily-white);
+  border-radius: var(--kpily-radius-md);
+  box-shadow: var(--kpily-card-shadow);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.receivedAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.receivedText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.receivedAmount {
+  align-self: flex-start;
+  background: #e3f6ec;
+  color: var(--kpily-green);
+  font-weight: 700;
+  font-size: var(--kpily-fs-label);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.receivedFrom {
+  color: var(--kpily-text-muted);
+  font-size: var(--kpily-fs-body);
+}
+
+.tagRow {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  background: var(--kpily-tag-bg);
+  color: var(--kpily-text);
+  font-size: var(--kpily-fs-body);
+  padding: 10px 18px;
+  border-radius: 999px;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

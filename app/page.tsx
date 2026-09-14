@@ -5,7 +5,6 @@ import {
   WaveLines,
   ConfettiMarks,
   RainMarks,
-  StarIcon,
 } from "@/components/landing/Decorations";
 import styles from "./page.module.css";
 
@@ -59,20 +58,20 @@ const WHY_CARDS = [
 
 const PRICING_PLANS = [
   {
-    name: "Starter",
-    price: "$7",
+    name: "Growth Track",
+    price: "$49.99",
     seats: "For up to 50 employees",
     color: "var(--pricing-green)",
   },
   {
-    name: "Team",
-    price: "$6",
-    seats: "For up to 250 employees",
+    name: "Starter Pulse",
+    price: "$0",
+    seats: "For up to 5 employees",
     color: "var(--pricing-blue)",
   },
   {
-    name: "Company",
-    price: "$5",
+    name: "Enterprise Vision",
+    price: "$199.99",
     seats: "For up to 1000 employees",
     color: "var(--pricing-gray)",
   },
@@ -84,6 +83,7 @@ export default function LandingPage() {
       <header className={styles.nav}>
         <Link href="/" className={styles.navLogo}>
           <Logo className={styles.navLogoSvg} />
+          <span className={styles.navLogoTagline}>Performance Management</span>
         </Link>
         <nav className={styles.navLinks}>
           {NAV_LINKS.map((link) => (
@@ -100,6 +100,17 @@ export default function LandingPage() {
             Start 15-day Free Trial
           </Link>
           <span className={styles.navLang}>En</span>
+          <button
+            type="button"
+            className={styles.navMenuButton}
+            aria-label="Open menu"
+          >
+            <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
+              <line x1="0" y1="1" x2="20" y2="1" stroke="var(--kpily-text)" strokeWidth="1.6" />
+              <line x1="0" y1="7" x2="20" y2="7" stroke="var(--kpily-text)" strokeWidth="1.6" />
+              <line x1="0" y1="13" x2="20" y2="13" stroke="var(--kpily-text)" strokeWidth="1.6" />
+            </svg>
+          </button>
         </div>
       </header>
 
@@ -165,23 +176,13 @@ export default function LandingPage() {
         <WaveLines className={styles.featureWaves} />
         <ConfettiMarks className={styles.featureConfettiRight} />
         <div className={styles.featureVisual}>
-          <div className={styles.gaugeCard}>
-            <div className={styles.gaugeValue}>35%</div>
-            <div className={styles.gaugeLabel}>Complete</div>
-          </div>
-          <div className={styles.pointsPill}>+ 550 Points Received from Michael V</div>
-          <div className={styles.pointsPill}>+ 350 Points Received from Michael V</div>
-          <div className={styles.tagRow}>
-            <span className={styles.tag}>Life Saver</span>
-            <span className={styles.tag}>Speedy</span>
-            <span className={styles.tag}>High Quality</span>
-          </div>
-          <div className={styles.receivedCard}>
-            <StarIcon className={styles.receivedStar} />
-            <span className={styles.receivedLabel}>Received</span>
-            <span className={styles.receivedValue}>350</span>
-            <span className={styles.receivedSub}>Points for this task</span>
-          </div>
+          <Image
+            src="/assets/landing/real-time-feedback.png"
+            alt="Real-time feedback: 35% complete progress gauge, points received from teammates, and skill tags"
+            width={1285}
+            height={905}
+            className={styles.featureScreenshot}
+          />
         </div>
         <div className={styles.featureCopy}>
           <span className={styles.eyebrow}>OUR FEATURES</span>
@@ -227,21 +228,13 @@ export default function LandingPage() {
           </Link>
         </div>
         <div className={styles.kpiVisual}>
-          <div className={styles.progressCard}>
-            <span className={styles.progressBadge} aria-hidden="true">
-              ★
-            </span>
-            <h3>Making Progress!</h3>
-            <p>
-              Congratulations! You are making a big progress on blix
-              projects, keep moving on.
-            </p>
-            <div className={styles.progressFooter}>200 Points</div>
-          </div>
-          <div className={styles.selfReflectCard}>
-            <span className={styles.selfReflectTag}>Self-Reflect</span>
-            <span className={styles.selfReflectName}>Sarah Fosters</span>
-          </div>
+          <Image
+            src="/assets/landing/customizable-kpis.png"
+            alt="Making Progress card with 200 points earned, and a Self-Reflect task assigned to Sarah Fosters"
+            width={1149}
+            height={1033}
+            className={styles.kpiScreenshot}
+          />
         </div>
       </section>
 
@@ -304,21 +297,13 @@ export default function LandingPage() {
           </Link>
         </div>
         <div className={styles.leaderboardVisual}>
-          {[
-            { place: "1ST", name: "It's YOU!", note: "Keep up the good work!", pts: "4,000 PTS" },
-            { place: "2ND", name: "Jessica Lee", note: "Events Coordinator", pts: "3,200 PTS" },
-            { place: "3RD", name: "Corey Duggins", note: "Project Liason", pts: "3,000 PTS" },
-          ].map((row) => (
-            <div key={row.place} className={styles.leaderboardRow}>
-              <span className={styles.leaderboardPlace}>{row.place}</span>
-              <span className={styles.leaderboardPts}>{row.pts}</span>
-              <span className={styles.leaderboardAvatar} aria-hidden="true" />
-              <div className={styles.leaderboardInfo}>
-                <strong>{row.name}</strong>
-                <span>{row.note}</span>
-              </div>
-            </div>
-          ))}
+          <Image
+            src="/assets/landing/leaderboard-tracking.png"
+            alt="Leaderboard showing you in 1st with 4,000 points, Jessica Lee 2nd, and Corey Duggins 3rd"
+            width={1068}
+            height={921}
+            className={styles.leaderboardScreenshot}
+          />
         </div>
       </section>
 
@@ -393,7 +378,8 @@ export default function LandingPage() {
       <footer className={styles.footer}>
         <div className={styles.footerBrand}>
           <Logo variant="light" className={styles.footerLogo} />
-          <p>© 2026, KPILY. All Rights Reserved.</p>
+          <span className={styles.footerLogoTagline}>Performance Management</span>
+          <p>© 2025, KPILY. All Rights Reserved.</p>
           <div className={styles.socialRow}>
             {["Twitter", "Facebook", "Instagram", "LinkedIn", "YouTube"].map((s) => (
               <span key={s} className={styles.socialIcon} aria-label={s}>

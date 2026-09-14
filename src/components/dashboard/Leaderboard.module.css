@@ -1,0 +1,163 @@
+.wrap {
+  position: relative;
+  background: #f3f5f7;
+  border-radius: var(--kpily-radius-lg);
+  padding: 56px 64px 72px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.blobGreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 140px;
+  background: var(--kpily-green-dark);
+  border-radius: 0 0 48px 0;
+  z-index: 0;
+}
+
+.blobBlue {
+  position: absolute;
+  top: 42%;
+  right: -60px;
+  width: 140px;
+  height: 140px;
+  background: var(--kpily-blue-dark);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.blobMint {
+  position: absolute;
+  bottom: -40px;
+  left: -40px;
+  width: 220px;
+  height: 160px;
+  background: var(--kpily-mint);
+  opacity: 0.5;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.list {
+  position: relative;
+  z-index: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 760px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--kpily-white);
+  border-radius: var(--kpily-radius-md);
+  padding: 20px 28px;
+  box-shadow: var(--kpily-card-shadow);
+}
+
+.rankBlock {
+  display: flex;
+  flex-direction: column;
+  min-width: 76px;
+}
+
+.rankLabel {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--kpily-text);
+  line-height: 1.1;
+}
+
+.rankPoints {
+  font-size: var(--kpily-fs-label);
+  color: var(--kpily-text-muted);
+}
+
+.avatarImg {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.avatarFallback {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--kpily-blue-light);
+  color: var(--kpily-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--kpily-text);
+}
+
+.nameCurrentUser {
+  font-weight: 800;
+  font-size: 19px;
+  color: var(--kpily-blue);
+}
+
+.role {
+  font-size: var(--kpily-fs-body);
+  color: var(--kpily-text);
+}
+
+.expandButton {
+  border: 1px solid var(--kpily-border);
+  background: transparent;
+  border-radius: var(--kpily-radius-sm);
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.marks {
+  position: absolute;
+  right: 40px;
+  bottom: 16px;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 40px 20px 56px;
+  }
+
+  .row {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .role,
+  .rankPoints {
+    display: none;
+  }
+}
