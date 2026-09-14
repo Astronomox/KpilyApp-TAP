@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { MobileNav } from "@/components/landing/MobileNav";
 import {
   WaveLines,
   ConfettiMarks,
@@ -82,8 +83,14 @@ export default function LandingPage() {
     <div className={styles.page}>
       <header className={styles.nav}>
         <Link href="/" className={styles.navLogo}>
-          <Logo className={styles.navLogoSvg} />
-          <span className={styles.navLogoTagline}>Performance Management</span>
+          <Image
+            src="/assets/logo-full.png"
+            alt="KPILY - Performance Management"
+            width={367}
+            height={124}
+            className={styles.navLogoImg}
+            priority
+          />
         </Link>
         <nav className={styles.navLinks}>
           {NAV_LINKS.map((link) => (
@@ -100,17 +107,7 @@ export default function LandingPage() {
             Start 15-day Free Trial
           </Link>
           <span className={styles.navLang}>En</span>
-          <button
-            type="button"
-            className={styles.navMenuButton}
-            aria-label="Open menu"
-          >
-            <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
-              <line x1="0" y1="1" x2="20" y2="1" stroke="var(--kpily-text)" strokeWidth="1.6" />
-              <line x1="0" y1="7" x2="20" y2="7" stroke="var(--kpily-text)" strokeWidth="1.6" />
-              <line x1="0" y1="13" x2="20" y2="13" stroke="var(--kpily-text)" strokeWidth="1.6" />
-            </svg>
-          </button>
+          <MobileNav navLinks={NAV_LINKS} />
         </div>
       </header>
 
@@ -371,7 +368,7 @@ export default function LandingPage() {
           <input type="text" name="company" placeholder="Company Name" required />
           <input type="email" name="email" placeholder="Work Email Address" required />
           <input type="text" name="name" placeholder="Name" required />
-          <button type="submit">Request Demo</button>
+          <button type="submit">Get Started</button>
         </form>
       </section>
 
@@ -379,13 +376,35 @@ export default function LandingPage() {
         <div className={styles.footerBrand}>
           <Logo variant="light" className={styles.footerLogo} />
           <span className={styles.footerLogoTagline}>Performance Management</span>
-          <p>© 2025, KPILY. All Rights Reserved.</p>
+          <p>© 2025, KPILY. All rights reserved</p>
           <div className={styles.socialRow}>
-            {["Twitter", "Facebook", "Instagram", "LinkedIn", "YouTube"].map((s) => (
-              <span key={s} className={styles.socialIcon} aria-label={s}>
-                {s[0]}
-              </span>
-            ))}
+            <a href="#twitter" className={styles.socialIcon} aria-label="Twitter">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23 4.9c-.8.4-1.7.6-2.6.8 1-.6 1.7-1.5 2-2.6-.9.5-1.9.9-3 1.1a4.6 4.6 0 0 0-7.9 4.2A13.1 13.1 0 0 1 1.7 3.9a4.6 4.6 0 0 0 1.4 6.2c-.7 0-1.4-.2-2-.6v.1c0 2.2 1.6 4.1 3.7 4.5-.7.2-1.4.2-2 .1a4.6 4.6 0 0 0 4.3 3.2A9.3 9.3 0 0 1 0 19.5a13.1 13.1 0 0 0 7.1 2.1c8.5 0 13.2-7.1 13.2-13.2v-.6c.9-.6 1.7-1.5 2.3-2.4-.8.4-1.7.6-2.6.7Z" />
+              </svg>
+            </a>
+            <a href="#facebook" className={styles.socialIcon} aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z" />
+              </svg>
+            </a>
+            <a href="#instagram" className={styles.socialIcon} aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
+            <a href="#linkedin" className={styles.socialIcon} aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.6c0-1.35-.02-3.08-1.88-3.08-1.88 0-2.17 1.47-2.17 2.98V21H9z" />
+              </svg>
+            </a>
+            <a href="#youtube" className={styles.socialIcon} aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23 7.2s-.2-1.6-.9-2.3c-.9-.9-1.9-.9-2.3-1C16.9 3.6 12 3.6 12 3.6h0s-4.9 0-7.8.3c-.4 0-1.4.1-2.3 1C1.2 5.6 1 7.2 1 7.2S.8 9 .8 10.9v1.9c0 1.9.2 3.7.2 3.7s.2 1.6.9 2.3c.9.9 2 .9 2.5 1 1.8.2 7.6.3 7.6.3s4.9 0 7.8-.3c.4 0 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.7v-1.9c0-1.9-.2-3.7-.2-3.7ZM9.7 14.9V8.5l6.3 3.2-6.3 3.2Z" />
+              </svg>
+            </a>
           </div>
         </div>
         <div className={styles.footerCol}>
@@ -397,13 +416,13 @@ export default function LandingPage() {
         <div className={styles.footerCol}>
           <h4>Get Started</h4>
           <Link href="/register">Request a demo</Link>
-          <Link href="/register">Sign Up</Link>
-          <Link href="/login">Log In</Link>
+          <Link href="/register">Sign up</Link>
+          <Link href="/login">Log in</Link>
         </div>
         <div className={styles.footerCol}>
           <h4>Contact</h4>
           <span>Phone</span>
-          <a href="tel:+234000000000">+234 XXX XXX XXXX</a>
+          <a href="tel:+23409024429918">+234 09024429918</a>
           <span>Email</span>
           <a href="mailto:support@kpily.com">support@kpily.com</a>
         </div>

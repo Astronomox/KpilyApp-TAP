@@ -1,0 +1,131 @@
+.menuButton {
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--kpily-white);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.overlayHeader {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.overlayLang {
+  border: 1.5px solid var(--kpily-text);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.closeButton {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  padding: 4px;
+}
+
+.overlayLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 48px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.overlayLinks a {
+  color: var(--kpily-text);
+  text-decoration: none;
+}
+
+.overlayActions {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.overlaySignIn {
+  text-align: center;
+  font-weight: 700;
+  color: var(--kpily-text);
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.overlayTrial {
+  background: var(--kpily-green);
+  color: var(--kpily-white);
+  border-radius: 12px;
+  padding: 14px 24px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.overlayFooter {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 24px;
+}
+
+.overlayGetStarted {
+  background: var(--kpily-mint);
+  color: var(--landing-blue-dark);
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.overlayHowItWorks {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--kpily-green);
+  text-decoration: none;
+}
+
+.overlayPlay {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #47be94 0%, #106190 100%);
+  color: var(--kpily-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
