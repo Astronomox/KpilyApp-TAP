@@ -17,7 +17,7 @@ export default function BlogPost() {
           </div>
         </header>
 
-        <img src="/public/assets/landing/real-time-feedback.png" alt="Hero" className="post-hero" />
+        <img src="/assets/landing/real-time-feedback.png" alt="Hero" className="post-hero" />
 
         <div className="post-content">
           <h2>Introduction</h2>

@@ -3,19 +3,17 @@ import './Navigation.css'
 
 export default function Navigation() {
   return (
-    <nav className="navigation">
+    <header className="navigation">
       <div className="nav-container">
-        <Link to="/" className="nav-logo">
-          <img src="/public/assets/logo.png" alt="KPILY" />
-        </Link>
-        <ul className="nav-menu">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/blog">Blog</Link></li>
-          <li><Link to="/pricing">Pricing</Link></li>
-          <li><Link to="/login">Login</Link></li>
-          <li><Link to="/sign-up" className="cta-btn">Sign Up</Link></li>
-        </ul>
+        <Link to="/" className="nav-logo" aria-label="KPILY home"><img src="/assets/logo-full.png" alt="KPILY Performance Management" /></Link>
+        <nav className="nav-menu" aria-label="Main navigation">
+          <Link to="/">Home</Link>
+          <Link to="/blog">Blog</Link>
+          <Link to="/pricing">Pricing</Link>
+          <Link to="/login">Sign in</Link>
+          <Link to="/register" className="cta-btn">Start 30-day Free Trial</Link>
+        </nav>
       </div>
-    </nav>
+    </header>
   )
 }

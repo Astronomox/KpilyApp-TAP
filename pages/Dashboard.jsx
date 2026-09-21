@@ -35,7 +35,7 @@ export default function Dashboard() {
         <div className="header-actions">
           <button className="icon-btn">🔔</button>
           <div className="user-menu">
-            <img src="/public/assets/logo.png" alt="Avatar" className="avatar" />
+            <img src="/assets/logo.png" alt="Avatar" className="avatar" />
             <div className="menu-items">
               <Link to="/change-password">Change Password</Link>
               <button onClick={handleLogout}>Logout</button>

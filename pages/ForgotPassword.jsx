@@ -16,12 +16,12 @@ export default function ForgotPassword() {
     <div className="auth-page">
       <div className="auth-container">
         <div className="auth-left">
-          <img src="/public/assets/ref-login.jpg" alt="Password reset" />
+          <img src="/assets/ref-login.jpg" alt="Password reset" />
         </div>
         
         <div className="auth-right">
           <div className="auth-box">
-            <img src="/public/assets/logo.png" alt="KPILY" className="auth-logo" />
+            <img src="/assets/logo.png" alt="KPILY" className="auth-logo" />
             <h1>Reset Password</h1>
             
             {!submitted ? (

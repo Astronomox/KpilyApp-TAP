@@ -6,7 +6,7 @@ export default function SuccessRegister() {
     <div className="auth-page">
       <div className="auth-container">
         <div className="auth-left">
-          <img src="/public/assets/success-illustration.png" alt="Success" />
+          <img src="/assets/success-illustration.png" alt="Success" />
         </div>
         
         <div className="auth-right">

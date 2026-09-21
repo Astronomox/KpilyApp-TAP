@@ -6,7 +6,7 @@ export default function PaymentSuccess() {
     <div className="auth-page">
       <div className="auth-container">
         <div className="auth-left">
-          <img src="/public/assets/success-illustration.png" alt="Payment success" />
+          <img src="/assets/success-illustration.png" alt="Payment success" />
         </div>
         
         <div className="auth-right">
