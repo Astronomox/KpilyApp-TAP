@@ -13,6 +13,8 @@ import PaymentSuccess from './pages/PaymentSuccess'
 import SignUp from './pages/SignUp'
 import OnboardCompany from './pages/OnboardCompany'
 import Dashboard from './pages/Dashboard'
+import Tasks from './pages/Tasks'
+import TaskDetail from './pages/TaskDetail'
 import './App.css'
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/onboard" element={<OnboardCompany />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/tasks" element={<Tasks />} />
+        <Route path="/tasks/:id" element={<TaskDetail />} />
       </Routes>
     </BrowserRouter>
   )
