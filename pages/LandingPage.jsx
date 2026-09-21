@@ -27,12 +27,8 @@ function Navigation() {
       <Logo />
       <button className="menu-toggle" type="button" aria-label="Toggle menu" aria-expanded={open} onClick={() => setOpen((value) => !value)}><span /><span /><span /></button>
       <nav className={open ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation">
-        <Link to="/#features" onClick={() => setOpen(false)}>About Us</Link>
-        <Link to="/blog" onClick={() => setOpen(false)}>Blog</Link>
-        <Link to="/pricing" onClick={() => setOpen(false)}>Pricing</Link>
-        <Link to="/login" className="nav-signin" onClick={() => setOpen(false)}>Sign in</Link>
-        <Link to="/register" className="button button-primary nav-cta" onClick={() => setOpen(false)}>Start 30-day Free Trial <Arrow /></Link>
-        <button className="language" type="button" aria-label="Choose language">◎ En⌄</button>
+        <div className="nav-links"><Link to="/#features" onClick={() => setOpen(false)}>About Us</Link><Link to="/blog" onClick={() => setOpen(false)}>Blog</Link><Link to="/pricing" onClick={() => setOpen(false)}>Pricing</Link></div>
+        <div className="nav-actions"><Link to="/login" className="nav-signin" onClick={() => setOpen(false)}>Sign in</Link><Link to="/register" className="button button-primary nav-cta" onClick={() => setOpen(false)}>Start 30-day Free Trial</Link><button className="language" type="button" aria-label="Choose language">◎ En⌄</button></div>
       </nav>
     </div>
   </header>
