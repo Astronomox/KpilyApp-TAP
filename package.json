@@ -1,25 +1,36 @@
 {
-  "name": "kpily",
+  "name": "kpily-monorepo",
+  "version": "1.0.0",
+  "description": "Kpily - KPI tracking platform",
   "private": true,
-  "version": "0.0.1",
-  "type": "module",
+  "workspaces": [
+    "packages/web",
+    "packages/dashboard",
+    "packages/api",
+    "packages/types"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint ."
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:dashboard\" \"npm run dev:api\"",
+    "dev:web": "cd packages/web && npm run dev",
+    "dev:dashboard": "cd packages/dashboard && PORT=3001 npm start",
+    "dev:api": "cd packages/api && npm run dev",
+    "build": "npm run build:web && npm run build:dashboard && npm run build:api",
+    "typecheck": "npm run typecheck:web && npm run typecheck:dashboard && npm run typecheck:api",
+    "build:web": "cd packages/web && npm run build",
+    "build:dashboard": "cd packages/dashboard && npm run build",
+    "build:api": "cd packages/api && npm run build",
+    "typecheck:web": "cd packages/web && npm run typecheck",
+    "typecheck:dashboard": "cd packages/dashboard && npx tsc --noEmit",
+    "typecheck:api": "cd packages/api && npm run typecheck",
+    "start:web": "cd packages/web && npm start",
+    "start:dashboard": "cd packages/dashboard && npm start",
+    "start:api": "cd packages/api && npm start"
   },
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.20.0"
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.55.0",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "terser": "^5.51.2",
-    "vite": "^5.0.8"
+    "concurrently": "^10.0.5"
   }
 }
