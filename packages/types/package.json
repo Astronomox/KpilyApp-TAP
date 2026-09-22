@@ -1,0 +1,11 @@
+{
+  "name": "@kpily/types",
+  "version": "1.0.0",
+  "description": "Shared TypeScript types for Kpily",
+  "main": "index.ts",
+  "types": "index.ts",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Types package - no build needed'"
+  }
+}
