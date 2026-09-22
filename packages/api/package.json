@@ -1,0 +1,32 @@
+{
+  "name": "@kpily/api",
+  "version": "1.0.0",
+  "description": "Kpily API Backend",
+  "main": "dist/index.js",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "pg": "^8.10.0",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "@kpily/types": "*"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.20",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20.0.0",
+    "@types/jsonwebtoken": "^9.0.4",
+    "typescript": "^5.1.0",
+    "ts-node": "^10.9.1",
+    "nodemon": "^3.0.1"
+  },
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  }
+}
