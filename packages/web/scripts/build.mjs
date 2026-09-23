@@ -1,7 +1,10 @@
-import { spawnSync } from 'node:child_process'
+﻿import { spawnSync } from 'node:child_process'
+import { createRequire } from 'node:module'
 
-const npmCommand = process.platform === 'win32' ? 'npx.cmd' : 'npx'
-const result = spawnSync(npmCommand, ['next', 'build', '--webpack'], {
+const require = createRequire(import.meta.url)
+const nextCli = require.resolve('next/dist/bin/next')
+
+const result = spawnSync(process.execPath, [nextCli, 'build', '--webpack'], {
   stdio: 'inherit',
   env: { ...process.env, NODE_ENV: 'production' },
 })
