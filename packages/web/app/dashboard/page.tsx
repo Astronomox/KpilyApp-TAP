@@ -10,14 +10,20 @@ const navItems = [['⌂', 'Dashboard', '/dashboard'], ['◒', 'Performance', '/p
 
 function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const location = usePathname()
-  return <aside className={`app-sidebar ${open ? 'open' : ''}`}>
-    <Link href='/' onClick={onClose}><img src="/assets/logo-full.png" alt="KPILY" className="app-logo" /></Link>
-    <p className="sidebar-label">Workspace</p>
-    <nav className="sidebar-nav">{navItems.map(([icon, label, path]) => <Link key={label} href={path} className={location === path ? 'active' : ''} onClick={onClose}><span className="sidebar-icon">{icon}</span>{label}</Link>)}</nav>
-    <p className="sidebar-label" style={{ marginTop: 28 }}>Account</p>
-    <nav className="sidebar-nav"><Link href='/settings/profile' onClick={onClose}><span className="sidebar-icon">⚙</span>Settings</Link><Link href='/login' onClick={onClose}><span className="sidebar-icon">↪</span>Log out</Link></nav>
-    <div className="sidebar-bottom"><div className="profile-mini"><img src="/kpily/avatar-03.png" alt="Elias Akin" /><div><strong>Elias Akin</strong><span>Performance Lead</span></div></div></div>
-  </aside>
+  return <>
+    <div className={`sidebar-overlay ${open ? 'open' : ''}`} onClick={onClose} aria-hidden="true" />
+    <aside className={`app-sidebar ${open ? 'open' : ''}`}>
+      <div className="sidebar-top">
+        <Link href='/' onClick={onClose}><img src="/assets/logo-full.png" alt="KPILY" className="app-logo" /></Link>
+        <button type="button" className="sidebar-close" onClick={onClose} aria-label="Close navigation">✕</button>
+      </div>
+      <p className="sidebar-label">Workspace</p>
+      <nav className="sidebar-nav">{navItems.map(([icon, label, path]) => <Link key={label} href={path} className={location === path ? 'active' : ''} onClick={onClose}><span className="sidebar-icon">{icon}</span>{label}</Link>)}</nav>
+      <p className="sidebar-label" style={{ marginTop: 28 }}>Account</p>
+      <nav className="sidebar-nav"><Link href='/settings/profile' onClick={onClose}><span className="sidebar-icon">⚙</span>Settings</Link><Link href='/login' onClick={onClose}><span className="sidebar-icon">↪</span>Log out</Link></nav>
+      <div className="sidebar-bottom"><div className="profile-mini"><img src="/kpily/avatar-03.png" alt="Elias Akin" /><div><strong>Elias Akin</strong><span>Performance Lead</span></div></div></div>
+    </aside>
+  </>
 }
 
 export default function Dashboard() {
@@ -26,6 +32,12 @@ export default function Dashboard() {
   const [tasks] = useState(taskFixtures)
   const session = getSession()
   useEffect(() => { let active = true; getDashboard(session?.token).then((data) => active && data && setSummary({ ...dashboardFixture, ...data })).catch(() => {}); return () => { active = false } }, [session?.token])
+    useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    const handleEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') setMenuOpen(false) }
+    document.addEventListener('keydown', handleEscape)
+    return () => { document.body.style.overflow = ''; document.removeEventListener('keydown', handleEscape) }
+  }, [menuOpen])
   const visibleTasks = useMemo(() => tasks.filter((task) => task.status !== 'Completed').slice(0, 3), [tasks])
   const userName = session?.user?.name || 'Elias Akin'
   return <div className="app-shell"><Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} /><div className="app-main">
