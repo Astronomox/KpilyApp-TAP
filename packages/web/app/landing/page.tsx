@@ -26,11 +26,27 @@ function Navigation() {
   const [open, setOpen] = useState<boolean>(false)
   return <header className="site-header">
     <div className="nav-shell">
-      <Logo />
-      <button className="menu-toggle" type="button" aria-label="Toggle menu" aria-expanded={open} onClick={() => setOpen((value) => !value)}><span /><span /><span /></button>
+            <Logo />
+            <div className="nav-toggle-group">
+        <button className="language language-mobile" type="button" aria-label="Choose language">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M29.1667 1.66669H4.16675C2.78604 1.66669 1.66675 2.78598 1.66675 4.16669V29.1667C1.66675 30.5474 2.78604 31.6667 4.16675 31.6667H29.1667C30.5475 31.6667 31.6667 30.5474 31.6667 29.1667V4.16669C31.6667 2.78598 30.5475 1.66669 29.1667 1.66669Z" stroke="currentColor" strokeWidth="3.33333" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M14.1667 10.8334H7.5V22.5H13.75M7.5 16.6667H13.75M18.3333 12.5V22.5V17.0834C18.3333 16.0888 18.7284 15.135 19.4317 14.4317C20.1349 13.7285 21.0888 13.3334 22.0833 13.3334C23.0779 13.3334 24.0317 13.7285 24.735 14.4317C25.4382 15.135 25.8333 16.0888 25.8333 17.0834V22.5" stroke="currentColor" strokeWidth="3.33333" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+        <button className={open ? 'menu-toggle is-open' : 'menu-toggle'} type="button" aria-label={open ? 'Close menu' : 'Toggle menu'} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+          {open ? <span className="menu-close" aria-hidden="true">✕</span> : <><span /><span /><span /></>}
+        </button>
+      </div>
       <nav className={open ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation">
         <div className="nav-links"><Link href='/#features' onClick={() => setOpen(false)}>About Us</Link><Link href='/blog' onClick={() => setOpen(false)}>Blog</Link><Link href='/pricing' onClick={() => setOpen(false)}>Pricing</Link></div>
-        <div className="nav-actions"><Link href='/login' className="nav-signin" onClick={() => setOpen(false)}>Sign in</Link><Link href='/register' className="button button-primary nav-cta" onClick={() => setOpen(false)}>Start 30-day Free Trial</Link><button className="language" type="button" aria-label="Choose language">◎ En⌄</button></div>
+        <div className="nav-actions"><Link href='/login' className="nav-signin" onClick={() => setOpen(false)}>Sign in</Link><Link href='/register' className="button button-primary nav-cta" onClick={() => setOpen(false)}>Start 30-day Free Trial</Link>
+<button className="language language-desktop" type="button" aria-label="Choose language">
+  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M29.1667 1.66669H4.16675C2.78604 1.66669 1.66675 2.78598 1.66675 4.16669V29.1667C1.66675 30.5474 2.78604 31.6667 4.16675 31.6667H29.1667C30.5475 31.6667 31.6667 30.5474 31.6667 29.1667V4.16669C31.6667 2.78598 30.5475 1.66669 29.1667 1.66669Z" stroke="currentColor" strokeWidth="3.33333" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M14.1667 10.8334H7.5V22.5H13.75M7.5 16.6667H13.75M18.3333 12.5V22.5V17.0834C18.3333 16.0888 18.7284 15.135 19.4317 14.4317C20.1349 13.7285 21.0888 13.3334 22.0833 13.3334C23.0779 13.3334 24.0317 13.7285 24.735 14.4317C25.4382 15.135 25.8333 16.0888 25.8333 17.0834V22.5" stroke="currentColor" strokeWidth="3.33333" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+</button>        </div>
       </nav>
     </div>
   </header>
@@ -66,7 +82,6 @@ export default function LandingPage() {
       <section className="hero-section contour-bg">
         <div className="section-shell hero-grid">
           <Reveal className="hero-copy">
-            <p className="eyebrow">PERFORMANCE MADE HUMAN</p>
             <h1>Transform Your<br />Business<br />Performance with <span>KPILY</span></h1>
             <p className="hero-subtitle">Real-Time Feedback and Performance Tracking App for Your Team</p>
             <div className="hero-actions"><Link href='/register' className="button button-primary">Get Started <Arrow /></Link><a href="#features" className="watch-link"><span className="play-circle"><Play /></span> See how it works</a></div>
@@ -93,6 +108,7 @@ export default function LandingPage() {
 
       <section className="final-cta"><div className="section-shell final-grid"><Reveal><p className="eyebrow">WHY CHOOSE US</p><h2>KPILY drives team engagement and productivity.</h2><p>A comprehensive solution that puts performance in the hands of the employees.</p></Reveal><Reveal className="contact-form"><h3>Get Started for Free</h3><label>Company<input placeholder="Company Name" /></label><label>Work Email<input placeholder="Work Email Address" type="email" /></label><label>Full name<input placeholder="Name" /></label><button className="button button-primary" type="button">Get Started <Arrow /></button></Reveal></div></section>
     </main>
-    <footer className="site-footer"><div className="section-shell footer-grid"><div><Logo /><p>Performance Management</p><div className="socials"><a href="https://m.facebook.com/100980035046229/">f</a><a href="https://www.instagram.com/kpilyapp/">◎</a><a href="https://www.linkedin.com/company/92823514/admin/feed/posts/?feedType=following">in</a></div></div><div><h4>Company</h4><Link href='/'>About Us</Link><Link href='/'>Press</Link><Link href='/blog'>Blog</Link></div><div><h4>Get Started</h4><Link href='/'>Request a demo</Link><Link href='/register'>Sign up</Link><Link href='/login'>Log in</Link></div><div><h4>Contact</h4><a href="tel:+2349024429918">+234 09024429918</a><a href="mailto:support@kpily.com">support@kpily.com</a></div></div><div className="section-shell footer-bottom">© 2025, KPILY. All rights reserved</div></footer>
+    <footer className="site-footer"><div className="section-shell footer-grid"><div><Logo />
+      <p>Performance Management</p><div className="socials"><a href="https://m.facebook.com/100980035046229/">f</a><a href="https://www.instagram.com/kpilyapp/">◎</a><a href="https://www.linkedin.com/company/92823514/admin/feed/posts/?feedType=following">in</a></div></div><div><h4>Company</h4><Link href='/'>About Us</Link><Link href='/'>Press</Link><Link href='/blog'>Blog</Link></div><div><h4>Get Started</h4><Link href='/'>Request a demo</Link><Link href='/register'>Sign up</Link><Link href='/login'>Log in</Link></div><div><h4>Contact</h4><a href="tel:+2349024429918">+234 09024429918</a><a href="mailto:support@kpily.com">support@kpily.com</a></div></div><div className="section-shell footer-bottom">© 2025, KPILY. All rights reserved</div></footer>
   </div>
 }
