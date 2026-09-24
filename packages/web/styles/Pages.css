@@ -82,6 +82,10 @@
   font-weight: 600;
   padding: 8px 0;
 }
+
+.language-mobile {
+  display: none;
+}
 .menu-toggle {
   display: none;
   border: 0;
@@ -1882,7 +1886,7 @@
     color: #f8fafc !important;
   }
 
-    .language {
+  .language-desktop {
     display: inline-flex;
     align-items: center;
     justify-content: center;
