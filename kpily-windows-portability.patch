@@ -1,0 +1,452 @@
+[1mdiff --git a/package-lock.json b/package-lock.json[m
+[1mindex 4e94ad5..fc87b49 100644[m
+[1m--- a/package-lock.json[m
+[1m+++ b/package-lock.json[m
+[36m@@ -14,7 +14,8 @@[m
+         "packages/types"[m
+       ],[m
+       "devDependencies": {[m
+[31m-        "concurrently": "^10.0.5"[m
+[32m+[m[32m        "concurrently": "^10.0.5",[m
+[32m+[m[32m        "typescript": "^5.9.3"[m
+       },[m
+       "engines": {[m
+         "node": ">=18.0.0",[m
+[36m@@ -19659,24 +19660,6 @@[m
+         "url": "https://github.com/sponsors/ljharb"[m
+       }[m
+     },[m
+[31m-    "node_modules/tailwindcss/node_modules/yaml": {[m
+[31m-      "version": "2.9.1",[m
+[31m-      "resolved": "https://registry.npmjs.org/yaml/-/yaml-2.9.1.tgz",[m
+[31m-      "integrity": "sha512-3NxN8+78OdzbT7C/WjGsyfPAtJaN3FNDsWxv7Y7mcDsT/oOmgW8BpyQQFFBnvZE3j9Y2Sdz1ULFLezL7Eb2yFw==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "ISC",[m
+[31m-      "optional": true,[m
+[31m-      "peer": true,[m
+[31m-      "bin": {[m
+[31m-        "yaml": "bin.mjs"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": ">= 14.6"[m
+[31m-      },[m
+[31m-      "funding": {[m
+[31m-        "url": "https://github.com/sponsors/eemeli"[m
+[31m-      }[m
+[31m-    },[m
+     "node_modules/tapable": {[m
+       "version": "2.3.3",[m
+       "resolved": "https://registry.npmjs.org/tapable/-/tapable-2.3.3.tgz",[m
+[36m@@ -20316,18 +20299,17 @@[m
+       }[m
+     },[m
+     "node_modules/typescript": {[m
+[31m-      "version": "4.9.5",[m
+[31m-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz",[m
+[31m-      "integrity": "sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==",[m
+[32m+[m[32m      "version": "5.9.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",[m
+       "dev": true,[m
+       "license": "Apache-2.0",[m
+[31m-      "peer": true,[m
+       "bin": {[m
+         "tsc": "bin/tsc",[m
+         "tsserver": "bin/tsserver"[m
+       },[m
+       "engines": {[m
+[31m-        "node": ">=4.2.0"[m
+[32m+[m[32m        "node": ">=14.17"[m
+       }[m
+     },[m
+     "node_modules/typescript-eslint": {[m
+[36m@@ -21667,20 +21649,6 @@[m
+         "typescript": "^5.1.0"[m
+       }[m
+     },[m
+[31m-    "packages/api/node_modules/typescript": {[m
+[31m-      "version": "5.9.3",[m
+[31m-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz",[m
+[31m-      "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "Apache-2.0",[m
+[31m-      "bin": {[m
+[31m-        "tsc": "bin/tsc",[m
+[31m-        "tsserver": "bin/tsserver"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": ">=14.17"[m
+[31m-      }[m
+[31m-    },[m
+     "packages/dashboard": {[m
+       "name": "@kpily/dashboard",[m
+       "version": "1.0.0",[m
+[36m@@ -21699,42 +21667,6 @@[m
+         "typescript": "^5.1.0"[m
+       }[m
+     },[m
+[31m-    "packages/dashboard/node_modules/@eslint/eslintrc": {[m
+[31m-      "version": "2.1.4",[m
+[31m-      "resolved": "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-2.1.4.tgz",[m
+[31m-      "integrity": "sha512-269Z39MS6wVJtsoUl10L60WdkhJVdPG24Q4eZTH3nnF6lpvSShEK3wQjDX9JRWAUPvPh7COouPpU9IrqaZFvtQ==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "MIT",[m
+[31m-      "peer": true,[m
+[31m-      "dependencies": {[m
+[31m-        "ajv": "^6.12.4",[m
+[31m-        "debug": "^4.3.2",[m
+[31m-        "espree": "^9.6.0",[m
+[31m-        "globals": "^13.19.0",[m
+[31m-        "ignore": "^5.2.0",[m
+[31m-        "import-fresh": "^3.2.1",[m
+[31m-        "js-yaml": "^4.1.0",[m
+[31m-        "minimatch": "^3.1.2",[m
+[31m-        "strip-json-comments": "^3.1.1"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": "^12.22.0 || ^14.17.0 || >=16.0.0"[m
+[31m-      },[m
+[31m-      "funding": {[m
+[31m-        "url": "https://opencollective.com/eslint"[m
+[31m-      }[m
+[31m-    },[m
+[31m-    "packages/dashboard/node_modules/@eslint/js": {[m
+[31m-      "version": "8.57.1",[m
+[31m-      "resolved": "https://registry.npmjs.org/@eslint/js/-/js-8.57.1.tgz",[m
+[31m-      "integrity": "sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "MIT",[m
+[31m-      "peer": true,[m
+[31m-      "engines": {[m
+[31m-        "node": "^12.22.0 || ^14.17.0 || >=16.0.0"[m
+[31m-      }[m
+[31m-    },[m
+     "packages/dashboard/node_modules/@types/react": {[m
+       "version": "18.3.31",[m
+       "resolved": "https://registry.npmjs.org/@types/react/-/react-18.3.31.tgz",[m
+[36m@@ -21996,89 +21928,6 @@[m
+         "url": "https://opencollective.com/typescript-eslint"[m
+       }[m
+     },[m
+[31m-    "packages/dashboard/node_modules/ansi-regex": {[m
+[31m-      "version": "5.0.1",[m
+[31m-      "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",[m
+[31m-      "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "MIT",[m
+[31m-      "peer": true,[m
+[31m-      "engines": {[m
+[31m-        "node": ">=8"[m
+[31m-      }[m
+[31m-    },[m
+[31m-    "packages/dashboard/node_modules/doctrine": {[m
+[31m-      "version": "3.0.0",[m
+[31m-      "resolved": "https://registry.npmjs.org/doctrine/-/doctrine-3.0.0.tgz",[m
+[31m-      "integrity": "sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "Apache-2.0",[m
+[31m-      "peer": true,[m
+[31m-      "dependencies": {[m
+[31m-        "esutils": "^2.0.2"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": ">=6.0.0"[m
+[31m-      }[m
+[31m-    },[m
+[31m-    "packages/dashboard/node_modules/eslint": {[m
+[31m-      "version": "8.57.1",[m
+[31m-      "resolved": "https://registry.npmjs.org/eslint/-/eslint-8.57.1.tgz",[m
+[31m-      "integrity": "sha512-ypowyDxpVSYpkXr9WPv2PAZCtNip1Mv5KTW0SCurXv/9iOpcrH9PaqUElksqEB6pChqHGDRCFTyrZlGhnLNGiA==",[m
+[31m-      "deprecated": "This version is no longer supported. Please see https://eslint.org/version-support for other options.",[m
+[31m-      "dev": true,[m
+[31m-      "license": "MIT",[m
+[31m-      "peer": true,[m
+[31m-      "dependencies": {[m
+[31m-        "@eslint-community/eslint-utils": "^4.2.0",[m
+[31m-        "@eslint-community/regexpp": "^4.6.1",[m
+[31m-        "@eslint/eslintrc": "^2.1.4",[m
+[31m-        "@eslint/js": "8.57.1",[m
+[31m-        "@humanwhocodes/config-array": "^0.13.0",[m
+[31m-        "@humanwhocodes/module-importer": "^1.0.1",[m
+[31m-        "@nodelib/fs.walk": "^1.2.8",[m
+[31m-        "@ungap/structured-clone": "^1.2.0",[m
+[31m-        "ajv": "^6.12.4",[m
+[31m-        "chalk": "^4.0.0",[m
+[31m-        "cross-spawn": "^7.0.2",[m
+[31m-        "debug": "^4.3.2",[m
+[31m-        "doctrine": "^3.0.0",[m
+[31m-        "escape-string-regexp": "^4.0.0",[m
+[31m-        "eslint-scope": "^7.2.2",[m
+[31m-        "eslint-visitor-keys": "^3.4.3",[m
+[31m-        "espree": "^9.6.1",[m
+[31m-        "esquery": "^1.4.2",[m
+[31m-        "esutils": "^2.0.2",[m
+[31m-        "fast-deep-equal": "^3.1.3",[m
+[31m-        "file-entry-cache": "^6.0.1",[m
+[31m-        "find-up": "^5.0.0",[m
+[31m-        "glob-parent": "^6.0.2",[m
+[31m-        "globals": "^13.19.0",[m
+[31m-        "graphemer": "^1.4.0",[m
+[31m-        "ignore": "^5.2.0",[m
+[31m-        "imurmurhash": "^0.1.4",[m
+[31m-        "is-glob": "^4.0.0",[m
+[31m-        "is-path-inside": "^3.0.3",[m
+[31m-        "js-yaml": "^4.1.0",[m
+[31m-        "json-stable-stringify-without-jsonify": "^1.0.1",[m
+[31m-        "levn": "^0.4.1",[m
+[31m-        "lodash.merge": "^4.6.2",[m
+[31m-        "minimatch": "^3.1.2",[m
+[31m-        "natural-compare": "^1.4.0",[m
+[31m-        "optionator": "^0.9.3",[m
+[31m-        "strip-ansi": "^6.0.1",[m
+[31m-        "text-table": "^0.2.0"[m
+[31m-      },[m
+[31m-      "bin": {[m
+[31m-        "eslint": "bin/eslint.js"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": "^12.22.0 || ^14.17.0 || >=16.0.0"[m
+[31m-      },[m
+[31m-      "funding": {[m
+[31m-        "url": "https://opencollective.com/eslint"[m
+[31m-      }[m
+[31m-    },[m
+     "packages/dashboard/node_modules/eslint-config-react-app": {[m
+       "version": "7.0.1",[m
+       "resolved": "https://registry.npmjs.org/eslint-config-react-app/-/eslint-config-react-app-7.0.1.tgz",[m
+[36m@@ -22182,24 +22031,6 @@[m
+         "eslint": "^7.5.0 || ^8.0.0"[m
+       }[m
+     },[m
+[31m-    "packages/dashboard/node_modules/eslint-scope": {[m
+[31m-      "version": "7.2.2",[m
+[31m-      "resolved": "https://registry.npmjs.org/eslint-scope/-/eslint-scope-7.2.2.tgz",[m
+[31m-      "integrity": "sha512-dOt21O7lTMhDM+X9mB4GX+DZrZtCUJPL/wlcTqxyrx5IvO0IYtILdtrQGQp+8n5S0gwSVmOf9NQrjMOgfQZlIg==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "BSD-2-Clause",[m
+[31m-      "peer": true,[m
+[31m-      "dependencies": {[m
+[31m-        "esrecurse": "^4.3.0",[m
+[31m-        "estraverse": "^5.2.0"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": "^12.22.0 || ^14.17.0 || >=16.0.0"[m
+[31m-      },[m
+[31m-      "funding": {[m
+[31m-        "url": "https://opencollective.com/eslint"[m
+[31m-      }[m
+[31m-    },[m
+     "packages/dashboard/node_modules/eslint-visitor-keys": {[m
+       "version": "3.4.3",[m
+       "resolved": "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.4.3.tgz",[m
+[36m@@ -22213,72 +22044,6 @@[m
+         "url": "https://opencollective.com/eslint"[m
+       }[m
+     },[m
+[31m-    "packages/dashboard/node_modules/espree": {[m
+[31m-      "version": "9.6.1",[m
+[31m-      "resolved": "https://registry.npmjs.org/espree/-/espree-9.6.1.tgz",[m
+[31m-      "integrity": "sha512-oruZaFkjorTpF32kDSI5/75ViwGeZginGGy2NoOSg3Q9bnwlnmDm4HLnkl0RE3n+njDXR037aY1+x58Z/zFdwQ==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "BSD-2-Clause",[m
+[31m-      "peer": true,[m
+[31m-      "dependencies": {[m
+[31m-        "acorn": "^8.9.0",[m
+[31m-        "acorn-jsx": "^5.3.2",[m
+[31m-        "eslint-visitor-keys": "^3.4.1"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": "^12.22.0 || ^14.17.0 || >=16.0.0"[m
+[31m-      },[m
+[31m-      "funding": {[m
+[31m-        "url": "https://opencollective.com/eslint"[m
+[31m-      }[m
+[31m-    },[m
+[31m-    "packages/dashboard/node_modules/file-entry-cache": {[m
+[31m-      "version": "6.0.1",[m
+[31m-      "resolved": "https://registry.npmjs.org/file-entry-cache/-/file-entry-cache-6.0.1.tgz",[m
+[31m-      "integrity": "sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "MIT",[m
+[31m-      "peer": true,[m
+[31m-      "dependencies": {[m
+[31m-        "flat-cache": "^3.0.4"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": "^10.12.0 || >=12.0.0"[m
+[31m-      }[m
+[31m-    },[m
+[31m-    "packages/dashboard/node_modules/flat-cache": {[m
+[31m-      "version": "3.2.0",[m
+[31m-      "resolved": "https://registry.npmjs.org/flat-cache/-/flat-cache-3.2.0.tgz",[m
+[31m-      "integrity": "sha512-CYcENa+FtcUKLmhhqyctpclsq7QF38pKjZHsGNiSQF5r4FtoKDWabFDl3hzaEQMvT1LHEysw5twgLvpYYb4vbw==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "MIT",[m
+[31m-      "peer": true,[m
+[31m-      "dependencies": {[m
+[31m-        "flatted": "^3.2.9",[m
+[31m-        "keyv": "^4.5.3",[m
+[31m-        "rimraf": "^3.0.2"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": "^10.12.0 || >=12.0.0"[m
+[31m-      }[m
+[31m-    },[m
+[31m-    "packages/dashboard/node_modules/globals": {[m
+[31m-      "version": "13.24.0",[m
+[31m-      "resolved": "https://registry.npmjs.org/globals/-/globals-13.24.0.tgz",[m
+[31m-      "integrity": "sha512-AhO5QUcj8llrbG09iWhPU2B204J1xnPeL8kQmVorSsy+Sjj1sk8gIyh6cUocGmH4L0UuhAJy+hJMRA4mgA4mFQ==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "MIT",[m
+[31m-      "peer": true,[m
+[31m-      "dependencies": {[m
+[31m-        "type-fest": "^0.20.2"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": ">=8"[m
+[31m-      },[m
+[31m-      "funding": {[m
+[31m-        "url": "https://github.com/sponsors/sindresorhus"[m
+[31m-      }[m
+[31m-    },[m
+     "packages/dashboard/node_modules/react": {[m
+       "version": "18.3.1",[m
+       "resolved": "https://registry.npmjs.org/react/-/react-18.3.1.tgz",[m
+[36m@@ -22326,48 +22091,6 @@[m
+         "node": ">=10"[m
+       }[m
+     },[m
+[31m-    "packages/dashboard/node_modules/strip-ansi": {[m
+[31m-      "version": "6.0.1",[m
+[31m-      "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz",[m
+[31m-      "integrity": "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "MIT",[m
+[31m-      "peer": true,[m
+[31m-      "dependencies": {[m
+[31m-        "ansi-regex": "^5.0.1"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": ">=8"[m
+[31m-      }[m
+[31m-    },[m
+[31m-    "packages/dashboard/node_modules/type-fest": {[m
+[31m-      "version": "0.20.2",[m
+[31m-      "resolved": "https://registry.npmjs.org/type-fest/-/type-fest-0.20.2.tgz",[m
+[31m-      "integrity": "sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "(MIT OR CC0-1.0)",[m
+[31m-      "peer": true,[m
+[31m-      "engines": {[m
+[31m-        "node": ">=10"[m
+[31m-      },[m
+[31m-      "funding": {[m
+[31m-        "url": "https://github.com/sponsors/sindresorhus"[m
+[31m-      }[m
+[31m-    },[m
+[31m-    "packages/dashboard/node_modules/typescript": {[m
+[31m-      "version": "5.9.3",[m
+[31m-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz",[m
+[31m-      "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "Apache-2.0",[m
+[31m-      "bin": {[m
+[31m-        "tsc": "bin/tsc",[m
+[31m-        "tsserver": "bin/tsserver"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": ">=14.17"[m
+[31m-      }[m
+[31m-    },[m
+     "packages/types": {[m
+       "name": "@kpily/types",[m
+       "version": "1.0.0"[m
+[36m@@ -22388,20 +22111,6 @@[m
+         "next": "^16.0.0",[m
+         "typescript": "^5"[m
+       }[m
+[31m-    },[m
+[31m-    "packages/web/node_modules/typescript": {[m
+[31m-      "version": "5.9.3",[m
+[31m-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz",[m
+[31m-      "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "Apache-2.0",[m
+[31m-      "bin": {[m
+[31m-        "tsc": "bin/tsc",[m
+[31m-        "tsserver": "bin/tsserver"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": ">=14.17"[m
+[31m-      }[m
+     }[m
+   }[m
+ }[m
+[1mdiff --git a/package.json b/package.json[m
+[1mindex c01deb5..9744a0c 100644[m
+[1m--- a/package.json[m
+[1m+++ b/package.json[m
+[36m@@ -12,7 +12,7 @@[m
+   "scripts": {[m
+     "dev": "concurrently \"npm run dev:web\" \"npm run dev:dashboard\" \"npm run dev:api\"",[m
+     "dev:web": "cd packages/web && npm run dev",[m
+[31m-    "dev:dashboard": "cd packages/dashboard && PORT=3001 npm start",[m
+[32m+[m[32m    "dev:dashboard": "node scripts/dev-dashboard.mjs",[m
+     "dev:api": "cd packages/api && npm run dev",[m
+     "build": "npm run build:web && npm run build:dashboard && npm run build:api",[m
+     "typecheck": "npm run typecheck:web && npm run typecheck:dashboard && npm run typecheck:api",[m
+[36m@@ -31,6 +31,7 @@[m
+     "npm": ">=9.0.0"[m
+   },[m
+   "devDependencies": {[m
+[31m-    "concurrently": "^10.0.5"[m
+[32m+[m[32m    "concurrently": "^10.0.5",[m
+[32m+[m[32m    "typescript": "^5.9.3"[m
+   }[m
+ }[m
+[1mdiff --git a/packages/web/scripts/build.mjs b/packages/web/scripts/build.mjs[m
+[1mindex 19d803f..b952fbb 100644[m
+[1m--- a/packages/web/scripts/build.mjs[m
+[1m+++ b/packages/web/scripts/build.mjs[m
+[36m@@ -1,7 +1,9 @@[m
+ import { spawnSync } from 'node:child_process'[m
+[32m+[m[32mimport { createRequire } from 'node:module'[m
+ [m
+[31m-const npmCommand = process.platform === 'win32' ? 'npx.cmd' : 'npx'[m
+[31m-const result = spawnSync(npmCommand, ['next', 'build', '--webpack'], {[m
+[32m+[m[32mconst require = createRequire(import.meta.url)[m
+[32m+[m[32mconst nextCli = require.resolve('next/dist/bin/next')[m
+[32m+[m[32mconst result = spawnSync(process.execPath, [nextCli, 'build', '--webpack'], {[m
+   stdio: 'inherit',[m
+   env: { ...process.env, NODE_ENV: 'production' },[m
+ })[m
+[1mdiff --git a/scripts/dev-dashboard.mjs b/scripts/dev-dashboard.mjs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..103220b[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/dev-dashboard.mjs[m
+[36m@@ -0,0 +1,24 @@[m
+[32m+[m[32mimport { spawn } from 'node:child_process'[m
+[32m+[m[32mimport { fileURLToPath } from 'node:url'[m
+[32m+[m[32mimport path from 'node:path'[m
+[32m+[m
+[32m+[m[32mconst npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm'[m
+[32m+[m[32mconst dashboardDirectory = path.resolve(fileURLToPath(new URL('../packages/dashboard/', import.meta.url)))[m
+[32m+[m[32mconst child = spawn(npmCommand, ['start'], {[m
+[32m+[m[32m  cwd: dashboardDirectory,[m
+[32m+[m[32m  env: { ...process.env, PORT: '3001' },[m
+[32m+[m[32m  stdio: 'inherit',[m
+[32m+[m[32m})[m
+[32m+[m
+[32m+[m[32mchild.on('error', (error) => {[m
+[32m+[m[32m  console.error(error)[m
+[32m+[m[32m  process.exit(1)[m
+[32m+[m[32m})[m
+[32m+[m
+[32m+[m[32mchild.on('exit', (code, signal) => {[m
+[32m+[m[32m  if (signal) {[m
+[32m+[m[32m    process.kill(process.pid, signal)[m
+[32m+[m[32m  } else {[m
+[32m+[m[32m    process.exit(code ?? 1)[m
+[32m+[m[32m  }[m
+[32m+[m[32m})[m
