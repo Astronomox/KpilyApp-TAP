@@ -86,3 +86,24 @@
   .ka-search kbd { display: none; }
   .ka-app__main { padding: calc(var(--ka-top) + 16px) 16px 32px; }
 }
+
+/* Shared app UI */
+.ka-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,.08); padding: 24px; }
+.ka-card__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.ka-card__head h2 { margin: 0; font-size: 20px; font-weight: 600; color: #106190; }
+.ka-link { border: 0; background: none; padding: 0; color: #106190; font-family: inherit; font-size: 14px; font-weight: 500; text-decoration: none; cursor: pointer; }
+.ka-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 24px; border: 1px solid transparent; border-radius: 20px; background: #1e7a5a; color: #fff; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; text-decoration: none; }
+.ka-btn:hover { background: #186a4d; }
+.ka-btn:disabled { opacity: .6; cursor: default; }
+.ka-btn--ghost { background: #fff; color: #252525; border-color: #d9d9d9; }
+.ka-btn--ghost:hover { background: #f5f5f5; }
+.ka-btn--danger { background: #b3261e; }
+.ka-btn--danger:hover { background: #971f19; }
+.ka-btn--sm { height: 32px; padding: 0 14px; font-size: 13px; }
+.ka-field { display: grid; gap: 6px; margin-bottom: 16px; font-size: 14px; font-weight: 500; }
+.ka-field input, .ka-field select, .ka-field textarea { width: 100%; box-sizing: border-box; min-height: 42px; padding: 10px 12px; border: 1px solid #d9d9d9; border-radius: 8px; background: #fff; font-family: inherit; font-size: 14px; font-weight: 400; color: #252525; }
+.ka-field textarea { min-height: 96px; resize: vertical; }
+.ka-field input:focus, .ka-field select:focus, .ka-field textarea:focus { outline: 2px solid #1ab0b3; outline-offset: -1px; border-color: transparent; }
+.ka-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.ka-error { margin: 0 0 12px; color: #b3261e; font-size: 13px; }
+.ka-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 8px; }
