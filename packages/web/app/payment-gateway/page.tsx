@@ -1,119 +1,92 @@
 'use client';
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import '@/styles/Auth.css'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Suspense, useEffect, useRef, useState } from 'react'
+import Logo from '@/components/figma/Logo'
+import BillingToggle from '@/components/figma/BillingToggle'
+import { PLANS, findPlan } from '@/lib/plans'
+import '@/styles/Figma.css'
 
-export default function PaymentGateway() {
+
+function Switch({ on, onToggle, label }: { on: boolean; onToggle: () => void; label: string }) {
+  return (
+    <button type="button" role="switch" aria-checked={on} aria-label={label} className={`kp-switch ${on ? 'is-on' : ''}`} onClick={onToggle}>
+      <span />
+    </button>
+  )
+}
+
+function PaymentGateway() {
   const router = useRouter()
-  const [formData, setFormData] = useState({
-    cardName: '',
-    cardNumber: '',
-    expiry: '',
-    cvv: ''
-  })
+  const params = useSearchParams()
+  const [planId, setPlanId] = useState(findPlan(params.get('plan')).id as string)
+  const [billing, setBilling] = useState(params.get('billing') || 'annually')
+  const [menu, setMenu] = useState(false)
+  const [addOns, setAddOns] = useState({ psychometrics: true, games: true })
+  const menuRef = useRef<HTMLDivElement>(null)
+  const plan = findPlan(planId)
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('Processing payment:', formData)
-    router.push('/payment-success')
-  }
+  useEffect(() => {
+    const close = (e: MouseEvent) => { if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenu(false) }
+    document.addEventListener('mousedown', close)
+    return () => document.removeEventListener('mousedown', close)
+  }, [])
 
   return (
-    <div className="auth-page">
-      <div className="auth-container">
-        <div className="auth-left">
-          <div className="payment-summary">
-            <h2>Order Summary</h2>
-            <div className="summary-item">
-              <span>Professional Plan (Annual)</span>
-              <span>$1,188</span>
+    <main className="kp kp-pay">
+      <section className="kp-pay__summary">
+        <Logo />
+        <h1 className="kp-h1 kp-pay__title">Order Summary </h1>
+        <dl className="kp-pay__lines">
+          <div><dt>Subtotal</dt><dd>$8,000</dd></div>
+          <div><dt>Add-Ons</dt><dd>$453.00</dd></div>
+          <div className="kp-pay__total"><dt>Total Amount</dt><dd>$8,453.00</dd></div>
+        </dl>
+        <button type="button" className="kp-btn kp-pay__now" onClick={() => router.push('/payment-success')}>Pay Now</button>
+      </section>
+      <section className="kp-pay__plan">
+        <h2 className="kp-pay__your">Your Plan</h2>
+        <div className="kp-pay__card">
+          <div className="kp-pay__picker" ref={menuRef}>
+            <button type="button" aria-haspopup="listbox" aria-expanded={menu} onClick={() => setMenu(!menu)}>
+              <img src={plan.icon} alt="" />{plan.name} Plan<img src="/figma/payment/arrow-drop-down.svg" alt="" className="kp-pay__caret" />
+            </button>
+            {menu && (
+              <ul role="listbox">
+                {PLANS.map((p) => (
+                  <li key={p.id} role="option" aria-selected={p.id === planId} onClick={() => { setPlanId(p.id); setMenu(false) }}>{p.name} Plan</li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <BillingToggle value={billing} onChange={setBilling} order={['annually', 'monthly']} />
+          <h3 className="kp-plan__get">What You’ll Get</h3>
+          <ul className="kp-plan__list">
+            {plan.features.map((f) => <li key={f}><img src="/figma/pricing/check-circle.svg" alt="" />{f}</li>)}
+          </ul>
+          <div className="kp-addons">
+            <div className="kp-addons__head">
+              <h3>Add - On Products</h3>
+              <img src="/figma/payment/more.svg" alt="" />
             </div>
-            <div className="summary-item">
-              <span>Discount (10%)</span>
-              <span>-$118.80</span>
+            <div className="kp-addons__row">
+              <span className="kp-addons__icon"><img src="/figma/payment/icon-psych.svg" alt="" /></span>
+              <span>Psychometrics </span>
+              <Switch label="Psychometrics" on={addOns.psychometrics} onToggle={() => setAddOns((a) => ({ ...a, psychometrics: !a.psychometrics }))} />
             </div>
-            <div className="summary-total">
-              <span>Total</span>
-              <span>$1,069.20</span>
+            <div className="kp-addons__row">
+              <span className="kp-addons__icon"><img src="/figma/payment/icon-games.svg" alt="" /></span>
+              <span>Games </span>
+              <Switch label="Games" on={addOns.games} onToggle={() => setAddOns((a) => ({ ...a, games: !a.games }))} />
             </div>
           </div>
         </div>
-        
-        <div className="auth-right">
-          <div className="auth-box">
-            <h1>Payment Details</h1>
-            
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label>Name on Card</label>
-                <input 
-                  type="text" 
-                  name="cardName"
-                  value={formData.cardName}
-                  onChange={handleChange}
-                  placeholder="John Doe"
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Card Number</label>
-                <input 
-                  type="text" 
-                  name="cardNumber"
-                  value={formData.cardNumber}
-                  onChange={handleChange}
-                  placeholder="1234 5678 9012 3456"
-                  maxLength={19}
-                  required
-                />
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Expiry Date</label>
-                  <input 
-                    type="text" 
-                    name="expiry"
-                    value={formData.expiry}
-                    onChange={handleChange}
-                    placeholder="MM/YY"
-                    maxLength={5}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label>CVV</label>
-                  <input 
-                    type="text" 
-                    name="cvv"
-                    value={formData.cvv}
-                    onChange={handleChange}
-                    placeholder="123"
-                    maxLength={3}
-                    required
-                  />
-                </div>
-              </div>
-
-              <button type="submit" className="auth-btn">Complete Payment</button>
-            </form>
-
-            <p className="payment-notice">
-              Your payment information is secure and encrypted.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+      </section>
+    </main>
   )
+}
+
+// Figma: Landing page, Sign up and Login → "Payment Gateway page" (1233:7605)
+export default function PaymentGatewayPage() {
+  return <Suspense><PaymentGateway /></Suspense>
 }

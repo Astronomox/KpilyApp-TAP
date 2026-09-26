@@ -1,181 +1,53 @@
 'use client';
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import '@/styles/Auth.css'
+import Link from 'next/link'
+import { useRef, useState } from 'react'
+import Logo from '@/components/figma/Logo'
+import '@/styles/Figma.css'
 
+// Figma: Landing page, Sign up and Login → "Onboard company steps" (1512:17997)
 export default function OnboardCompany() {
-  const router = useRouter()
-  const [step, setStep] = useState(1)
-  const [formData, setFormData] = useState({
-    companyName: '',
-    industry: '',
-    teamSize: '',
-    integrations: []
-  })
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
-    if (type === 'checkbox') {
-      setFormData(prev => ({
-        ...prev,
-        integrations: checked 
-          ? [...prev.integrations, value]
-          : prev.integrations.filter(i => i !== value)
-      }))
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }))
-    }
-  }
-
-  const handleNext = () => {
-    if (step < 3) setStep(step + 1)
-  }
-
-  const handleComplete = () => {
-    console.log('Onboard data:', formData)
-    router.push('/dashboard')
-  }
+  const fileInput = useRef<HTMLInputElement>(null)
+  const [verified, setVerified] = useState(true)
+  const [uploaded, setUploaded] = useState<string>('')
 
   return (
-    <div className="auth-page">
-      <div className="onboard-container">
-        <div className="onboard-left">
-          <div className="step-tracker">
-            <h2>Setup Progress</h2>
-            <div className="steps">
-              <div className={`step-item ${step >= 1 ? 'active' : ''}`}>
-                <span>1</span>
-                <label>Company Info</label>
-              </div>
-              <div className={`step-item ${step >= 2 ? 'active' : ''}`}>
-                <span>2</span>
-                <label>Team Details</label>
-              </div>
-              <div className={`step-item ${step >= 3 ? 'active' : ''}`}>
-                <span>3</span>
-                <label>Integrations</label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="onboard-right">
-          <div className="auth-box">
-            <h1>Setup Your Workspace</h1>
-
-            {step === 1 && (
-              <>
-                <div className="form-group">
-                  <label>Company Name</label>
-                  <input 
-                    type="text" 
-                    name="companyName"
-                    value={formData.companyName}
-                    onChange={handleChange}
-                    placeholder="Acme Corp"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>Industry</label>
-                  <select name="industry" value={formData.industry} onChange={handleChange} required>
-                    <option value="">Select an industry</option>
-                    <option value="tech">Technology</option>
-                    <option value="finance">Finance</option>
-                    <option value="healthcare">Healthcare</option>
-                    <option value="retail">Retail</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-              </>
-            )}
-
-            {step === 2 && (
-              <>
-                <div className="form-group">
-                  <label>Team Size</label>
-                  <select name="teamSize" value={formData.teamSize} onChange={handleChange} required>
-                    <option value="">Select team size</option>
-                    <option value="1-10">1-10 people</option>
-                    <option value="11-50">11-50 people</option>
-                    <option value="51-100">51-100 people</option>
-                    <option value="100+">100+ people</option>
-                  </select>
-                </div>
-
-                <p className="info-text">
-                  We'll help you invite your team members in the next step.
-                </p>
-              </>
-            )}
-
-            {step === 3 && (
-              <>
-                <p className="info-text">
-                  Connect your favorite tools to sync data automatically.
-                </p>
-                
-                <div className="checkbox-group">
-                  <label className="checkbox">
-                    <input 
-                      type="checkbox"
-                      value="slack"
-                      checked={formData.integrations.includes('slack')}
-                      onChange={handleChange}
-                    />
-                    Slack
-                  </label>
-                  <label className="checkbox">
-                    <input 
-                      type="checkbox"
-                      value="github"
-                      checked={formData.integrations.includes('github')}
-                      onChange={handleChange}
-                    />
-                    GitHub
-                  </label>
-                  <label className="checkbox">
-                    <input 
-                      type="checkbox"
-                      value="jira"
-                      checked={formData.integrations.includes('jira')}
-                      onChange={handleChange}
-                    />
-                    Jira
-                  </label>
-                  <label className="checkbox">
-                    <input 
-                      type="checkbox"
-                      value="google-drive"
-                      checked={formData.integrations.includes('google-drive')}
-                      onChange={handleChange}
-                    />
-                    Google Drive
-                  </label>
-                </div>
-              </>
-            )}
-
-            <div className="form-actions">
-              {step > 1 && (
-                <button type="button" onClick={() => setStep(step - 1)} className="secondary-btn">
-                  Back
-                </button>
-              )}
-              {step < 3 ? (
-                <button onClick={handleNext} className="auth-btn">Next</button>
-              ) : (
-                <button onClick={handleComplete} className="auth-btn">Complete Setup</button>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <main className="kp kp-onboard">
+      <div className="kp-onboard__logo"><Logo /></div>
+      <h1 className="kp-onboard__title"><img src="/figma/onboard/title.svg" alt="Onboard your company" /></h1>
+      <ol className="kp-steps">
+        <li className="kp-step">
+          <img className="kp-step__drag" src="/figma/onboard/drag.svg" alt="" />
+          <div className="kp-step__title"><strong>Step 1</strong></div>
+          <span className="kp-step__div" />
+          <div className="kp-step__who"><span className="kp-step__avatar"><img src="/figma/onboard/avatar-1.png" alt="" /><img className="kp-step__status" src="/figma/onboard/status.svg" alt="" /></span>Verify your email </div>
+          <span className="kp-step__div" />
+          <img className="kp-step__icon" src="/figma/onboard/icon-check.svg" alt={verified ? 'Verified' : ''} style={{ opacity: verified ? 1 : 0.3 }} />
+          <span className="kp-step__div" />
+          <button type="button" className="kp-step__btn" onClick={() => setVerified(true)}>Verify</button>
+        </li>
+        <li className="kp-step">
+          <img className="kp-step__drag" src="/figma/onboard/drag.svg" alt="" />
+          <div className="kp-step__title"><strong>Step 2</strong><img src="/figma/onboard/sub-step2.svg" alt="Upload your company documents" /></div>
+          <span className="kp-step__div" />
+          <div className="kp-step__who"><span className="kp-step__avatar"><img src="/figma/onboard/avatar-2.png" alt="" /><img className="kp-step__status" src="/figma/onboard/status.svg" alt="" /></span>{uploaded || 'Company Documents'}</div>
+          <span className="kp-step__div" />
+          <img className="kp-step__icon" src="/figma/onboard/icon-upload.svg" alt="" />
+          <span className="kp-step__div" />
+          <button type="button" className="kp-step__btn kp-step__btn--blue" onClick={() => fileInput.current?.click()}>Upload</button>
+          <input ref={fileInput} type="file" multiple hidden onChange={(e) => setUploaded(e.target.files?.length ? `${e.target.files.length} file(s) uploaded` : '')} />
+        </li>
+        <li className="kp-step">
+          <img className="kp-step__drag" src="/figma/onboard/drag.svg" alt="" />
+          <div className="kp-step__title"><strong>Step 3</strong><img src="/figma/onboard/sub-step3.svg" alt="Login to onboard team" /></div>
+          <span className="kp-step__div" />
+          <div className="kp-step__who"><span className="kp-step__avatar"><img src="/figma/onboard/avatar-2.png" alt="" /><img className="kp-step__status" src="/figma/onboard/status.svg" alt="" /></span>Login to onboard team</div>
+          <span className="kp-step__div" />
+          <img className="kp-step__icon" src="/figma/onboard/icon-arrow.svg" alt="" />
+          <span className="kp-step__div" />
+          <Link href="/login" className="kp-step__btn">Login</Link>
+        </li>
+      </ol>
+    </main>
   )
 }

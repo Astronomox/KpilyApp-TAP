@@ -1,112 +1,61 @@
 'use client';
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import '@/styles/Auth.css'
+import { Suspense, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import Logo from '@/components/figma/Logo'
+import AuthHero from '@/components/figma/AuthHero'
+import '@/styles/Figma.css'
 
-export default function Register() {
-  const router = useRouter()
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
-    agreeTerms: false
-  })
+// Figma: Landing page, Sign up and Login →
+//   "Sign Up" (1467:27926)  – Register with work email (button text "Get Code" per kpily.netlify.app/register)
+//   "Sign Up" (1467:28077)  – "Email Link Sent!" confirmation
+function SignUp() {
+  // Prefilled from the home page "Get Started for Free" form (?email=...).
+  const [email, setEmail] = useState(useSearchParams().get('email') || '')
+  const [sent, setSent] = useState(false)
+  const [resent, setResent] = useState(false)
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }))
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match')
-      return
-    }
-    console.log('Register:', formData)
-    // After successful registration
-    router.push('/register-success')
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (email) setSent(true)
   }
 
   return (
-    <div className="auth-page">
-      <div className="auth-container">
-        <div className="auth-left">
-          <img src="/assets/ref-login.jpg" alt="Register illustration" />
-        </div>
-        
-        <div className="auth-right">
-          <div className="auth-box">
-            <img src="/assets/logo.png" alt="KPILY" className="auth-logo" />
-            <h1>Create Account</h1>
-            
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label>Email Address</label>
-                <input 
-                  type="email" 
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="you@example.com"
-                  required
-                />
+    <main className="kp kp-auth kp-signup">
+      <section className="kp-auth__panel">
+        <Logo />
+        {!sent ? (
+          <div className="kp-auth__body kp-signup__body">
+            <h1 className="kp-h1">Register</h1>
+            <form onSubmit={handleSubmit} className="kp-signup__form">
+              <div className="kp-field">
+                <label className="kp-label kp-label--p2" htmlFor="signup-email">Work Email</label>
+                <img className="kp-help" src="/figma/login/icon-help.svg" alt="" title="Use the email address you use at work" />
               </div>
-
-              <div className="form-group">
-                <label>Password</label>
-                <input 
-                  type="password" 
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="••••••••"
-                  required
-                />
+              <div className="kp-field">
+                <img className="kp-input-icon" src="/figma/login/icon-user.svg" alt="" />
+                <input id="signup-email" className="kp-input kp-input--icon" type="email" placeholder="Email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
-
-              <div className="form-group">
-                <label>Confirm Password</label>
-                <input 
-                  type="password" 
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  placeholder="••••••••"
-                  required
-                />
-              </div>
-
-              <label className="checkbox">
-                <input 
-                  type="checkbox"
-                  name="agreeTerms"
-                  checked={formData.agreeTerms}
-                  onChange={handleChange}
-                  required
-                />
-                I agree to Terms & Conditions
-              </label>
-
-              <button type="submit" className="auth-btn">Create Account</button>
+              <button type="submit" className="kp-btn kp-btn--bold kp-signup__submit">Get Code</button>
             </form>
-
-            <div className="divider">OR</div>
-
-            <button className="social-btn google">Sign up with Google</button>
-            <button className="social-btn microsoft">Sign up with Microsoft</button>
-
-            <p className="auth-footer">
-              Already have an account? <Link href='/login'>Log in</Link>
+          </div>
+        ) : (
+          <div className="kp-auth__body kp-sent">
+            <h1 className="kp-h1">Email Link Sent!</h1>
+            <p className="kp-sent__text">Please follow the link sent to your email to verify your account and continue registration! </p>
+            <img className="kp-sent__art" src="/figma/signup/email-sent.png" alt="Email with a check mark" />
+            <p className="kp-sent__again" role="status">
+              Didn’t get an email?{' '}
+              <button type="button" onClick={() => setResent(true)}>{resent ? 'Link sent again' : 'Send link again '}</button>
             </p>
           </div>
-        </div>
-      </div>
-    </div>
+        )}
+      </section>
+      <div className="kp-auth__art"><AuthHero /></div>
+    </main>
   )
+}
+
+export default function RegisterPage() {
+  return <Suspense><SignUp /></Suspense>
 }

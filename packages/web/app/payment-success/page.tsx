@@ -1,46 +1,21 @@
 'use client';
 
-import Link from 'next/link'
-import '@/styles/Auth.css'
+import { useRouter } from 'next/navigation'
+import Logo from '@/components/figma/Logo'
+import SocialLinks from '@/components/figma/SocialLinks'
+import '@/styles/Figma.css'
 
+// Figma: Landing page, Sign up and Login → "Payment success page" (1277:8052)
 export default function PaymentSuccess() {
+  const router = useRouter()
   return (
-    <div className="auth-page">
-      <div className="auth-container">
-        <div className="auth-left">
-          <img src="/assets/success-illustration.png" alt="Payment success" />
-        </div>
-        
-        <div className="auth-right">
-          <div className="auth-box success-box">
-            <div className="success-icon">✓</div>
-            <h1>Payment Successful</h1>
-            <p>Your subscription has been activated. You can now access all features of your plan.</p>
-            
-            <div className="receipt">
-              <h3>Order Confirmation</h3>
-              <div className="receipt-item">
-                <span>Order ID:</span>
-                <span>#KPL-2024-001234</span>
-              </div>
-              <div className="receipt-item">
-                <span>Plan:</span>
-                <span>Professional (Annual)</span>
-              </div>
-              <div className="receipt-item">
-                <span>Amount:</span>
-                <span>$1,069.20</span>
-              </div>
-            </div>
-
-            <Link href='/dashboard' className="auth-btn">Go to Dashboard</Link>
-            
-            <p className="auth-footer">
-              Check your email for a receipt and confirmation
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <main className="kp kp-center kp-center--pay">
+      <Logo className="kp-center__logo" />
+      <h1 className="kp-h1 kp-center__title">Thank you for subscribing!</h1>
+      <p className="kp-center__lead kp-center__lead--tight">Please login to KPILY to onboard your company </p>
+      <img className="kp-center__art" src="/figma/success/jumping.png" alt="Two people jumping with joy" />
+      <SocialLinks />
+      <button type="button" className="kp-btn kp-btn--bold" style={{ width: 204, marginTop: 43 }} onClick={() => router.push('/onboard-company')}>Onboard Company </button>
+    </main>
   )
 }

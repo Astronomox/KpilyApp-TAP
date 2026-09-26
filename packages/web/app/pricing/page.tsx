@@ -1,104 +1,38 @@
 'use client';
 
 import Link from 'next/link'
-import Navigation from '@/components/Navigation'
-import '@/styles/Pages.css'
+import { useState } from 'react'
+import Logo from '@/components/figma/Logo'
+import BillingToggle from '@/components/figma/BillingToggle'
+import { PLANS } from '@/lib/plans'
+import '@/styles/Figma.css'
 
+// Pricing — plans from kpily.netlify.app/pricing, card styling from Figma "Pricing Page" (1238:7963).
 export default function PricingPage() {
-  const plans = [
-    {
-      name: 'Starter',
-      price: '$29',
-      period: '/month',
-      description: 'Perfect for small teams',
-      features: [
-        'Up to 5 users',
-        'Basic analytics',
-        'Real-time collaboration',
-        'Email support'
-      ]
-    },
-    {
-      name: 'Professional',
-      price: '$99',
-      period: '/month',
-      description: 'For growing businesses',
-      features: [
-        'Up to 25 users',
-        'Advanced analytics',
-        'Custom integrations',
-        'Priority support',
-        'API access'
-      ],
-      popular: true
-    },
-    {
-      name: 'Enterprise',
-      price: 'Custom',
-      period: '',
-      description: 'For large organizations',
-      features: [
-        'Unlimited users',
-        'Custom analytics',
-        'Dedicated support',
-        'SSO & security',
-        'On-premise option'
-      ]
-    }
-  ]
+  const [billing, setBilling] = useState('monthly')
 
   return (
-    <div className="pricing-page">
-      <Navigation />
-      
-      <section className="pricing-header">
-        <h1>Flexible Pricing for Every Team</h1>
-        <p>Choose the plan that works best for you</p>
-      </section>
-
-      <section className="pricing-cards">
-        {plans.map((plan, index) => (
-          <div key={index} className={`pricing-card ${plan.popular ? 'popular' : ''}`}>
-            {plan.popular && <div className="popular-badge">Most Popular</div>}
-            <h3>{plan.name}</h3>
-            <div className="price">
-              {plan.price}
-              <span className="period">{plan.period}</span>
-            </div>
-            <p className="description">{plan.description}</p>
-            
-            <ul className="features">
-              {plan.features.map((feature, i) => (
-                <li key={i}>✓ {feature}</li>
-              ))}
+    <main className="kp kp-pricing">
+      <div className="kp-pricing__logo"><Logo /></div>
+      <header className="kp-pricing__head">
+        <h1 className="kp-h1">Choose the Plan</h1>
+        <BillingToggle value={billing} onChange={setBilling} />
+      </header>
+      <div className="kp-pricing__row">
+        {PLANS.map((p) => (
+          <article key={p.id} className="kp-plan">
+            <h2 className="kp-plan__name"><img src={p.icon} alt="" />{p.name}</h2>
+            <h3 className="kp-plan__get">What You’ll Get</h3>
+            <ul className="kp-plan__list">
+              {p.features.map((f) => <li key={f}><img src="/figma/pricing/check-circle.svg" alt="" />{f}</li>)}
             </ul>
-
-            <Link href='/sign-up' className="pricing-btn">Get Started</Link>
-          </div>
+            <div className="kp-plan__foot">
+              <p className="kp-plan__price">{p.price} per month / user</p>
+              <Link href={p.price === '$0' ? '/register' : `/payment-gateway?plan=${p.id}&billing=${billing}`} className="kp-btn kp-plan__start">Start</Link>
+            </div>
+          </article>
         ))}
-      </section>
-
-      <section className="faq">
-        <h2>Frequently Asked Questions</h2>
-        <div className="faq-items">
-          <div className="faq-item">
-            <h4>Can I change plans anytime?</h4>
-            <p>Yes, you can upgrade or downgrade your plan at any time.</p>
-          </div>
-          <div className="faq-item">
-            <h4>Is there a free trial?</h4>
-            <p>Yes, all plans come with a 14-day free trial.</p>
-          </div>
-          <div className="faq-item">
-            <h4>What payment methods do you accept?</h4>
-            <p>We accept all major credit cards and bank transfers.</p>
-          </div>
-        </div>
-      </section>
-
-      <footer className="footer">
-        <p>&copy; 2024, KPILY. All Rights Reserved.</p>
-      </footer>
-    </div>
+      </div>
+    </main>
   )
 }
