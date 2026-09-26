@@ -145,3 +145,15 @@ export const updatePassword = (password: string) =>
 export type Plan = { id: string; planName: string; maxEmployee: number; minEmployee: number; costPerMonth: number; costPerYear: number; details: string }
 
 export const getPlans = () => request<{ plans: Plan[] }>('/v1/get-plans').then((c) => c.plans)
+
+// ---------- App shell ----------
+
+export type Notification = { id: string; owner: string; transDate: number; message: string; orgID: string; read: boolean; action: number; actionID: string | null }
+export const getNotifications = () => request<{ notifications: Notification[] }>('/v1/get-notification', { auth: true }).then((c) => c.notifications || [])
+
+export type Member = { id: string; fullname: string; email: string; team: string | null; point: number; privilege: number; designation: string | null; status: number; profilePicture: string | null; externalID?: string }
+/** Members of a team; '-' = the whole organisation. */
+export const getMembers = (team = '-') => request<{ users: Member[] }>(`/v1/get-member/${team}`, { auth: true }).then((c) => c.users || [])
+
+export type LoginSession = { id: string; username: string; dateCreated: number; ip: string; useragent: string; active: boolean }
+export const getActiveSessions = () => request<{ logins: LoginSession[] }>('/v1/get-active-session', { auth: true }).then((c) => c.logins || [])
