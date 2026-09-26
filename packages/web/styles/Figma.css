@@ -449,3 +449,5 @@ select.kp-m-input { background: #fff url('/figma/register/caret.svg') no-repeat 
 .kp-m-social a { width: 44px; height: 44px; border: 1px solid #064f34; border-radius: 50%; display: grid; place-items: center; }
 .kp-m-social img { width: 22px; height: 22px; }
 .kp-m-center-btn { width: auto; min-width: 140px; padding: 0 32px; margin: 0 auto; }
+.kp-m--center-page { display: flex; align-items: center; justify-content: center; padding: 24px 0; }
+.kp-m--center-page .kp-m__page { min-height: auto; border-radius: 24px; }
