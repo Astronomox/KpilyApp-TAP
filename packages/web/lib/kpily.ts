@@ -221,3 +221,16 @@ export function reviewTask(taskID: string, message: string) {
   form.append('message', message)
   return request<unknown>('/v1/org/review-task', { method: 'PUT', form, auth: true })
 }
+
+// ---------- Calendar ----------
+
+export type Person = { id: string; fullname: string | null; username: string }
+export type CalEvent = {
+  id: string; name: string; details: string; time: number; endTime?: number; organizer?: Person; attendees: Person[]
+  phyicalLocation: string | null; onlineLocation: string | null
+}
+export type EventInput = { name: string; details: string; time: number; endTime?: number; attendees: Person[]; phyicalLocation?: string; onlineLocation?: string }
+
+export const getEvents = () => request<CalEvent[]>('/v1/org/get-event/-', { auth: true }).then((c) => c || [])
+export const createEvent = (e: EventInput) => request<unknown>('/v1/org/create-event', { method: 'POST', data: e, auth: true })
+export const updateEvent = (id: string, e: EventInput) => request<unknown>('/v1/org/update-event', { method: 'PUT', data: { ...e, id }, auth: true })
