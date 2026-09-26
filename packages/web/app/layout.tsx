@@ -5,6 +5,7 @@ import '../styles/globals.css'
 export const metadata: Metadata = {
   title: 'KPILY - Performance Management',
   description: 'Track KPIs, manage tasks, and celebrate team achievements.',
+  icons: { icon: '/favicon.svg' },
 }
 
 export default function RootLayout({
