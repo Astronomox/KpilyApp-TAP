@@ -26,21 +26,21 @@ function Drawer({ open, onClose, nav, profile, lastLogin }: { open: boolean; onC
   useEffect(() => { if (open) panel.current?.focus() }, [open])
 
   return (
-    <div className={`kp-drawer ${open ? 'is-open' : ''}`} aria-hidden={!open}>
-      <div className="kp-drawer__scrim" onClick={onClose} />
-      <div ref={panel} className="kp-drawer__panel" role="dialog" aria-modal="true" aria-label="Main menu" tabIndex={-1}
+    <div className={`ka-drawer ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+      <div className="ka-drawer__scrim" onClick={onClose} />
+      <div ref={panel} className="ka-drawer__panel" role="dialog" aria-modal="true" aria-label="Main menu" tabIndex={-1}
         onKeyDown={(e) => e.key === 'Escape' && onClose()}>
-        <div className="kp-drawer__head">
+        <div className="ka-drawer__head">
           <Link href="/dashboard/account-overview" onClick={onClose} aria-label="KPILY home"><img src="/assets/logo-full.png" alt="KPILY Performance Management" width={148} /></Link>
-          <button type="button" className="kp-iconbtn" aria-label="Close menu" onClick={onClose}><Icon name="chevron" /></button>
+          <button type="button" className="ka-iconbtn" aria-label="Close menu" onClick={onClose}><Icon name="chevron" /></button>
         </div>
-        <div className="kp-drawer__profile">
+        <div className="ka-drawer__profile">
           <Avatar name={profile?.fullname} size={160} />
           <strong>{profile?.fullname}</strong>
           <span>{roleLabel(profile?.privilege)}</span>
           <small>Last login: {fmtLogin(lastLogin)}</small>
         </div>
-        <nav className="kp-drawer__nav" aria-label="Main">
+        <nav className="ka-drawer__nav" aria-label="Main">
           {nav.map((item) => {
             const hasKids = !!item.children?.length
             const active = pathname.startsWith(item.path)
@@ -48,18 +48,18 @@ function Drawer({ open, onClose, nav, profile, lastLogin }: { open: boolean; onC
             return (
               <div key={item.path}>
                 {hasKids ? (
-                  <button type="button" className={`kp-nav ${active ? 'is-active' : ''}`} aria-expanded={isOpen} onClick={() => setExpanded(isOpen ? null : item.path)}>
-                    <Icon name={item.icon} gradient /><span>{item.title}</span><Icon name="caret" size={14} className={`kp-nav__caret ${isOpen ? 'is-open' : ''}`} />
+                  <button type="button" className={`ka-nav ${active ? 'is-active' : ''}`} aria-expanded={isOpen} onClick={() => setExpanded(isOpen ? null : item.path)}>
+                    <Icon name={item.icon} gradient /><span>{item.title}</span><Icon name="caret" size={14} className={`ka-nav__caret ${isOpen ? 'is-open' : ''}`} />
                   </button>
                 ) : (
-                  <Link href={item.path} className={`kp-nav ${active ? 'is-active' : ''}`} aria-current={active ? 'page' : undefined} onClick={onClose}>
+                  <Link href={item.path} className={`ka-nav ${active ? 'is-active' : ''}`} aria-current={active ? 'page' : undefined} onClick={onClose}>
                     <Icon name={item.icon} gradient /><span>{item.title}</span>
                   </Link>
                 )}
                 {hasKids && isOpen && (
-                  <div className="kp-nav__children">
+                  <div className="ka-nav__children">
                     {item.children!.map((c) => (
-                      <Link key={c.path} href={c.path} className={`kp-nav kp-nav--child ${pathname === c.path ? 'is-active' : ''}`} aria-current={pathname === c.path ? 'page' : undefined} onClick={onClose}>{c.title}</Link>
+                      <Link key={c.path} href={c.path} className={`ka-nav ka-nav--child ${pathname === c.path ? 'is-active' : ''}`} aria-current={pathname === c.path ? 'page' : undefined} onClick={onClose}>{c.title}</Link>
                     ))}
                   </div>
                 )}
@@ -108,19 +108,19 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   if (!ready || leaving) return <PageLoader label={leaving ? 'Logging out' : 'Loading'} />
 
   return (
-    <div className="kp-app">
-      <header className="kp-topbar">
-        <button type="button" className="kp-iconbtn kp-iconbtn--light" aria-label="Open menu" aria-expanded={menu} onClick={() => setMenu(true)}><Icon name="menu" size={26} /></button>
-        <Link href="/dashboard/account-overview" className="kp-topbar__logo" aria-label="KPILY home"><img src="/site/logo-white.svg" alt="KPILY Performance Management" /></Link>
-        <button type="button" className="kp-search" onClick={() => setPalette(true)}>
-          <Icon name="search" size={24} className="kp-search__icon" />
+    <div className="ka-app">
+      <header className="ka-topbar">
+        <button type="button" className="ka-iconbtn ka-iconbtn--light" aria-label="Open menu" aria-expanded={menu} onClick={() => setMenu(true)}><Icon name="menu" size={26} /></button>
+        <Link href="/dashboard/account-overview" className="ka-topbar__logo" aria-label="KPILY home"><img src="/site/logo-white.svg" alt="KPILY Performance Management" /></Link>
+        <button type="button" className="ka-search" onClick={() => setPalette(true)}>
+          <Icon name="search" size={24} className="ka-search__icon" />
           <span>Search for team members, tasks, rewards, etc.</span>
           <kbd>⌘ K</kbd>
         </button>
-        <div className="kp-cog" ref={cogRef}>
-          <button type="button" className={`kp-iconbtn kp-iconbtn--light ${cog ? 'is-on' : ''}`} aria-label="Account menu" aria-haspopup="menu" aria-expanded={cog} onClick={() => setCog(!cog)}><Icon name="cog" size={24} /></button>
+        <div className="ka-cog" ref={cogRef}>
+          <button type="button" className={`ka-iconbtn ka-iconbtn--light ${cog ? 'is-on' : ''}`} aria-label="Account menu" aria-haspopup="menu" aria-expanded={cog} onClick={() => setCog(!cog)}><Icon name="cog" size={24} /></button>
           {cog && (
-            <div className="kp-cog__menu" role="menu">
+            <div className="ka-cog__menu" role="menu">
               <Link role="menuitem" href="/dashboard/settings" onClick={() => setCog(false)}><Icon name="cog" size={16} />Settings</Link>
               <button role="menuitem" type="button" onClick={signOut}><Icon name="logout" size={16} />Logout</button>
             </div>
@@ -131,7 +131,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <Drawer open={menu} onClose={() => setMenu(false)} nav={nav} profile={profile} lastLogin={lastLogin} />
       <CommandPalette open={palette} onClose={() => setPalette(false)} nav={nav} />
 
-      <main className="kp-app__main">{children}</main>
+      <main className="ka-app__main">{children}</main>
       <FeedRail />
     </div>
   )

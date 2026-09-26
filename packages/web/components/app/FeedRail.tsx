@@ -25,14 +25,14 @@ export default function FeedRail() {
   }, [])
 
   return (
-    <aside className="kp-rail" aria-label="Feed and team">
+    <aside className="ka-rail" aria-label="Feed and team">
       <section>
         <h2>Feed</h2>
-        {feed === null ? <p className="kp-rail__muted">Loading…</p> : !feed.length ? <p className="kp-rail__muted">No activity yet.</p> : (
-          <ul className="kp-feed">
+        {feed === null ? <p className="ka-rail__muted">Loading…</p> : !feed.length ? <p className="ka-rail__muted">No activity yet.</p> : (
+          <ul className="ka-feed">
             {feed.slice(0, 8).map((n) => (
               <li key={n.id} className={n.read ? '' : 'is-unread'}>
-                <span className="kp-feed__icon"><Icon name="user" size={18} /></span>
+                <span className="ka-feed__icon"><Icon name="user" size={18} /></span>
                 <div><p>{n.message}</p><small>{ago(n.transDate)}</small></div>
               </li>
             ))}
@@ -40,9 +40,9 @@ export default function FeedRail() {
         )}
       </section>
       <section>
-        <div className="kp-rail__head"><h2>Your Team</h2><Link href="/dashboard/team">See all</Link></div>
-        {team === null ? <p className="kp-rail__muted">Loading…</p> : !team.length ? <p className="kp-rail__muted">No team members yet.</p> : (
-          <ul className="kp-team">
+        <div className="ka-rail__head"><h2>Your Team</h2><Link href="/dashboard/team">See all</Link></div>
+        {team === null ? <p className="ka-rail__muted">Loading…</p> : !team.length ? <p className="ka-rail__muted">No team members yet.</p> : (
+          <ul className="ka-team">
             {team.slice(0, 8).map((m) => (
               <li key={m.id}><Avatar name={m.fullname} src={m.profilePicture} size={40} /><span>{m.fullname}</span></li>
             ))}

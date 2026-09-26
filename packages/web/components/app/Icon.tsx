@@ -23,7 +23,7 @@ const paths: Record<IconName | 'search' | 'cog' | 'logout' | 'menu' | 'chevron' 
 }
 
 export default function Icon({ name, size = 22, gradient = false, className = '' }: { name: keyof typeof paths; size?: number; gradient?: boolean; className?: string }) {
-  const id = `kp-grad-${name}`
+  const id = `ka-grad-${name}`
   const fill = name === 'caret'
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill={fill ? 'currentColor' : 'none'} stroke={fill ? 'none' : gradient ? `url(#${id})` : 'currentColor'} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

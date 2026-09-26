@@ -7,7 +7,7 @@ export default async function Pending({ params }: { params: Promise<{ slug: stri
   const page = [...NAV, ...flatNav(NAV)].find((i) => i.path === path)
   if (!page) notFound()
   return (
-    <section className="kp-page">
+    <section className="ka-page">
       <h1>{page.title}</h1>
       <p>This page is coming soon.</p>
     </section>

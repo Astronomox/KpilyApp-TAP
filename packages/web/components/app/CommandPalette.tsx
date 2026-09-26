@@ -36,23 +36,23 @@ export default function CommandPalette({ open, onClose, nav }: { open: boolean; 
   }
 
   return (
-    <div className="kp-palette" onMouseDown={close}>
-      <div className="kp-palette__box" role="dialog" aria-modal="true" aria-label="Search" onMouseDown={(e) => e.stopPropagation()} onKeyDown={onKey}>
-        <div className="kp-palette__field">
+    <div className="ka-palette" onMouseDown={close}>
+      <div className="ka-palette__box" role="dialog" aria-modal="true" aria-label="Search" onMouseDown={(e) => e.stopPropagation()} onKeyDown={onKey}>
+        <div className="ka-palette__field">
           <Icon name="search" size={20} />
           <input ref={input} value={query} placeholder="Type a command or search..." aria-label="Type a command or search"
-            role="combobox" aria-expanded="true" aria-controls="kp-palette-list" aria-activedescendant={hits[index] ? `kp-hit-${index}` : undefined}
+            role="combobox" aria-expanded="true" aria-controls="ka-palette-list" aria-activedescendant={hits[index] ? `ka-hit-${index}` : undefined}
             onChange={(e) => { setQuery(e.target.value); setIndex(0) }} />
         </div>
-        <div className="kp-palette__group">Links</div>
-        <ul id="kp-palette-list" role="listbox" className="kp-palette__list">
+        <div className="ka-palette__group">Links</div>
+        <ul id="ka-palette-list" role="listbox" className="ka-palette__list">
           {hits.map((h, i) => (
-            <li key={h.path} id={`kp-hit-${i}`} role="option" aria-selected={i === index} className={i === index ? 'is-active' : ''}
+            <li key={h.path} id={`ka-hit-${i}`} role="option" aria-selected={i === index} className={i === index ? 'is-active' : ''}
               onMouseEnter={() => setIndex(i)} onClick={() => go(h)}>
               <Icon name={h.icon} size={18} gradient />{h.title}
             </li>
           ))}
-          {!hits.length && <li className="kp-palette__empty">No results found.</li>}
+          {!hits.length && <li className="ka-palette__empty">No results found.</li>}
         </ul>
       </div>
     </div>
