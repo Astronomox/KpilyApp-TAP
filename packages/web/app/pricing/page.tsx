@@ -4,12 +4,14 @@ import Link from 'next/link'
 import { useState } from 'react'
 import Logo from '@/components/figma/Logo'
 import BillingToggle from '@/components/figma/BillingToggle'
-import { PLANS } from '@/lib/plans'
+import { priceLabel } from '@/lib/plans'
+import { usePlans } from '@/lib/usePlans'
 import '@/styles/Figma.css'
 
 // Pricing — plans from kpily.netlify.app/pricing, card styling from Figma "Pricing Page" (1238:7963).
 export default function PricingPage() {
   const [billing, setBilling] = useState('monthly')
+  const plans = usePlans()
 
   return (
     <main className="kp kp-pricing">
@@ -19,7 +21,7 @@ export default function PricingPage() {
         <BillingToggle value={billing} onChange={setBilling} />
       </header>
       <div className="kp-pricing__row">
-        {PLANS.map((p) => (
+        {plans.map((p) => (
           <article key={p.id} className="kp-plan">
             <h2 className="kp-plan__name"><img src={p.icon} alt="" />{p.name}</h2>
             <h3 className="kp-plan__get">What You’ll Get</h3>
@@ -27,8 +29,8 @@ export default function PricingPage() {
               {p.features.map((f) => <li key={f}><img src="/figma/pricing/check-circle.svg" alt="" />{f}</li>)}
             </ul>
             <div className="kp-plan__foot">
-              <p className="kp-plan__price">{p.price} per month / user</p>
-              <Link href={p.price === '$0' ? '/register' : `/payment-gateway?plan=${p.id}&billing=${billing}`} className="kp-btn kp-plan__start">Start</Link>
+              <p className="kp-plan__price">{priceLabel(p, billing)} / user</p>
+              <Link href={p.costPerMonth === 0 ? '/register' : `/payment-gateway?plan=${p.id}&billing=${billing}`} className="kp-btn kp-plan__start">Start</Link>
             </div>
           </article>
         ))}

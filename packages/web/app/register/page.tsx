@@ -6,6 +6,8 @@ import { Suspense, useState } from 'react'
 import Artboard from '@/components/figma/Artboard'
 import MobileAuth from '@/components/figma/MobileAuth'
 import FigHero from '@/components/figma/FigHero'
+import PageLoader from '@/components/figma/PageLoader'
+import { requestVerification } from '@/lib/kpily'
 import { at, pop } from '@/lib/fig'
 import '@/styles/Figma.css'
 
@@ -17,40 +19,62 @@ function SignUp() {
   const [email, setEmail] = useState(useSearchParams().get('email') || '')
   const [sent, setSent] = useState(false)
   const [resent, setResent] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
+
+  // POST /v1/mail-verify — emails a verification link to a work address.
+  async function send(e?: React.FormEvent) {
+    e?.preventDefault()
+    if (!email || busy) return
+    setBusy(true); setError('')
+    try {
+      await requestVerification(email)
+      if (sent) setResent(true)
+      setSent(true)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setBusy(false)
+    }
+  }
 
   const mobile = !sent ? (
     <MobileAuth title="Register" footer={<><p>Already have an account?</p><Link href="/login">Log in</Link></>}>
-      <form className="kp-m-form" onSubmit={(e) => { e.preventDefault(); if (email) setSent(true) }}>
+      <form className="kp-m-form" onSubmit={send}>
         <div className="kp-m-field">
           <label className="kp-m-label" htmlFor="m-register-email">Work Email <img src="/figma/login/icon-help.svg" alt="" title="Use the email address you use at work" /></label>
           <input id="m-register-email" className="kp-m-input kp-m-input--icon" type="email" placeholder="Email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
           <img className="kp-m-icon" src="/figma/login/icon-user.svg" alt="" />
         </div>
-        <button type="submit" className="kp-m-btn">Send Link</button>
+        {error && <p role="alert" className="kp-m-error">{error}</p>}
+        <button type="submit" className="kp-m-btn" disabled={busy}>{busy ? 'Sending…' : 'Send Link'}</button>
       </form>
     </MobileAuth>
   ) : (
     <MobileAuth title="Email Link Sent!" art="/figma/signup/email-sent.png" align="center"
       lead="Please follow the link sent to your email to verify your account and continue registration! "
-      footer={<p role="status" style={{ color: '#000', fontSize: 14 }}>{resent ? 'We sent the link again. ' : 'Didn’t get an email? '}<button type="button" className="kp-fx-link" onClick={() => setResent(true)} style={{ fontWeight: 600, color: '#106190' }}>Send link again </button></p>}>
+      footer={<p role="status" style={{ color: '#000', fontSize: 14 }}>{error ? `${error} ` : resent ? 'We sent the link again. ' : 'Didn’t get an email? '}<button type="button" className="kp-fx-link" onClick={() => send()} style={{ fontWeight: 600, color: '#106190' }}>Send link again </button></p>}>
       <span />
     </MobileAuth>
   )
 
   return (
+    <>
+    {busy && <PageLoader label="Sending link" />}
     <Artboard mobile={mobile}>
       <div style={at(56, 74, 590, 1016, { background: '#fff', boxShadow: '40px 0 40px rgba(0,0,0,.02)' })} />
       <Link href="/" aria-label="KPILY home" style={at(84, 76)}><img src="/assets/logo-full.png" alt="KPILY Performance Management" style={{ width: 184 }} /></Link>
 
       {!sent ? (
-        <form onSubmit={(e) => { e.preventDefault(); if (email) setSent(true) }}>
+        <form onSubmit={send}>
           <h1 style={at(173, 401, 389, 167, pop(600, 48, 56))}>Register</h1>
           <label htmlFor="register-email" style={at(173, 478, 344, 33, pop(400, 14, 20, '#333'))}>Work Email</label>
           <img src="/figma/login/icon-help.svg" alt="" title="Use the email address you use at work" style={at(456, 479, 16, 16)} />
           <input id="register-email" className="kp-fx-input" type="email" placeholder="Email" autoComplete="email" required
             value={email} onChange={(e) => setEmail(e.target.value)} style={at(173, 503, 299.128, 48, { paddingLeft: 39, paddingTop: 6 })} />
           <img src="/figma/login/icon-user.svg" alt="" style={at(181, 517, 16, 16, { opacity: 0.2, pointerEvents: 'none' })} />
-          <button type="submit" className="kp-fx-btn kp-fx-btn--bold" style={at(165, 582, 257)}>Send Link</button>
+          {error && <p role="alert" style={at(173, 555, 300, undefined, pop(400, 11, 16, '#b65a50'))}>{error}</p>}
+          <button type="submit" className="kp-fx-btn kp-fx-btn--bold" disabled={busy} style={at(165, 582, 257)}>{busy ? 'Sending…' : 'Send Link'}</button>
         </form>
       ) : (
         <div>
@@ -58,14 +82,15 @@ function SignUp() {
           <p style={at(137, 408, 371, undefined, pop(500, 16, 24, '#000', { textAlign: 'center' }))}>Please follow the link sent to your email to verify your account and continue registration! </p>
           <img src="/figma/signup/email-sent.png" alt="Envelope with a check mark" style={at(157, 496, 370, 331, { objectFit: 'cover' })} />
           <p role="status" style={at(0, 947, 646, 24, pop(400, 16, 'normal', '#000', { textAlign: 'center' }))}>
-            {resent ? 'We sent the link again. ' : 'Didn’t get an email? '}
-            <button type="button" className="kp-fx-link" onClick={() => setResent(true)} style={{ fontWeight: 600, color: '#106190' }}>Send link again </button>
+            {error ? `${error} ` : resent ? 'We sent the link again. ' : 'Didn’t get an email? '}
+            <button type="button" className="kp-fx-link" onClick={() => send()} style={{ fontWeight: 600, color: '#106190' }}>Send link again </button>
           </p>
         </div>
       )}
 
       <FigHero green={[646, -57]} photo={[646, -270, 737, 1704]} points={[867, 726]} received={[1015, 785]} />
     </Artboard>
+    </>
   )
 }
 

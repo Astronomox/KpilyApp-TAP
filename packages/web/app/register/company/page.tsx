@@ -1,29 +1,57 @@
 'use client';
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import Artboard from '@/components/figma/Artboard'
 import MobileAuth from '@/components/figma/MobileAuth'
 import FigHero from '@/components/figma/FigHero'
+import PageLoader from '@/components/figma/PageLoader'
+import { onboard, verifyInvitation, type Invitation } from '@/lib/kpily'
 import { at, pop } from '@/lib/fig'
 import '@/styles/Figma.css'
 
 const RANGES: [string, number][] = [['0<20', 103], ['20<50', 179.97], ['50<100', 256.94], ['>100', 333.9]]
+// Employee-count options → the API's "min-max" employeeBand.
+const BANDS: Record<string, string> = { '0<20': '0-20', '20<50': '20-50', '50<100': '50-100', '>100': '100-1000' }
 const INDUSTRIES = ['Technology', 'Finance', 'Healthcare', 'Education', 'Retail', 'Manufacturing', 'Other']
 const label = pop(500, 12, 'normal', '#333', { letterSpacing: 0.5 })
 const note = pop(400, 10, 'normal', '#000', { letterSpacing: 0.25, whiteSpace: 'nowrap' })
 
 // Figma: Landing page, Sign up and Login → "Register" / Company Info (1074:16717), 1440×1018.
-export default function CompanyInfo() {
+function CompanyInfo() {
   const router = useRouter()
+  const code = useSearchParams().get('code') || ''
+  const [invite, setInvite] = useState<Invitation | null>(null)
+  const [logoFile, setLogoFile] = useState<File | null>(null)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
   const file = useRef<HTMLInputElement>(null)
   const [f, setF] = useState({
     firstName: '', lastName: '', company: '', email: '', employees: '50<100', code: '', phone: '',
-    industry: '', logo: '', country: '', state: '', password: '', confirm: '', agree: false,
+    industry: '', logo: '', country: '', state: '', password: '', confirm: '', agree: false, gender: '',
   })
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setF((s) => ({ ...s, [k]: e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value }))
+
+  // The emailed link (/verify-email/{code}) lands here with ?code=…: load the
+  // invitation to prefill and lock the email.
+  useEffect(() => {
+    if (!code) return
+    let live = true
+    const apply = (inv: Invitation) => {
+      if (!live) return
+      setInvite(inv)
+      const [first = '', ...rest] = (inv.fullname || '').split(' ')
+      setF((x) => ({ ...x, email: inv.email, firstName: x.firstName || first, lastName: x.lastName || rest.join(' ') }))
+    }
+    try {
+      const cached = JSON.parse(sessionStorage.getItem('kpily.invite') || 'null') as Invitation | null
+      if (cached?.hash === code) { apply(cached); return () => { live = false } }
+    } catch { /* ignore */ }
+    verifyInvitation(code).then(apply).catch((err) => live && setError(err.message))
+    return () => { live = false }
+  }, [code])
 
   const rules = [
     { ok: f.password.length >= 8, text: 'At least 8 characters. ', top: 836 },
@@ -31,7 +59,7 @@ export default function CompanyInfo() {
     { ok: /[A-Z]/.test(f.password), text: 'One uppercase.', top: 868 },
   ]
   const matches = f.password.length > 0 && f.password === f.confirm
-  const valid = rules.every((r) => r.ok) && matches && f.agree
+  const valid = rules.every((r) => r.ok) && matches && f.agree && !!f.gender
 
   const markAt = (ok: boolean, left: number, top: number) => ok
     ? <img src="/figma/register/check-small.svg" alt="met" style={at(left - 13, top - 2, 17, 17)} />
@@ -42,7 +70,28 @@ export default function CompanyInfo() {
       style={at(left, top, 300, 48, { paddingLeft: pad })} {...extra} />
   )
 
-  const submit = (e: React.FormEvent) => { e.preventDefault(); if (valid) router.push('/success-register') }
+    async function submit(e: React.FormEvent) {
+    e.preventDefault()
+    setError('')
+    if (!code) { setError('Open the verification link we emailed you to finish registering.'); return }
+    if (!f.gender) { setError('Please select your gender.'); return }
+    if (!valid) { setError('Please meet the password rules and accept the terms and conditions.'); return }
+    setBusy(true)
+    try {
+      await onboard({
+        verification: code, email: f.email, firstName: f.firstName, lastName: f.lastName, gender: f.gender,
+        phone: `${f.code}${f.phone}`.trim(), password: f.password,
+        ...(invite?.isNew === false ? {} : {
+          companyName: f.company, employeeBand: BANDS[f.employees], industry: f.industry, country: f.country, state: f.state, logo: logoFile,
+        }),
+      })
+      try { sessionStorage.removeItem('kpily.invite') } catch { /* ignore */ }
+      router.push('/success-register')
+    } catch (err) {
+      setError(err.message)
+      setBusy(false)
+    }
+  }
   const mInput = (id: keyof typeof f, lbl: string, extra: React.InputHTMLAttributes<HTMLInputElement> = {}, help?: string) => (
     <div className="kp-m-field">
       <label className="kp-m-label" htmlFor={`m-rg-${id}`}>{lbl}{help && <img src="/figma/register/icon-help.svg" alt="" title={help} />}</label>
@@ -55,8 +104,12 @@ export default function CompanyInfo() {
       <form className="kp-m-form" onSubmit={submit}>
         {mInput('firstName', 'First name', { placeholder: 'John', required: true })}
         {mInput('lastName', 'Last name', { placeholder: 'Smith', required: true })}
+        <div className="kp-m-field">
+          <label className="kp-m-label" htmlFor="m-rg-gender">Gender</label>
+          <select id="m-rg-gender" className="kp-m-input" required value={f.gender} onChange={set('gender')}><option value="" disabled>Select</option><option>Male</option><option>Female</option></select>
+        </div>
         {mInput('company', 'Company', { placeholder: 'KPILY', required: true })}
-        {mInput('email', 'Work email', { placeholder: 'john@kpily.com', type: 'email', required: true })}
+        {mInput('email', 'Work email', { placeholder: 'john@kpily.com', type: 'email', required: true, readOnly: !!invite })}
         <p className="kp-m-section">Company details</p>
         <div className="kp-m-field">
           <span className="kp-m-label">Number of employees</span>
@@ -98,12 +151,15 @@ export default function CompanyInfo() {
           <input type="checkbox" className="kp-fx-check" checked={f.agree} onChange={set('agree')} />
           <span>I agree with <Link href="/about" style={{ color: '#18684b' }}>terms and conditions</Link>.</span>
         </label>
-        <button type="submit" className="kp-m-btn">Register</button>
+        {error && <p role="alert" className="kp-m-error">{error}</p>}
+        <button type="submit" className="kp-m-btn" disabled={busy}>{busy ? 'Registering…' : 'Register'}</button>
       </form>
     </MobileAuth>
   )
 
   return (
+    <>
+    {busy && <PageLoader label="Creating your account" />}
     <Artboard mobile={mobile}>
       <img src="/figma/login/green-panel.svg" alt="" style={at(912, -78, 456, 1121)} />
       <div style={at(-18, -20, 844, 1521, { background: '#fff', boxShadow: '40px 0 40px rgba(0,0,0,.02)' })} />
@@ -122,7 +178,7 @@ export default function CompanyInfo() {
         <label htmlFor="rg-company" style={at(103, 397, 236, 25, label)}>Company</label>
         {input('company', 103, 422, { placeholder: 'KPILY', required: true })}
         <label htmlFor="rg-email" style={at(444, 397, 236, 25, label)}>Work email</label>
-        {input('email', 444, 422, { placeholder: 'john@kpily.com', type: 'email', required: true })}
+        {input('email', 444, 422, { placeholder: 'john@kpily.com', type: 'email', required: true, readOnly: !!invite })}
 
         <img src="/figma/register/dashed-line.svg" alt="" style={at(95, 483, 645, 1)} />
         <p style={at(103, 492, 236, 25, label)}>Number of employees</p>
@@ -158,7 +214,7 @@ export default function CompanyInfo() {
         <label htmlFor="rg-logo" style={at(444, 580, 236, 25, label)}>{'Company Logo (Optional) '}</label>
         <input id="rg-logo" readOnly className="kp-fx-input" value={f.logo} onClick={() => file.current?.click()} style={at(444, 605, 300, 48, { paddingLeft: 16, paddingRight: 100, cursor: 'pointer' })} />
         <button type="button" onClick={() => file.current?.click()} style={at(649, 614, 86, 31, { background: '#d9d9d9', border: 0, cursor: 'pointer', padding: '3px 0 0 19px', textAlign: 'left', ...pop(400, 14, 20, '#6f6f6f') })}>Upload</button>
-        <input ref={file} type="file" accept="image/*" hidden onChange={(e) => setF((s) => ({ ...s, logo: e.target.files?.[0]?.name || '' }))} />
+        <input ref={file} type="file" accept="image/*" hidden onChange={(e) => { const file = e.target.files?.[0] || null; setLogoFile(file); setF((s) => ({ ...s, logo: file?.name || '' })) }} />
 
         <label htmlFor="rg-country" style={at(104, 668, 236, 25, label)}>{'Country '}</label>
         {input('country', 104, 693)}
@@ -186,11 +242,23 @@ export default function CompanyInfo() {
         <p style={at(328, 899, undefined, 18, pop(500, 12, 'normal', '#404040', { letterSpacing: 0.5, whiteSpace: 'nowrap' }))}>
           {'I agree with '}<Link href="/about" style={{ color: '#18684b' }}>terms and conditions</Link>.
         </p>
-        <button type="submit" className="kp-fx-btn kp-fx-btn--bold" style={at(290, 928, 268)}>Register</button>
+        {/* Gender is required by /v1/org/onboard but has no slot in the Figma frame. */}
+        <select aria-label="Gender" required value={f.gender} onChange={set('gender')} className="kp-fx-input"
+          style={at(101, 932, 150, 40, { appearance: 'none', paddingLeft: 14, cursor: 'pointer', color: f.gender ? '#000' : 'rgba(0,0,0,.4)', borderRadius: 100 })}>
+          <option value="" disabled>Gender</option><option>Male</option><option>Female</option>
+        </select>
+        <img src="/figma/register/caret.svg" alt="" style={at(229, 949, 8, 6, { pointerEvents: 'none' })} />
+        {error && <p role="alert" style={at(570, 930, 176, 44, pop(400, 11, 14, '#b65a50', { display: 'flex', alignItems: 'center' }))}>{error}</p>}
+        <button type="submit" className="kp-fx-btn kp-fx-btn--bold" disabled={busy} style={at(290, 928, 268)}>{busy ? 'Registering…' : 'Register'}</button>
       </form>
 
       <img src="/figma/login/hero.png" alt="" aria-hidden="true" style={at(826, -27, 658, 1361, { objectFit: 'cover' })} />
       <FigHero points={[982, 726]} received={[1130, 793]} solid />
     </Artboard>
+    </>
   )
+}
+
+export default function CompanyInfoPage() {
+  return <Suspense><CompanyInfo /></Suspense>
 }
