@@ -76,7 +76,7 @@ export interface Comment {
   [key: string]: any
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_KPILY_API_BASE || 'https://kpily-api.azurewebsites.net'
+const API_BASE = process.env.NEXT_PUBLIC_KPILY_API_BASE || 'https://kpapis-cac9fhczeadxbvhm.uksouth-01.azurewebsites.net'
 const MODE = process.env.NEXT_PUBLIC_KPILY_API_MODE || 'mock'
 
 export const isMockMode = MODE !== 'real'
