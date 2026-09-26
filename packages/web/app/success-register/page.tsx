@@ -1,30 +1,27 @@
 'use client';
 
-import Link from 'next/link'
-import '@/styles/Auth.css'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import Logo from '@/components/figma/Logo'
+import SocialLinks from '@/components/figma/SocialLinks'
+import '@/styles/Figma.css'
 
+// Figma: Landing page, Sign up and Login → "Success register" (1074:17071)
 export default function SuccessRegister() {
+  const router = useRouter()
+  const [resent, setResent] = useState(false)
+
   return (
-    <div className="auth-page">
-      <div className="auth-container">
-        <div className="auth-left">
-          <img src="/assets/success-illustration.png" alt="Success" />
-        </div>
-        
-        <div className="auth-right">
-          <div className="auth-box success-box">
-            <div className="success-icon">✓</div>
-            <h1>Account Created!</h1>
-            <p>Your account has been successfully created. You can now log in and start using KPILY.</p>
-            
-            <Link href='/login' className="auth-btn">Go to Login</Link>
-            
-            <p className="auth-footer">
-              Return to <Link href='/'>Home</Link>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <main className="kp kp-center">
+      <Logo className="kp-center__logo" />
+      <h1 className="kp-h1 kp-center__title">Thank you for signing up!</h1>
+      <p className="kp-center__lead">An activation email was just sent to your inbox to get started.<br />Set up only takes a few minutes!</p>
+      <img className="kp-center__art" src="/figma/success/jumping.png" alt="Two people jumping with joy" />
+      <SocialLinks />
+      <button type="button" className="kp-btn kp-btn--bold kp-center__btn" style={{ width: 115, marginTop: 43 }} onClick={() => router.push('/login')}>Close</button>
+      <p className="kp-center__note" role="status">
+        {resent ? 'Activation email sent again.' : <>If you do not receive the email, please <button type="button" onClick={() => setResent(true)}>click here</button> to resend.</>}
+      </p>
+    </main>
   )
 }

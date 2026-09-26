@@ -1,135 +1,55 @@
 'use client';
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import Navigation from '@/components/Navigation'
-import '@/styles/Auth.css'
+import Logo from '@/components/figma/Logo'
+import AuthHero from '@/components/figma/AuthHero'
+import '@/styles/Figma.css'
 
+// Figma: Landing page, Sign up and Login →
+//   "Sign Up" (1467:27926)  – Register with work email, "Send Link"
+//   "Sign Up" (1467:28077)  – "Email Link Sent!" confirmation
 export default function SignUp() {
-  const router = useRouter()
-  const [step, setStep] = useState(1)
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    companyName: '',
-    password: '',
-    confirmPassword: ''
-  })
+  const [email, setEmail] = useState('')
+  const [sent, setSent] = useState(false)
+  const [resent, setResent] = useState(false)
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-  }
-
-  const handleStepOne = (e) => {
-    e.preventDefault()
-    if (formData.email && formData.fullName) {
-      setStep(2)
-    }
-  }
-
-  const handleStepTwo = (e) => {
-    e.preventDefault()
-    if (formData.password === formData.confirmPassword) {
-      console.log('Sign up:', formData)
-      router.push('/register-success')
-    }
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (email) setSent(true)
   }
 
   return (
-    <div className="signup-page">
-      <Navigation />
-      
-      <div className="signup-container">
-        <h1>Create Your KPILY Account</h1>
-        
-        <div className="step-indicator">
-          <div className={`step ${step >= 1 ? 'active' : ''}`}>1</div>
-          <div className={`step ${step >= 2 ? 'active' : ''}`}>2</div>
-        </div>
-
-        <form className="signup-form">
-          {step === 1 ? (
-            <>
-              <div className="form-group">
-                <label>Full Name</label>
-                <input 
-                  type="text" 
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  placeholder="John Doe"
-                  required
-                />
+    <main className="kp kp-auth kp-signup">
+      <section className="kp-auth__panel">
+        <Logo />
+        {!sent ? (
+          <div className="kp-auth__body kp-signup__body">
+            <h1 className="kp-h1">Register</h1>
+            <form onSubmit={handleSubmit} className="kp-signup__form">
+              <div className="kp-field">
+                <label className="kp-label kp-label--p2" htmlFor="signup-email">Work Email</label>
+                <img className="kp-help" src="/figma/login/icon-help.svg" alt="" title="Use the email address you use at work" />
               </div>
-
-              <div className="form-group">
-                <label>Email Address</label>
-                <input 
-                  type="email" 
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="you@example.com"
-                  required
-                />
+              <div className="kp-field">
+                <img className="kp-input-icon" src="/figma/login/icon-user.svg" alt="" />
+                <input id="signup-email" className="kp-input kp-input--icon" type="email" placeholder="Email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
-
-              <div className="form-group">
-                <label>Company Name</label>
-                <input 
-                  type="text" 
-                  name="companyName"
-                  value={formData.companyName}
-                  onChange={handleChange}
-                  placeholder="Your Company"
-                />
-              </div>
-
-              <button onClick={handleStepOne} className="auth-btn">Continue</button>
-            </>
-          ) : (
-            <>
-              <div className="form-group">
-                <label>Password</label>
-                <input 
-                  type="password" 
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="••••••••"
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Confirm Password</label>
-                <input 
-                  type="password" 
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  placeholder="••••••••"
-                  required
-                />
-              </div>
-
-              <div className="form-actions">
-                <button type="button" onClick={() => setStep(1)} className="secondary-btn">Back</button>
-                <button onClick={handleStepTwo} className="auth-btn">Create Account</button>
-              </div>
-            </>
-          )}
-        </form>
-
-        <p className="auth-footer">
-          Already have an account? <Link href='/login'>Log in</Link>
-        </p>
-      </div>
-    </div>
+              <button type="submit" className="kp-btn kp-btn--bold kp-signup__submit">Send Link</button>
+            </form>
+          </div>
+        ) : (
+          <div className="kp-auth__body kp-sent">
+            <h1 className="kp-h1">Email Link Sent!</h1>
+            <p className="kp-sent__text">Please follow the link sent to your email to verify your account and continue registration! </p>
+            <img className="kp-sent__art" src="/figma/signup/email-sent.png" alt="Email with a check mark" />
+            <p className="kp-sent__again" role="status">
+              Didn’t get an email?{' '}
+              <button type="button" onClick={() => setResent(true)}>{resent ? 'Link sent again' : 'Send link again '}</button>
+            </p>
+          </div>
+        )}
+      </section>
+      <div className="kp-auth__art"><AuthHero /></div>
+    </main>
   )
 }
