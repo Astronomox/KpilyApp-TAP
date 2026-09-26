@@ -1,6 +1,7 @@
 /* Signed-in app frame (header, drawer, ⌘K palette, feed rail). */
 .ka-app { overflow-x: clip; --ka-top: 80px; --ka-rail: 350px; min-height: 100vh; background: #f7f8fa; font-family: 'Poppins', system-ui, sans-serif; color: #252525; }
-.ka-app__main { padding: calc(var(--ka-top) + 24px) calc(var(--ka-rail) + 32px) 48px 32px; }
+.ka-app__main { padding: calc(var(--ka-top) + 48px) 48px 48px; }
+.ka-app--rail .ka-app__main { padding-right: calc(var(--ka-rail) + 16px); }
 
 .ka-topbar { position: fixed; inset: 0 0 auto 0; z-index: 30; height: var(--ka-top); display: flex; align-items: center; gap: 20px; padding: 0 24px; background: #252525; }
 .ka-topbar__logo img { height: 36px; display: block; }
@@ -77,7 +78,7 @@
 
 @media (max-width: 1100px) {
   .ka-rail { display: none; }
-  .ka-app__main { padding-right: 32px; }
+  .ka-app--rail .ka-app__main { padding-right: 48px; }
 }
 @media (max-width: 640px) {
   .ka-topbar { gap: 8px; padding: 0 12px; }

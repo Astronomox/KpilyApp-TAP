@@ -7,6 +7,7 @@ import Icon from './Icon'
 import Avatar from './Avatar'
 import CommandPalette from './CommandPalette'
 import FeedRail from './FeedRail'
+import { ProfileContext } from './ProfileContext'
 import PageLoader from '@/components/figma/PageLoader'
 import { getActiveSessions, logout, type Profile } from '@/lib/kpily'
 import { navFor, roleLabel, type NavItem } from '@/lib/nav'
@@ -75,7 +76,9 @@ function Drawer({ open, onClose, nav, profile, lastLogin }: { open: boolean; onC
 // Signed-in app frame: dark header, slide-out menu, ⌘K palette, settings menu and Feed rail.
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const router = useRouter()
-  const { profile, ready } = useRequireSession()
+  // The live app shows the Feed rail on Account Overview only.
+  const withRail = (usePathname() || '').startsWith('/dashboard/account-overview')
+  const { profile, setProfile, ready } = useRequireSession()
   const [menu, setMenu] = useState(false)
   const [palette, setPalette] = useState(false)
   const [cog, setCog] = useState(false)
@@ -108,7 +111,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   if (!ready || leaving) return <PageLoader label={leaving ? 'Logging out' : 'Loading'} />
 
   return (
-    <div className="ka-app">
+    <div className={`ka-app ${withRail ? 'ka-app--rail' : ''}`}>
       <header className="ka-topbar">
         <button type="button" className="ka-iconbtn ka-iconbtn--light" aria-label="Open menu" aria-expanded={menu} onClick={() => setMenu(true)}><Icon name="menu" size={26} /></button>
         <Link href="/dashboard/account-overview" className="ka-topbar__logo" aria-label="KPILY home"><img src="/site/logo-white.svg" alt="KPILY Performance Management" /></Link>
@@ -131,8 +134,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <Drawer open={menu} onClose={() => setMenu(false)} nav={nav} profile={profile} lastLogin={lastLogin} />
       <CommandPalette open={palette} onClose={() => setPalette(false)} nav={nav} />
 
-      <main className="ka-app__main">{children}</main>
-      <FeedRail />
+      <main className="ka-app__main"><ProfileContext.Provider value={{ profile, setProfile }}>{children}</ProfileContext.Provider></main>
+      {withRail && <FeedRail />}
     </div>
   )
 }
