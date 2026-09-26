@@ -107,3 +107,10 @@
 .ka-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
 .ka-error { margin: 0 0 12px; color: #b3261e; font-size: 13px; }
 .ka-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 8px; }
+.ka-modal { position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-start; justify-content: center; padding: 8vh 16px 16px; overflow-y: auto; background: rgba(0,0,0,.4); font-family: 'Poppins', system-ui, sans-serif; }
+.ka-modal__box { width: 100%; box-sizing: border-box; padding: 24px; border-radius: 12px; background: #fff; box-shadow: 0 24px 64px rgba(0,0,0,.25); outline: none; }
+.ka-modal__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.ka-modal__head h2 { margin: 0; font-size: 20px; font-weight: 600; }
+@media (max-width: 640px) { .ka-row2 { grid-template-columns: 1fr; } }
+
+.ka-flip { transform: rotate(180deg); }
