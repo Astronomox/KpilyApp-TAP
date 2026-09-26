@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { login } from '@/lib/api'
+import { login } from '@/lib/kpily'
 import Artboard from '@/components/figma/Artboard'
 import FigHero from '@/components/figma/FigHero'
 import MobileAuth from '@/components/figma/MobileAuth'
@@ -25,11 +25,11 @@ export default function Login() {
     setError('')
     setLoading(true)
     try {
-      await login({ email, password })
-      router.push('/dashboard')
+      const session = await login(email, password, remember)
+      // New organisations without a subscription are sent to choose a plan first.
+      router.push(session.redirectToPlanPage ? '/pricing' : '/dashboard')
     } catch (err) {
       setError(err.message || 'Unable to log in')
-    } finally {
       setLoading(false)
     }
   }
