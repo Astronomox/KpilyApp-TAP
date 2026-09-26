@@ -8,7 +8,8 @@ import DemoCta from '@/components/figma/DemoCta'
 import BillingToggle from '@/components/figma/BillingToggle'
 import Reveal from '@/components/figma/Reveal'
 import TestimonialCarousel from '@/components/figma/TestimonialCarousel'
-import { PLANS } from '@/lib/plans'
+import { priceLabel } from '@/lib/plans'
+import { usePlans } from '@/lib/usePlans'
 import '@/styles/Figma.css'
 import '@/styles/FigmaSite.css'
 import '@/styles/Home.css'
@@ -34,6 +35,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 // Home page — content and structure from kpily.netlify.app, styling from the Figma design system.
 export default function Home() {
   const [billing, setBilling] = useState('monthly')
+  const plans = usePlans()
   const [signup, setSignup] = useState({ email: '', password: '' })
 
   return (
@@ -144,10 +146,10 @@ export default function Home() {
             <Eyebrow>Choose A Plan</Eyebrow>
             <BillingToggle value={billing} onChange={setBilling} />
             <div className="kp-home__plan-grid">
-              {PLANS.map((p, i) => (
+              {plans.map((p, i) => (
                 <Reveal as="article" key={p.id} delay={i * 120} className={`kp-home__plan kp-home__plan--${p.tone}`}>
                   <h3>{p.name}</h3>
-                  <p className="kp-home__plan-price">{p.price} per month</p>
+                  <p className="kp-home__plan-price">{priceLabel(p, billing)}</p>
                   <p>for up to {p.employees} employees</p>
                   <Link href={`/payment-gateway?plan=${p.id}&billing=${billing}`}>Start</Link>
                 </Reveal>
