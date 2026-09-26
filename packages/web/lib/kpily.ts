@@ -157,3 +157,80 @@ export const getMembers = (team = '-') => request<{ users: Member[] }>(`/v1/get-
 
 export type LoginSession = { id: string; username: string; dateCreated: number; ip: string; useragent: string; active: boolean }
 export const getActiveSessions = () => request<{ logins: LoginSession[] }>('/v1/get-active-session', { auth: true }).then((c) => c.logins || [])
+
+/** Revokes every signed-in session, or just one when an id is given. */
+export const endSession = (sessionID: string) => request<unknown>(`/v1/logout/${sessionID}`, { method: 'POST', auth: true })
+
+export const updateProfile = (data: { fullname?: string; phone?: string; gender?: string }) =>
+  request<unknown>('/v1/update-profile', { method: 'PUT', data, auth: true })
+
+export function uploadProfileImage(file: File) {
+  const form = new FormData()
+  form.append('file', file)
+  return request<unknown>('/v1/org/upload-image', { method: 'POST', form, auth: true })
+}
+
+// ---------- Overview ----------
+
+export type Rate = { title: string | null; value: number; lastMonthValue: number; difference: number | string; increase: boolean }
+export type Dashboard = {
+  taskCompletionRate: Rate; positiveFeedback: Rate; responseRate: Rate; feedBackRate: Rate; improvementRate: Rate; recognitionRate: Rate
+  pointsThisYear: { month: number; value: number }[]
+  teamProgress: { teamName: string | null; teamID: string; workInProgress: number; completed: number; awaitingApproval: number }[]
+}
+export const getDashboard = () => request<Dashboard>('/v1/get-dashboard', { auth: true })
+
+export type Team = { id: string; teamName: string; teamLeader?: string; color?: string; reportsTo?: string; members?: number; [key: string]: unknown }
+export const getTeams = () => request<{ teams: Team[] }>('/v1/org/get-team/-', { auth: true }).then((c) => c.teams || [])
+
+// ---------- Tasks ----------
+
+export const TASK_STATUS = ['New', 'Accepted', 'Reviewed', 'Completed', 'Submitted'] as const
+export type Task = {
+  id: string; name: string; details: string; dueDate: number; goal: number; assignee: string; createdBy: string
+  reward: number; finalReward: number; status: number; replies: number; teamID: string; teamName: string | null; dateCreated: string
+  contributors: unknown[]; attachment: unknown
+}
+/** The API stores due dates in seconds, but some older tasks hold milliseconds. */
+export const dueMs = (t: { dueDate: number }) => (t.dueDate > 1e12 ? t.dueDate : t.dueDate * 1000)
+
+export const getTasks = () => request<{ data: Task[] }>('/v1/org/get-task', { method: 'POST', data: {}, auth: true }).then((c) => c.data || [])
+
+export type TaskInput = { name: string; details: string; dueDate: Date; goal: number; assignee: string; reward: number; files?: File[] }
+function taskForm(t: TaskInput & { id?: string }) {
+  const form = new FormData()
+  if (t.id) form.append('id', t.id)
+  form.append('name', t.name)
+  form.append('details', t.details)
+  form.append('dueDate', String(Math.floor(t.dueDate.getTime() / 1000)))
+  form.append('goal', String(t.goal))
+  form.append('assignee', t.assignee)
+  form.append('reward', String(t.reward))
+  for (const f of t.files || []) form.append('files', f)
+  return form
+}
+export const createTask = (t: TaskInput) => request<unknown>('/v1/org/create-task', { method: 'POST', form: taskForm(t), auth: true })
+export const updateTask = (id: string, t: TaskInput) => request<unknown>('/v1/org/update-task', { method: 'PUT', form: taskForm({ ...t, id }), auth: true })
+export const deleteTask = (id: string) => request<unknown>(`/v1/org/task/${id}`, { method: 'DELETE', auth: true })
+export const acceptTask = (taskID: string) => request<unknown>('/v1/org/accept-task', { method: 'PUT', data: { taskID }, auth: true })
+export const submitTask = (taskID: string) => request<unknown>('/v1/org/submit-task', { method: 'PUT', data: { taskID }, auth: true })
+export const completeTask = (taskID: string, point: number) => request<unknown>('/v1/org/complete-task', { method: 'PUT', data: { taskID, point }, auth: true })
+export function reviewTask(taskID: string, message: string) {
+  const form = new FormData()
+  form.append('taskID', taskID)
+  form.append('message', message)
+  return request<unknown>('/v1/org/review-task', { method: 'PUT', form, auth: true })
+}
+
+// ---------- Calendar ----------
+
+export type Person = { id: string; fullname: string | null; username: string }
+export type CalEvent = {
+  id: string; name: string; details: string; time: number; endTime?: number; organizer?: Person; attendees: Person[]
+  phyicalLocation: string | null; onlineLocation: string | null
+}
+export type EventInput = { name: string; details: string; time: number; endTime?: number; attendees: Person[]; phyicalLocation?: string; onlineLocation?: string }
+
+export const getEvents = () => request<CalEvent[]>('/v1/org/get-event/-', { auth: true }).then((c) => c || [])
+export const createEvent = (e: EventInput) => request<unknown>('/v1/org/create-event', { method: 'POST', data: e, auth: true })
+export const updateEvent = (id: string, e: EventInput) => request<unknown>('/v1/org/update-event', { method: 'PUT', data: { ...e, id }, auth: true })

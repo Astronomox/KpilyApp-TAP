@@ -22,5 +22,5 @@ export function useRequireSession() {
     })
   }, [router, pathname])
 
-  return { session, profile, ready }
+  return { session, profile, setProfile, ready }
 }
