@@ -4,13 +4,9 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import Logo from '@/components/figma/Logo'
 import BillingToggle from '@/components/figma/BillingToggle'
+import { PLANS, findPlan } from '@/lib/plans'
 import '@/styles/Figma.css'
 
-const PLANS = [
-  { id: 'starter', name: 'Starter Plan', icon: '/figma/pricing/hand-waving.svg', features: ['For up to 50 employees', 'Access to polls'] },
-  { id: 'team', name: 'Team Plan', icon: '/figma/pricing/users.svg', features: ['For up to 250 employees', 'Access to polls'] },
-  { id: 'company', name: 'Company Plan ', icon: '/figma/payment/icon-company.svg', features: ['For up to 1000 employees', 'Access to all add ons'] },
-]
 
 function Switch({ on, onToggle, label }: { on: boolean; onToggle: () => void; label: string }) {
   return (
@@ -23,12 +19,12 @@ function Switch({ on, onToggle, label }: { on: boolean; onToggle: () => void; la
 function PaymentGateway() {
   const router = useRouter()
   const params = useSearchParams()
-  const [planId, setPlanId] = useState(params.get('plan') || 'company')
+  const [planId, setPlanId] = useState(findPlan(params.get('plan')).id as string)
   const [billing, setBilling] = useState(params.get('billing') || 'annually')
   const [menu, setMenu] = useState(false)
   const [addOns, setAddOns] = useState({ psychometrics: true, games: true })
   const menuRef = useRef<HTMLDivElement>(null)
-  const plan = PLANS.find((p) => p.id === planId) || PLANS[2]
+  const plan = findPlan(planId)
 
   useEffect(() => {
     const close = (e: MouseEvent) => { if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenu(false) }
@@ -53,12 +49,12 @@ function PaymentGateway() {
         <div className="kp-pay__card">
           <div className="kp-pay__picker" ref={menuRef}>
             <button type="button" aria-haspopup="listbox" aria-expanded={menu} onClick={() => setMenu(!menu)}>
-              <img src={plan.icon} alt="" />{plan.name}<img src="/figma/payment/arrow-drop-down.svg" alt="" className="kp-pay__caret" />
+              <img src={plan.icon} alt="" />{plan.name} Plan<img src="/figma/payment/arrow-drop-down.svg" alt="" className="kp-pay__caret" />
             </button>
             {menu && (
               <ul role="listbox">
                 {PLANS.map((p) => (
-                  <li key={p.id} role="option" aria-selected={p.id === planId} onClick={() => { setPlanId(p.id); setMenu(false) }}>{p.name}</li>
+                  <li key={p.id} role="option" aria-selected={p.id === planId} onClick={() => { setPlanId(p.id); setMenu(false) }}>{p.name} Plan</li>
                 ))}
               </ul>
             )}

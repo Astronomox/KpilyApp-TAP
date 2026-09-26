@@ -233,11 +233,13 @@ select.kp-input { appearance: none; background: #fff url('/figma/register/caret.
 /* ---------- Pricing (1238:7963) ---------- */
 .kp-pricing { min-height: 100vh; padding: 71px 29px 60px; }
 .kp-pricing__logo { padding-left: 42px; }
-.kp-pricing__head { display: flex; flex-direction: column; align-items: center; margin: 12px 0 0 calc(63.5% - 240px); width: 480px; position: relative; z-index: 1; }
+.kp-pricing__head { display: flex; flex-direction: column; align-items: center; margin: 12px auto 0; width: 480px; max-width: 100%; }
 .kp-toggle { display: inline-flex; background: rgba(28,27,31,.12); border-radius: 43px; margin-top: 17px; box-shadow: 0 4px 4px rgba(0,0,0,.05); }
 .kp-toggle button { width: 223px; height: 50px; border-radius: 52px; background: transparent; font: 500 20px/normal var(--kp-poppins); color: rgba(37,37,37,.38); }
 .kp-toggle button.is-active { background: var(--kp-primary-70); color: #fff; }
-.kp-pricing__row { display: flex; gap: 18px; align-items: flex-end; margin-top: -58px; }
+.kp-pricing__row { display: flex; gap: 18px; justify-content: center; margin-top: 24px; }
+.kp-pricing .kp-plan { width: 276px; flex-basis: 276px; }
+.kp-pricing .kp-plan__price { width: 240px; }
 .kp-pricing__promo { position: relative; overflow: hidden; width: 272px; height: 663px; flex: 0 0 272px; border-radius: 20px; background: var(--kp-primary); color: #fff; padding: 30px 34px; }
 .kp-pricing__promo h2 { font: 600 32px/36px var(--kp-poppins); width: 217px; margin: 0; }
 .kp-pricing__promo p { font: 500 16px/24px var(--kp-poppins); width: 193px; margin: 26px 0 0; }
@@ -310,8 +312,7 @@ select.kp-input { appearance: none; background: #fff url('/figma/register/caret.
 .kp-step__btn--blue { background: var(--kp-secondary); box-shadow: 0 4px 2px rgba(0,0,0,.25); }
 
 @media (max-width: 1280px) {
-  .kp-pricing__row { flex-wrap: wrap; justify-content: center; margin-top: 32px; }
-  .kp-pricing__head { margin: 24px auto 0; }
+  .kp-pricing__row { flex-wrap: wrap; }
   .kp-steps { margin: 48px auto 0; width: 100%; max-width: 950px; }
   .kp-onboard__title { padding-left: 0; }
 }

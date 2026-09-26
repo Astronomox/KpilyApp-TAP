@@ -1,57 +1,48 @@
-'use client'
-
 import Link from 'next/link'
-import { useState } from 'react'
-import SocialLinks from './SocialLinks'
 
-// "Section Footer CTA" + dark footer from the Blog / Blog post frames.
+const SOCIAL = [
+  { name: 'Twitter', icon: 'twitter', href: '#twitter-link' },
+  { name: 'Facebook', icon: 'facebook', href: 'https://m.facebook.com/100980035046229/' },
+  { name: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/kpilyapp/' },
+  { name: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/company/92823514/' },
+  { name: 'YouTube', icon: 'youtube', href: '#youtube-link' },
+]
+
+// Footer from kpily.netlify.app.
 export default function SiteFooter() {
-  const [sent, setSent] = useState(false)
-
   return (
-    <footer className="kp-site-footer">
-      <section className="kp-cta" style={{ backgroundImage: "url('/figma/blog/cta-bg.png')" }}>
-        <div className="kp-cta__inner">
-          <div className="kp-cta__copy">
-            <p className="kp-cta__eyebrow">Why Choose Us</p>
-            <h2>KPILY drives team engagement and productivity.</h2>
-            <p className="kp-cta__lead">A comprehensive solution that puts performance in the hands of the employees .</p>
+    <footer className="kp-footer">
+      <div className="kp-footer__inner">
+        <div className="kp-footer__brand">
+          <Link href="/" aria-label="KPILY home"><img className="kp-footer__logo" src="/site/logo-white.svg" alt="KPILY Performance Management" width={277} height={98} /></Link>
+          <p className="kp-footer__copy">© {new Date().getFullYear()}, KPILY. All rights reserved</p>
+          <div className="kp-social kp-social--dark kp-footer__social">
+            {SOCIAL.map((s) => (
+              <a key={s.icon} href={s.href} target={s.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" aria-label={s.name}>
+                <img src={`/figma/social/${s.icon}.svg`} alt="" />
+              </a>
+            ))}
           </div>
-          <form className="kp-cta__form" onSubmit={(e) => { e.preventDefault(); setSent(true) }}>
-            <input aria-label="Company Name" placeholder="Company Name" required />
-            <input aria-label="Work Email Address" type="email" placeholder="Work Email Address" required />
-            <input aria-label="Name" placeholder="Name " required />
-            <button type="submit">{sent ? 'Request sent' : 'Request Demo '}</button>
-          </form>
         </div>
-      </section>
-      <div className="kp-footer">
-        <div className="kp-footer__inner">
-          <div className="kp-footer__brand">
-            <div className="kp-footer__logo" aria-label="KPILY Performance Management">
-              <img src="/kpily/logo-symbol.png" alt="" />
-              <span><strong>KPILY</strong><small>Performance Management</small></span>
-            </div>
-            <SocialLinks dark />
-          </div>
+        <div className="kp-footer__cols">
           <div className="kp-footer__col">
             <h3>Company</h3>
             <Link href="/about">About Us</Link>
             <Link href="/about">Press</Link>
-            <Link href="/blog">Blog</Link>
+            <Link href="/blogs">Blog</Link>
           </div>
           <div className="kp-footer__col">
             <h3>Get Started</h3>
             <Link href="/about">Request a demo</Link>
-            <Link href="/signup">Sign Up</Link>
-            <Link href="/login">Log In</Link>
+            <Link href="/register">Sign up</Link>
+            <Link href="/login">Log in</Link>
           </div>
           <div className="kp-footer__col">
             <h3>Contact</h3>
             <span>Phone</span>
-            <a href="tel:+234">+234 XXX XXX XXXX</a>
+            <a className="kp-footer__contact" href="tel:+2349024429918">+234 09024429918</a>
             <span>Email</span>
-            <a href="mailto:support@kpily.com">support@kpily.com</a>
+            <a className="kp-footer__contact" href="mailto:support@kpily.com?subject=Customer from KPILY Website">support@kpily.com</a>
           </div>
         </div>
       </div>

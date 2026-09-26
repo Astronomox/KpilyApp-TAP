@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import SiteHeader from '@/components/figma/SiteHeader'
+import SiteFooter from '@/components/figma/SiteFooter'
 import '@/styles/Figma.css'
 import '@/styles/FigmaSite.css'
 
@@ -14,7 +15,6 @@ const CONTACTS = [
 // Figma: Landing page, Sign up and Login → "Desktop" (About us / Contact, 1557:94652)
 export default function About() {
   const [sent, setSent] = useState(false)
-  const [agree, setAgree] = useState(false)
 
   return (
     <div className="kp kp-site">
@@ -25,7 +25,10 @@ export default function About() {
           <h1>We’re a distributed team</h1>
           <p>We have offices and teams all around the world.</p>
         </section>
-        <div className="kp-container kp-about-space" aria-hidden="true" />
+        <div className="kp-about-copy">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
         <section className="kp-container kp-contacts">
           {CONTACTS.map((c) => (
             <div key={c.title}>
@@ -40,23 +43,19 @@ export default function About() {
           <p className="kp-eyebrow">Contact us</p>
           <h2>Get in touch</h2>
           <p className="kp-contact-form__lead">We’d love to hear from you. Please fill out this form.</p>
-          <form onSubmit={(e) => { e.preventDefault(); if (agree) setSent(true) }}>
+          <form onSubmit={(e) => { e.preventDefault(); setSent(true) }}>
             <div className="kp-contact-form__row">
               <label>First name<input placeholder="First name" required /></label>
               <label>Last name<input placeholder="Last name" required /></label>
             </div>
-            <label>Email<input type="email" placeholder="you@company.com" required /></label>
+            <label>Email<input type="email" placeholder="Email Address" required /></label>
             <label>Phone number
               <span className="kp-contact-form__phone">
-                <select aria-label="Country"><option>US</option><option>UK</option><option>NG</option><option>KE</option><option>ZA</option></select>
-                <input type="tel" placeholder="+1 (555) 000-0000" />
+                <select aria-label="Country code"><option>+000</option><option>+1</option><option>+44</option><option>+234</option><option>+254</option><option>+27</option></select>
+                <input type="tel" placeholder="000 000 000" />
               </span>
             </label>
             <label>Message<textarea rows={5} required /></label>
-            <label className="kp-contact-form__agree">
-              <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} />
-              <span>You agree to our friendly <a href="#">privacy policy</a>.</span>
-            </label>
             <button type="submit">{sent ? 'Message sent' : 'Send message'}</button>
           </form>
         </section>
@@ -71,6 +70,7 @@ export default function About() {
           </div>
         </section>
       </main>
+      <SiteFooter />
     </div>
   )
 }

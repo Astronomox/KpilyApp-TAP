@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import SiteHeader from '@/components/figma/SiteHeader'
 import SiteFooter from '@/components/figma/SiteFooter'
+import DemoCta from '@/components/figma/DemoCta'
 import BlogBadge from '@/components/figma/BlogBadge'
 import '@/styles/Figma.css'
 import '@/styles/FigmaSite.css'
@@ -108,7 +109,7 @@ export default function BlogPost() {
               </article>
             ))}
           </div>
-          <div className="kp-more__action"><Link href="/blog" className="kp-purple-btn">View all posts</Link></div>
+          <div className="kp-more__action"><Link href="/blogs" className="kp-purple-btn">View all posts</Link></div>
         </section>
 
         <section className="kp-container">
@@ -127,6 +128,7 @@ export default function BlogPost() {
           </div>
         </section>
       </main>
+      <DemoCta />
       <SiteFooter />
     </div>
   )

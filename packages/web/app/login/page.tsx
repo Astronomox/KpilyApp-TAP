@@ -66,7 +66,7 @@ export default function Login() {
         </div>
         <div className="kp-auth__footer">
           <p>Don’t have an account yet?</p>
-          <Link href="/signup">Register here</Link>
+          <Link href="/register">Register here</Link>
         </div>
       </section>
       <div className="kp-auth__art"><AuthHero /></div>
