@@ -1,0 +1,23 @@
+/* Tasks: status cards, filter bar, sortable table, pager. */
+.ka-tasks__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
+.ka-tasks__head h1 { margin: 0; font-size: 32px; font-weight: 600; color: #106190; }
+.ka-tasks__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+.ka-stat { display: flex; align-items: center; gap: 20px; height: 64px; padding: 0 24px; border: 2px solid transparent; border-radius: 4px; background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.08); font-family: inherit; font-size: 16px; color: #252525; text-align: left; cursor: pointer; }
+.ka-stat strong { font-size: 36px; font-weight: 700; min-width: 20px; }
+.ka-stat:hover, .ka-stat.is-on { border-color: #1e7a5a; }
+.ka-tasks__table { padding: 40px; }
+.ka-tasks__tools { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.ka-filter { width: 250px; height: 32px; padding: 0 12px; border: 1px solid #d9d9d9; border-radius: 6px; font-family: inherit; font-size: 13px; }
+.ka-chip { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border: 1px dashed #cfcfcf; border-radius: 16px; background: #fff; font-family: inherit; font-size: 14px; font-weight: 500; color: #252525; cursor: pointer; }
+.ka-chip--solid { border-style: solid; }
+.ka-chip__plus { display: inline-grid; place-items: center; width: 14px; height: 14px; border: 1.5px solid currentColor; border-radius: 50%; font-size: 12px; line-height: 1; }
+.ka-chip em { font-style: normal; padding: 0 6px; border-radius: 8px; background: #eef6f9; color: #106190; font-size: 12px; }
+.ka-pop { position: relative; }
+.ka-pop--end { margin-left: auto; }
+.ka-pop__menu { position: absolute; z-index: 10; top: 38px; left: 0; min-width: 200px; padding: 6px; border-radius: 8px; background: #fff; box-shadow: 0 12px 32px rgba(0,0,0,.16); }
+.ka-pop--end .ka-pop__menu { left: auto; right: 0; }
+.ka-pop__menu label { display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+.ka-pop__menu label:hover { background: #f5f5f5; }
+.ka-pop__n { margin-left: auto; font-size: 12px; color: #8a8a8a; }
+.ka-pop__title { margin: 4px 8px 6px; font-size: 12px; font-weight: 600; color: #8a8a8a; }
+.ka-pop__clear { width: 100%; margin-top: 4px; padding: 8px; border: 0; border-top: 1px solid #eee; background: none; font-family: inherit; font-size: 13px; cursor: pointer; }
