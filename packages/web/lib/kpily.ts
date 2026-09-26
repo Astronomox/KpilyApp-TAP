@@ -169,3 +169,16 @@ export function uploadProfileImage(file: File) {
   form.append('file', file)
   return request<unknown>('/v1/org/upload-image', { method: 'POST', form, auth: true })
 }
+
+// ---------- Overview ----------
+
+export type Rate = { title: string | null; value: number; lastMonthValue: number; difference: number | string; increase: boolean }
+export type Dashboard = {
+  taskCompletionRate: Rate; positiveFeedback: Rate; responseRate: Rate; feedBackRate: Rate; improvementRate: Rate; recognitionRate: Rate
+  pointsThisYear: { month: number; value: number }[]
+  teamProgress: { teamName: string | null; teamID: string; workInProgress: number; completed: number; awaitingApproval: number }[]
+}
+export const getDashboard = () => request<Dashboard>('/v1/get-dashboard', { auth: true })
+
+export type Team = { id: string; teamName: string; teamLeader?: string; color?: string; reportsTo?: string; members?: number; [key: string]: unknown }
+export const getTeams = () => request<{ teams: Team[] }>('/v1/org/get-team/-', { auth: true }).then((c) => c.teams || [])
