@@ -157,3 +157,15 @@ export const getMembers = (team = '-') => request<{ users: Member[] }>(`/v1/get-
 
 export type LoginSession = { id: string; username: string; dateCreated: number; ip: string; useragent: string; active: boolean }
 export const getActiveSessions = () => request<{ logins: LoginSession[] }>('/v1/get-active-session', { auth: true }).then((c) => c.logins || [])
+
+/** Revokes every signed-in session, or just one when an id is given. */
+export const endSession = (sessionID: string) => request<unknown>(`/v1/logout/${sessionID}`, { method: 'POST', auth: true })
+
+export const updateProfile = (data: { fullname?: string; phone?: string; gender?: string }) =>
+  request<unknown>('/v1/update-profile', { method: 'PUT', data, auth: true })
+
+export function uploadProfileImage(file: File) {
+  const form = new FormData()
+  form.append('file', file)
+  return request<unknown>('/v1/org/upload-image', { method: 'POST', form, auth: true })
+}
