@@ -6,7 +6,7 @@
 .ka-perf__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 .ka-statcard { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
 .ka-statcard h2 { max-width: 200px; }
-.ka-statcard > strong { font-size: 44px; font-weight: 700; line-height: 1.1; }
+.ka-statcard > strong { font-size: clamp(28px, 5vw, 44px); font-weight: 700; line-height: 1.1; }
 .ka-statcard > span { font-size: 16px; font-weight: 600; color: #1e7a5a; }
 .ka-statcard > span.is-down { color: #b3261e; }
 .ka-statcard p { margin: 8px 0 0; font-size: 15px; }
@@ -20,7 +20,7 @@
 .ka-score__row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: stretch; }
 .ka-score__side { display: grid; gap: 16px; }
 .ka-score__trend { display: flex; align-items: center; gap: 24px; }
-.ka-score__trend strong { display: block; font-size: 28px; }
+.ka-score__trend strong { display: block; font-size: clamp(20px, 3vw, 28px); }
 .ka-score__trend p { margin: 4px 0 0; }
 .ka-score__tip h2 { color: #252525; }
 .ka-score__tip p { margin: 0; line-height: 1.6; }

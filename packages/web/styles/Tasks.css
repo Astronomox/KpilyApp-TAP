@@ -2,10 +2,11 @@
 .ka-tasks__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
 .ka-tasks__head h1 { margin: 0; font-size: 32px; font-weight: 600; color: #106190; }
 .ka-tasks__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
-.ka-stat { display: flex; align-items: center; gap: 20px; height: 64px; padding: 0 24px; border: 2px solid transparent; border-radius: 4px; background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.08); font-family: inherit; font-size: 16px; color: #252525; text-align: left; cursor: pointer; }
+.ka-stat { display: flex; align-items: center; gap: 20px; height: 72px; padding: 0 24px; border: 2px solid transparent; border-radius: 12px; background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.08); font-family: inherit; font-size: 15px; color: #252525; text-align: left; cursor: pointer; transition: border-color .15s, box-shadow .15s; }
 .ka-stat strong { font-size: 36px; font-weight: 700; min-width: 20px; }
+.ka-stat:hover { box-shadow: 0 6px 20px rgba(0,0,0,.12); }
 .ka-stat:hover, .ka-stat.is-on { border-color: #1e7a5a; }
-.ka-tasks__table { padding: 40px; }
+.ka-tasks__table { padding: 24px; }
 .ka-tasks__tools { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
 .ka-statuscell { display: inline-flex; align-items: center; gap: 8px; }
 .ka-status { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid #252525; flex: none; }

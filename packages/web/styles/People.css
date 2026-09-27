@@ -1,6 +1,6 @@
 /* Team, All Staff and Organogram. */
 .ka-people__top { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
-.ka-people__bar { display: flex; justify-content: flex-end; margin: 40px 0; }
+.ka-people__bar { display: flex; justify-content: flex-end; margin: 24px 0; }
 .ka-board__list--plain li { border-top: 0; padding: 8px 16px 16px; }
 .ka-grid { padding: 0; overflow: hidden; border: 1px solid #d0d0d0; }
 .ka-tablewrap--flat { border: 0; border-radius: 0; }

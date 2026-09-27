@@ -10,9 +10,9 @@
 .ka-mini__head button { width: 28px; height: 28px; border: 1px solid #e6e6e6; border-radius: 50%; background: #fff; cursor: pointer; }
 .ka-mini__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px 0; text-align: center; }
 .ka-mini__dow { font-size: 12px; color: #555; }
-.ka-mini__grid button { justify-self: center; width: 34px; height: 34px; border: 0; border-radius: 50%; background: none; font-family: inherit; font-size: 14px; cursor: pointer; }
+.ka-mini__grid button { justify-self: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: none; font-family: inherit; font-size: 14px; cursor: pointer; transition: background .12s; }
 .ka-mini__grid button.is-out { color: #bbb; }
-.ka-mini__grid button.is-today { background: #eef1f5; }
+.ka-mini__grid button.is-today { background: #eef1f5; font-weight: 600; }
 .ka-mini__grid button.is-picked { background: #1e7a5a; color: #fff; }
 .ka-mini__grid button:hover:not(.is-picked) { background: #f2f2f2; }
 .ka-cal__filters { padding: 20px 22px; }
@@ -23,15 +23,16 @@
 .ka-filt--completed { --c: #5b5bd6; } .ka-filt--submitted { --c: #1e9e6a; } .ka-filt--event { --c: #2f80ed; }
 
 .ka-cal__main { min-width: 0; display: flex; flex-direction: column; }
-.ka-cal__bar { display: flex; align-items: center; gap: 4px; padding: 24px 24px; border-bottom: 1px solid #e6e6e6; flex-wrap: wrap; }
+.ka-cal__bar { display: flex; align-items: center; gap: 4px; padding: 20px 24px; border-bottom: 1px solid #e6e6e6; flex-wrap: wrap; }
 .ka-cal__bar h1 { margin: 0 12px 0 16px; font-size: 18px; font-weight: 500; }
 .ka-cal__nav { color: #106190; }
 .ka-flip { transform: rotate(180deg); }
 .ka-cal__err { margin: 12px 24px 0; }
-.ka-seg { display: flex; margin-left: auto; border: 1px solid #1e7a5a; border-radius: 4px; overflow: hidden; }
-.ka-seg button { padding: 8px 20px; border: 0; border-left: 1px solid #1e7a5a; background: #eef6f2; color: #1e7a5a; font-family: inherit; font-size: 15px; cursor: pointer; }
+.ka-seg { display: flex; margin-left: auto; border: 1px solid #1e7a5a; border-radius: 6px; overflow: hidden; }
+.ka-seg button { padding: 8px 18px; border: 0; border-left: 1px solid #1e7a5a; background: #eef6f2; color: #1e7a5a; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; transition: background .15s; }
 .ka-seg button:first-child { border-left: 0; }
-.ka-seg button.is-on { background: #b9d8cb; color: #106190; }
+.ka-seg button.is-on { background: #1e7a5a; color: #fff; }
+.ka-seg button:hover:not(.is-on) { background: #d7ede5; }
 
 .ka-month { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); grid-template-rows: 40px; grid-auto-rows: minmax(120px, 1fr); flex: 1; }
 .ka-month__dow { display: grid; place-items: center; height: 40px; border-bottom: 1px solid #e6e6e6; color: #106190; font-weight: 500; }

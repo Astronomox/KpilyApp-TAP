@@ -1,7 +1,7 @@
 /* Help Center and other support pages. */
 .ka-help { display: grid; gap: 32px; }
 .ka-help .ka-pagehead { margin: 0; }
-.ka-help__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 0 40px; }
+.ka-help__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 0; }
 .ka-help__card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; min-height: 150px; padding: 32px; text-align: center; color: #252525; text-decoration: none; transition: box-shadow .2s, transform .2s; }
 .ka-help__card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.14); transform: translateY(-2px); }
 .ka-help__card:focus-visible { outline: 2px solid #1ab0b3; outline-offset: 2px; }
