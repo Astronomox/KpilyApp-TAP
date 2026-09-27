@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -9,7 +9,7 @@ import { priceLabel } from '@/lib/plans'
 import { usePlans } from '@/lib/usePlans'
 import '@/styles/Figma.css'
 
-// Pricing — plans from kpily.netlify.app/pricing, card styling from Figma "Pricing Page" (1238:7963).
+// Pricing  -  plans from kpily.netlify.app/pricing, card styling from Figma "Pricing Page" (1238:7963).
 export default function PricingPage() {
   const [billing, setBilling] = useState('monthly')
   const plans = usePlans()

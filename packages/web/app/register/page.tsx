@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -23,7 +23,7 @@ function SignUp() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
 
-  // POST /v1/mail-verify — emails a verification link to a work address.
+  // POST /v1/mail-verify  -  emails a verification link to a work address.
   async function send(e?: React.FormEvent) {
     e?.preventDefault()
     if (!email || busy) return

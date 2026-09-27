@@ -43,11 +43,11 @@ export default function BlogPost() {
         <div className="kp-container"><img className="kp-post-hero" src="/figma/post/hero.png" alt="Bright modern office" /></div>
 
         <article className="kp-prose">
-          <p className="kp-prose__lead">A performance review presentation is more than a slide deck — it&apos;s the moment where months of work, data, and team effort get distilled into a narrative that guides decisions. Getting that narrative right matters far more than the template you use.</p>
+          <p className="kp-prose__lead">A performance review presentation is more than a slide deck  -  it&apos;s the moment where months of work, data, and team effort get distilled into a narrative that guides decisions. Getting that narrative right matters far more than the template you use.</p>
           <hr />
           <h2>Introduction</h2>
           <p>Whether you&apos;re presenting to your leadership team, reporting to a board, or running a quarterly business review with your direct reports, the challenge is always the same: how do you turn raw KPI data into a story that actually lands?</p>
-          <p>KPILY makes it easy to pull <a href="/dashboard">live performance data</a> into any presentation format. But the data is only half the job. The other half is knowing how to frame it — what to lead with, what to explain, and what to leave out. This post walks through the principles we&apos;ve seen work consistently across high-performing teams.</p>
+          <p>KPILY makes it easy to pull <a href="/dashboard">live performance data</a> into any presentation format. But the data is only half the job. The other half is knowing how to frame it  -  what to lead with, what to explain, and what to leave out. This post walks through the principles we&apos;ve seen work consistently across high-performing teams.</p>
           <figure>
             <img src="/figma/post/inline-1.png" alt="Desk with a laptop" />
             <figcaption>Image courtesy of Laura Davidson via <a href="https://unsplash.com/photos/QBAH4IldaZY" target="_blank" rel="noreferrer">Unsplash</a></figcaption>
@@ -56,28 +56,28 @@ export default function BlogPost() {
             <p>"The best performance reviews are a conversation, not a verdict. Your slides should open a dialogue, not close one."</p>
             <cite>Olivia Rhye, Product Designer</cite>
           </blockquote>
-          <p>Start with the outcome your audience cares about most — whether that&apos;s revenue attainment, task completion rate, or employee engagement score. Ground the room in one headline number before drilling down. If you open with twenty charts, you lose people before the important context arrives.</p>
-          <p>From there, move through the story in three beats: where we aimed, where we landed, and what we learned. The KPILY dashboard structures data in exactly this sequence — your goal vs. actual rate, a trend line, and the delta from the previous period. Mirror that structure in your slides and your audience will follow without effort.</p>
+          <p>Start with the outcome your audience cares about most  -  whether that&apos;s revenue attainment, task completion rate, or employee engagement score. Ground the room in one headline number before drilling down. If you open with twenty charts, you lose people before the important context arrives.</p>
+          <p>From there, move through the story in three beats: where we aimed, where we landed, and what we learned. The KPILY dashboard structures data in exactly this sequence  -  your goal vs. actual rate, a trend line, and the delta from the previous period. Mirror that structure in your slides and your audience will follow without effort.</p>
           <p>Anticipate the hard questions before someone asks them. If a KPI missed its target, come prepared with at least one root cause and one corrective action. Presenters who name the problem themselves are seen as self-aware and trustworthy; those who wait to be challenged look defensive.</p>
           <h3>Tools and setup</h3>
-          <p>KPILY exports performance snapshots as CSV and PDF, so you can pull a current data set moments before any presentation. Pair this with a slide tool that lets you embed live numbers — even a simple Google Sheet link updated by your KPILY export will ensure your figures are never stale on the day.</p>
+          <p>KPILY exports performance snapshots as CSV and PDF, so you can pull a current data set moments before any presentation. Pair this with a slide tool that lets you embed live numbers  -  even a simple Google Sheet link updated by your KPILY export will ensure your figures are never stale on the day.</p>
           <h3>Further reading</h3>
           <p>The principles here apply whether you&apos;re a team lead presenting to a manager or a Head of People presenting to a CEO. The scale changes; the structure doesn&apos;t. For deeper dives, we recommend the KPILY Help Centre guides on setting KPI targets and reading the performance trend graph.</p>
           <ol>
-            <li>Keep your headline metric to <a href="/dashboard">one number per slide</a> — let supporting data live in the appendix.</li>
-            <li>Show the trend, not just the snapshot — a single data point without context <a href="/blogs">misleads more than it informs</a>.</li>
-            <li>Close every review with explicit next steps — who owns what, and by when.</li>
+            <li>Keep your headline metric to <a href="/dashboard">one number per slide</a>  -  let supporting data live in the appendix.</li>
+            <li>Show the trend, not just the snapshot  -  a single data point without context <a href="/blogs">misleads more than it informs</a>.</li>
+            <li>Close every review with explicit next steps  -  who owns what, and by when.</li>
           </ol>
           <figure>
             <img src="/figma/post/inline-2.png" alt="Person working on a laptop" />
             <figcaption>Image courtesy of Leon via <a href="https://unsplash.com/photos/bzqU01v-G54" target="_blank" rel="noreferrer">Unsplash</a></figcaption>
           </figure>
-          <p>If your team uses KPILY&apos;s leaderboard, consider including a recognition slide at the end of your presentation — spotlight the top performers by name. Public recognition in a group setting is one of the highest-impact, lowest-cost motivators available to managers, and it gives your review a positive close that people remember.</p>
+          <p>If your team uses KPILY&apos;s leaderboard, consider including a recognition slide at the end of your presentation  -  spotlight the top performers by name. Public recognition in a group setting is one of the highest-impact, lowest-cost motivators available to managers, and it gives your review a positive close that people remember.</p>
           <p>Finally, send the deck afterwards. A presentation that disappears after the meeting loses most of its value. Share a PDF with the key numbers and the agreed actions so everyone leaves with the same record.</p>
           <section className="kp-prose__box">
             <h2>Conclusion</h2>
-            <p>A great performance review presentation does three things: it tells the truth about where the team stands, it explains why, and it points clearly toward what happens next. Everything else — colour schemes, animations, chart types — is secondary to those three things.</p>
-            <p>KPILY is built around the belief that performance clarity should be continuous, not quarterly. The best presenters we&apos;ve seen are the ones who treat their review deck as a summary of conversations that have already happened — not a first reveal.</p>
+            <p>A great performance review presentation does three things: it tells the truth about where the team stands, it explains why, and it points clearly toward what happens next. Everything else  -  colour schemes, animations, chart types  -  is secondary to those three things.</p>
+            <p>KPILY is built around the belief that performance clarity should be continuous, not quarterly. The best presenters we&apos;ve seen are the ones who treat their review deck as a summary of conversations that have already happened  -  not a first reveal.</p>
             <p>If you&apos;re not already running frequent check-ins and capturing feedback in real time, that&apos;s where to start. The presentation will take care of itself when the underlying data is honest and up to date.</p>
             <p>Ready to make performance data a daily habit? <a href="/register">Start your free trial</a> and see what your team looks like with full KPI visibility.</p>
           </section>

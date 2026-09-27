@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link'
 import { useState } from 'react'
@@ -39,7 +39,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="kp-home__eyebrow">{children}</p>
 }
 
-// Home page — content and structure from kpily.netlify.app, styling from the Figma design system.
+// Home page  -  content and structure from kpily.netlify.app, styling from the Figma design system.
 export default function Home() {
   const [billing, setBilling] = useState('monthly')
   const plans = usePlans()

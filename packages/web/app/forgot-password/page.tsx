@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link'
 import { useState } from 'react'
@@ -17,7 +17,7 @@ export default function ForgotPassword() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
 
-  // POST /v1/reset-password/1 — emails a reset link/code.
+  // POST /v1/reset-password/1  -  emails a reset link/code.
   async function submit(e: React.FormEvent) {
     e.preventDefault()
     if (!email || busy) return
