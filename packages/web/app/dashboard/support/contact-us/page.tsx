@@ -12,7 +12,7 @@ export default function ContactUs() {
   const { profile } = useProfile()
   const [topic, setTopic] = useState('General question')
   const [message, setMessage] = useState('')
-  const body = `${message}\n\n— ${profile?.fullname ?? ''} (${profile?.email ?? ''})`
+  const body = `${message}\n\n${profile?.fullname ?? ''} (${profile?.email ?? ''})`
   return (
     <div className="ka-help">
       <div className="ka-pagehead"><div><h1>Contact Us</h1><p>We are available via email or WhatsApp to chat.</p></div></div>

@@ -181,7 +181,7 @@ export default function Tasks() {
                   {show('assignee') && <td><span className="ka-person"><Avatar name={t.assignee} size={40} />{t.assignee}</span></td>}
                   {show('createdBy') && <td><span className="ka-person"><Avatar name={t.createdBy} size={40} />{t.createdBy}</span></td>}
                   {show('point') && <td>{t.finalReward}/{t.reward}</td>}
-                  {show('status') && <td><span className="ka-statuscell"><StatusIcon status={t.status} />{TASK_STATUS[t.status] ?? '—'}</span></td>}
+                  {show('status') && <td><span className="ka-statuscell"><StatusIcon status={t.status} />{TASK_STATUS[t.status] ?? ''}</span></td>}
                   {show('due') && <td className="ka-nowrap">{fmtDue(t)}</td>}
                   <td><RowMenu task={t} me={profile?.email} canManage={canManage} onAction={onAction} /></td>
                 </tr>

@@ -13,7 +13,7 @@ const TIPS = [
   'Give feedback early. Small, timely notes beat one big review at the end of the quarter.',
   'Celebrate progress, not just results. Recognition keeps momentum going.',
   'Break big goals into weekly tasks so progress is visible to everyone.',
-  'Ask your team what is blocking them — then remove one blocker today.',
+  'Ask your team what is blocking them, then remove one blocker today.',
   'Clear expectations make great performance possible. Write them down.',
   'Listen more than you speak in one-on-ones.',
 ]

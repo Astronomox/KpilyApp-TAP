@@ -26,8 +26,8 @@ export default function About() {
           <p>We have offices and teams all around the world.</p>
         </section>
         <div className="kp-about-copy">
-          <p>KPILY was built around one belief: great performance starts with clear goals, honest feedback and recognition that matters. We set out to give every organisation — whether a fast-growing startup or an established enterprise — a single platform where managers and employees stay aligned, work gets tracked, and achievements are celebrated in real time.</p>
-          <p>Our platform combines task management, KPI tracking, points and badges, and in-depth analytics into one product that&apos;s easy to roll out and even easier to use day-to-day. With KPILY, performance reviews become a continuous conversation rather than a once-a-year event — so your people always know where they stand and what to focus on next.</p>
+          <p>KPILY was built around one belief: great performance starts with clear goals, honest feedback and recognition that matters. We set out to give every organisation (whether a fast-growing startup or an established enterprise) a single platform where managers and employees stay aligned, work gets tracked, and achievements are celebrated in real time.</p>
+          <p>Our platform combines task management, KPI tracking, points and badges, and in-depth analytics into one product that&apos;s easy to roll out and even easier to use day-to-day. With KPILY, performance reviews become a continuous conversation rather than a once-a-year event, so your people always know where they stand and what to focus on next.</p>
         </div>
         <section className="kp-container kp-contacts">
           {CONTACTS.map((c) => (

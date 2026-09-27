@@ -243,7 +243,7 @@ export default function Calendar() {
             <dl className="ka-cal-detail">
               <dt>When</dt><dd>{opened.start.toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })} – {time(opened.end)}</dd>
               {opened.event.organizer && <><dt>Organizer</dt><dd>{opened.event.organizer.fullname || opened.event.organizer.username}</dd></>}
-              <dt>Attendees</dt><dd>{[...new Set(opened.event.attendees.map((a) => a.fullname || a.username))].join(', ') || '—'}</dd>
+              <dt>Attendees</dt><dd>{[...new Set(opened.event.attendees.map((a) => a.fullname || a.username))].join(', ') || 'None'}</dd>
               {opened.event.phyicalLocation && <><dt>Location</dt><dd>{opened.event.phyicalLocation}</dd></>}
               {opened.event.onlineLocation && <><dt>Online</dt><dd><a href={opened.event.onlineLocation} target="_blank" rel="noreferrer">{opened.event.onlineLocation}</a></dd></>}
               {opened.event.details && <><dt>Details</dt><dd>{opened.event.details}</dd></>}

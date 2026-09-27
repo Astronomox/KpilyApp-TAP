@@ -11,7 +11,7 @@ import { useLocalSetting } from '@/lib/useLocalSetting'
 import '@/styles/Settings.css'
 import '@/styles/Billing.css'
 
-const date = (unix?: number) => (unix ? new Date((unix > 1e12 ? unix : unix * 1000)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '—')
+const date = (unix?: number) => (unix ? new Date((unix > 1e12 ? unix : unix * 1000)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'N/A')
 
 export default function Billing() {
   const { profile } = useProfile()

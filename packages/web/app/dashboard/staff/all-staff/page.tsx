@@ -36,7 +36,7 @@ export default function AllStaff() {
   const [error, setError] = useState('')
   const mine = profile?.privilege ?? 30
   const org = profile?.organization as Organization | undefined
-  const location = [title(org?.state), title(org?.country)].filter(Boolean).join(', ') || '—'
+  const location = [title(org?.state), title(org?.country)].filter(Boolean).join(', ') || ''
   const roles = Object.entries(ROLE).map(([k, v]) => [Number(k), v] as const).filter(([k]) => k <= mine && k !== 200).sort((a, b) => b[0] - a[0])
 
   const load = useCallback(() => {

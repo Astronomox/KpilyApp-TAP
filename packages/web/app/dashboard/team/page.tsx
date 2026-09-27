@@ -74,7 +74,7 @@ export default function TeamPage() {
   }, [])
   useEffect(load, [load])
 
-  const name = (email?: string) => members?.find((m) => m.email === email)?.fullname || email || '—'
+  const name = (email?: string) => members?.find((m) => m.email === email)?.fullname || email || ''
   const list = teams ?? []
   const pages = Math.max(1, Math.ceil(list.length / perPage))
   const current = Math.min(page, pages - 1)

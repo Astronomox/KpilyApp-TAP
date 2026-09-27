@@ -54,7 +54,7 @@ export default function BlogPost() {
           </figure>
           <blockquote>
             <p>“In a world older and more complete than ours they move finished and complete, gifted with extensions of the senses we have lost or never attained, living by voices we shall never hear.”</p>
-            <cite>— Olivia Rhye, Product Designer</cite>
+            <cite>Olivia Rhye, Product Designer</cite>
           </blockquote>
           <p>Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio nisl vitae. In aliquet pellentesque aenean hac vestibulum turpis mi <a href="#">bibendum diam</a>. Tempor integer aliquam in vitae malesuada fringilla.</p>
           <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur convallis risus. Sed condimentum enim dignissim adipiscing faucibus consequat, urna. Viverra purus et erat <a href="#">auctor aliquam</a>. Risus, volutpat vulputate posuere purus sit congue convallis aliquet. Arcu id augue ut feugiat donec porttitor neque. Mauris, neque ultricies eu vestibulum, bibendum quam lorem id. Dolor lacus, eget nunc lectus in tellus, pharetra, porttitor.</p>
