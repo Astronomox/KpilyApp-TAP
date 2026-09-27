@@ -1,37 +1,20 @@
 {
   "name": "kpily-monorepo",
   "version": "1.0.0",
-  "description": "Kpily - KPI tracking platform",
+  "description": "KPILY performance management: Next.js + React app",
   "private": true,
   "workspaces": [
-    "packages/web",
-    "packages/dashboard",
-    "packages/api",
-    "packages/types"
+    "packages/web"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev:web\" \"npm run dev:dashboard\" \"npm run dev:api\"",
-    "dev:web": "cd packages/web && npm run dev",
-    "dev:dashboard": "node scripts/dev-dashboard.mjs",
-    "dev:api": "cd packages/api && npm run dev",
-    "build": "npm run build:web && npm run build:dashboard && npm run build:api",
-    "typecheck": "npm run typecheck:web && npm run typecheck:dashboard && npm run typecheck:api",
-    "build:web": "cd packages/web && npm run build",
-    "build:dashboard": "cd packages/dashboard && npm run build",
-    "build:api": "cd packages/api && npm run build",
-    "typecheck:web": "cd packages/web && npm run typecheck",
-    "typecheck:dashboard": "cd packages/dashboard && npx tsc --noEmit",
-    "typecheck:api": "cd packages/api && npm run typecheck",
-    "start:web": "cd packages/web && npm start",
-    "start:dashboard": "cd packages/dashboard && npm start",
-    "start:api": "cd packages/api && npm start"
+    "dev": "npm run dev -w packages/web",
+    "build": "npm run build -w packages/web",
+    "start": "npm run start -w packages/web",
+    "lint": "npm run lint -w packages/web",
+    "typecheck": "npm run typecheck -w packages/web"
   },
   "engines": {
     "node": ">=20.9.0",
     "npm": ">=9.0.0"
-  },
-  "devDependencies": {
-    "concurrently": "^10.0.5",
-    "typescript": "^5.9.3"
   }
 }

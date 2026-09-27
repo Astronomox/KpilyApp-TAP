@@ -1,34 +1,35 @@
-# KPILY Monorepo
+# KPILY
 
-Full-stack KPI tracking platform. Next.js frontend + React dashboard + Node.js API.
+Performance management for teams: real-time feedback, tasks, points and rewards.
+A Next.js 16 + React 19 (TypeScript) app that talks to the live KPILY API.
 
-## 📦 Structure
-
-```
-packages/
-├── web/       → Next.js 16 (Public: login, signup, landing)
-├── dashboard/ → React 18 (Internal: dashboard, tasks, blog)
-├── api/       → Node.js/Express (Backend)
-└── types/     → Shared TypeScript
-```
-
-## 🚀 Start
+## Run it
 
 ```bash
 npm install
-npm run dev
+npm run dev        # http://localhost:3000
 ```
 
-- Web: http://localhost:3000
-- Dashboard: http://localhost:3001
-- API: http://localhost:8000
+Other scripts: `npm run build`, `npm start`, `npm run lint`, `npm run typecheck`.
 
-## 🌍 Deploy
+Config lives in `packages/web/.env.example` (the API base URL; the default points at the live API).
 
-GitHub → GitHub Actions → Vercel (web) + Netlify (dashboard) + Railway (API)
+## Layout
 
-## 📝 Docs
+```
+packages/web/
+├── app/            routes (App Router)
+│   ├── page.tsx    marketing site: /, /about, /blogs, /pricing …
+│   ├── login …     auth: login, register, forgot/change password, email links
+│   └── dashboard/  signed-in app: overview, tasks, calendar, …
+├── components/
+│   ├── figma/      site + auth building blocks (pixel-matched to Figma)
+│   └── app/        app shell: header, menu, ⌘K search, feed, modals
+├── lib/            API client (kpily.ts), navigation, plans, hooks
+├── styles/         plain CSS (kp- site/auth, ka- app)
+└── public/         images and fonts
+```
 
-- `packages/web/.env.example` - Web config
-- `packages/api/.env.example` - API config
-- `packages/types/index.ts` - Shared types
+## Progress
+
+See [docs/COMPLETION_PLAN.md](docs/COMPLETION_PLAN.md).
