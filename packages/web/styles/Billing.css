@@ -1,0 +1,17 @@
+/* In-app pricing and billing. */
+.ka-plans { display: flex; flex-direction: column; align-items: center; gap: 24px; padding-top: 24px; }
+.ka-plans h1 { margin: 0; font-size: 32px; font-weight: 600; color: #106190; }
+.ka-plans__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 308px)); gap: 16px; width: 100%; justify-content: center; margin-top: 16px; }
+.ka-plans__card { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 56px 24px 48px; text-align: center; }
+.ka-plans__card h2 { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0; min-height: 64px; font-size: 24px; font-weight: 700; }
+.ka-plans__card h2 img { width: 34px; height: 34px; }
+.ka-plans__card h3 { margin: 0; font-size: 18px; font-weight: 600; }
+.ka-plans__card ul { display: grid; gap: 12px; list-style: none; margin: 0; padding: 0; min-height: 110px; text-align: left; color: #1e7a5a; font-size: 15px; }
+.ka-plans__card li { display: flex; align-items: center; gap: 8px; }
+.ka-plans__card li img { width: 20px; height: 20px; }
+.ka-plans__price { width: 100%; margin: 0; padding-top: 24px; border-top: 2px dotted #999; font-size: 18px; font-weight: 700; }
+.ka-plans__start { width: 180px; height: 44px; font-size: 14px; }
+.ka-bill__sec { padding: 24px 0 32px; border-bottom: 1px dashed #d9d9d9; }
+.ka-bill__sec h2 { margin: 0 0 20px; font-size: 20px; font-weight: 500; }
+.ka-set__plain { font-style: normal !important; }
+@media (max-width: 1000px) { .ka-plans__grid { grid-template-columns: minmax(0, 360px); } }
