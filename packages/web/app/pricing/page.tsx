@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Logo from '@/components/figma/Logo'
 import BillingToggle from '@/components/figma/BillingToggle'
+import { getSession } from '@/lib/kpily'
 import { priceLabel } from '@/lib/plans'
 import { usePlans } from '@/lib/usePlans'
 import '@/styles/Figma.css'
@@ -12,6 +13,9 @@ import '@/styles/Figma.css'
 export default function PricingPage() {
   const [billing, setBilling] = useState('monthly')
   const plans = usePlans()
+  // Signed-in visitors go straight to checkout; new visitors register first for the free plan.
+  const [signedIn, setSignedIn] = useState(false)
+  useEffect(() => { const s = !!getSession()?.token; queueMicrotask(() => setSignedIn(s)) }, [])
 
   return (
     <main className="kp kp-pricing">
@@ -30,7 +34,7 @@ export default function PricingPage() {
             </ul>
             <div className="kp-plan__foot">
               <p className="kp-plan__price">{priceLabel(p, billing)} / user</p>
-              <Link href={p.costPerMonth === 0 ? '/register' : `/payment-gateway?plan=${p.id}&billing=${billing}`} className="kp-btn kp-plan__start">Start</Link>
+              <Link href={p.costPerMonth === 0 && !signedIn ? '/register' : `/payment-gateway?plan=${p.id}&billing=${billing}`} className="kp-btn kp-plan__start">Start</Link>
             </div>
           </article>
         ))}

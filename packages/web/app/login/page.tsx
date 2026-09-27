@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { login } from '@/lib/kpily'
+import { check, loginSchema } from '@/lib/schemas'
 import Artboard from '@/components/figma/Artboard'
 import FigHero from '@/components/figma/FigHero'
 import MobileAuth from '@/components/figma/MobileAuth'
@@ -25,11 +26,12 @@ export default function Login() {
     setError('')
     setLoading(true)
     try {
-      const session = await login(email, password, remember)
-      // New organisations without a subscription are sent to choose a plan first.
-      // ?next= (set by the dashboard guard) is honoured only for in-app paths.
+      const creds = check(loginSchema, { email: email.trim(), password })
+      await login(creds.email, creds.password, remember)
+      // ?next= (set by the dashboard guard) is honoured only for in-app paths. Organisations
+      // without a plan land in the app too; AppShell shows them a "Choose a plan" banner.
       const next = new URLSearchParams(window.location.search).get('next') || ''
-      router.push(session.redirectToPlanPage && !next.startsWith('/payment-gateway') ? '/pricing' : /^\/(dashboard|payment-gateway)(\/|\?|$)/.test(next) ? next : '/dashboard')
+      router.push(/^\/(dashboard|payment-gateway)(\/|\?|$)/.test(next) ? next : '/dashboard')
     } catch (err) {
       setError(err.message || 'Unable to log in')
       setLoading(false)

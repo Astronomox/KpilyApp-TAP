@@ -78,8 +78,11 @@ function Drawer({ open, onClose, nav, profile, lastLogin }: { open: boolean; onC
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   // The live app shows the Feed rail on Account Overview only.
-  const withRail = (usePathname() || '').startsWith('/dashboard/account-overview')
-  const { profile, setProfile, ready } = useRequireSession()
+  const pathname = usePathname() || ''
+  const withRail = pathname.startsWith('/dashboard/account-overview')
+  const { session, profile, setProfile, ready } = useRequireSession()
+  // The API flags organisations with no subscription; nudge admins to pick a plan.
+  const needsPlan = !!session?.redirectToPlanPage && (profile?.privilege ?? 0) >= 50 && !/\/dashboard\/(pricing|billing)/.test(pathname)
   const [menu, setMenu] = useState(false)
   const [palette, setPalette] = useState(false)
   const [cog, setCog] = useState(false)
@@ -135,7 +138,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <Drawer open={menu} onClose={() => setMenu(false)} nav={nav} profile={profile} lastLogin={lastLogin} />
       <CommandPalette open={palette} onClose={() => setPalette(false)} nav={nav} />
 
-      <main className="ka-app__main"><ProfileContext.Provider value={{ profile, setProfile }}>{children}</ProfileContext.Provider></main>
+      <main className="ka-app__main">
+        {needsPlan && (
+          <div className="ka-planbar" role="status">
+            <span>Your organisation doesn’t have a plan yet. Choose one to unlock KPILY for your whole team.</span>
+            <Link className="ka-btn ka-btn--sm" href="/dashboard/pricing">Choose a plan</Link>
+          </div>
+        )}
+        <ProfileContext.Provider value={{ profile, setProfile }}>{children}</ProfileContext.Provider></main>
       {withRail && <FeedRail />}
     </div>
   )

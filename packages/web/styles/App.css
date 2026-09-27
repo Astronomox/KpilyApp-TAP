@@ -163,3 +163,4 @@
 .ka-ring { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 0; font-size: 12px; text-align: center; }
 .ka-ring figcaption { max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #555; }
 .ka-ov-grade { font-size: 56px; font-weight: 700; line-height: 1; color: #1e7a5a; }
+.ka-planbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin: -24px 0 24px; padding: 12px 16px; border: 1px solid #f2d27a; border-radius: 10px; background: #fdf6e3; font-size: 14px; }
