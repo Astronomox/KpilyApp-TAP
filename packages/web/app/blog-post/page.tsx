@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link'
 import { useState } from 'react'
@@ -11,7 +11,7 @@ import '@/styles/FigmaSite.css'
 
 const MORE = [
   { slug: 'ux-review-presentations', title: 'UX review presentations', excerpt: 'How do you create compelling presentations that wow your colleagues and impress your managers?', image: '/figma/post/card-1.png' },
-  { slug: 'migrating-to-linear-101', title: 'Migrating to Linear 101', excerpt: 'Linear helps streamline software projects, sprints, tasks, and bug tracking. Here’s how to get started.', image: '/figma/post/card-2.png' },
+  { slug: 'migrating-to-linear-101', title: 'Migrating to Linear 101', excerpt: 'Linear helps streamline software projects, sprints, tasks, and bug tracking. Here\'s how to get started.', image: '/figma/post/card-2.png' },
   { slug: 'building-your-api-stack', title: 'Building your API Stack', excerpt: 'The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.', image: '/figma/post/card-3.png' },
   { slug: 'bill-walsh-leadership-lessons', title: 'Bill Walsh leadership lessons', excerpt: 'Like to know the secrets of transforming a 2-14 team into a 3x Super Bowl winning Dynasty?', image: '/figma/post/card-4.png' },
 ]
@@ -43,43 +43,43 @@ export default function BlogPost() {
         <div className="kp-container"><img className="kp-post-hero" src="/figma/post/hero.png" alt="Bright modern office" /></div>
 
         <article className="kp-prose">
-          <p className="kp-prose__lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper mattis lorem non. Ultrices praesent amet ipsum justo massa. Eu dolor aliquet risus gravida nunc at feugiat consequat purus. Non massa enim vitae duis mattis. Vel in ultricies vel fringilla.</p>
+          <p className="kp-prose__lead">A performance review presentation is more than a slide deck — it&apos;s the moment where months of work, data, and team effort get distilled into a narrative that guides decisions. Getting that narrative right matters far more than the template you use.</p>
           <hr />
           <h2>Introduction</h2>
-          <p>Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt. At feugiat sapien varius id.</p>
-          <p>Eget quis mi enim, leo lacinia pharetra, semper. Eget in <a href="#">volutpat mollis</a> at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit <a href="#">tristique risus</a>, at donec. In turpis vel et quam imperdiet. Ipsum molestie aliquet sodales id est ac volutpat. </p>
+          <p>Whether you&apos;re presenting to your leadership team, reporting to a board, or running a quarterly business review with your direct reports, the challenge is always the same: how do you turn raw KPI data into a story that actually lands?</p>
+          <p>KPILY makes it easy to pull <a href="/dashboard">live performance data</a> into any presentation format. But the data is only half the job. The other half is knowing how to frame it — what to lead with, what to explain, and what to leave out. This post walks through the principles we&apos;ve seen work consistently across high-performing teams.</p>
           <figure>
             <img src="/figma/post/inline-1.png" alt="Desk with a laptop" />
             <figcaption>Image courtesy of Laura Davidson via <a href="https://unsplash.com/photos/QBAH4IldaZY" target="_blank" rel="noreferrer">Unsplash</a></figcaption>
           </figure>
           <blockquote>
-            <p>“In a world older and more complete than ours they move finished and complete, gifted with extensions of the senses we have lost or never attained, living by voices we shall never hear.”</p>
+            <p>"The best performance reviews are a conversation, not a verdict. Your slides should open a dialogue, not close one."</p>
             <cite>Olivia Rhye, Product Designer</cite>
           </blockquote>
-          <p>Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio nisl vitae. In aliquet pellentesque aenean hac vestibulum turpis mi <a href="#">bibendum diam</a>. Tempor integer aliquam in vitae malesuada fringilla.</p>
-          <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur convallis risus. Sed condimentum enim dignissim adipiscing faucibus consequat, urna. Viverra purus et erat <a href="#">auctor aliquam</a>. Risus, volutpat vulputate posuere purus sit congue convallis aliquet. Arcu id augue ut feugiat donec porttitor neque. Mauris, neque ultricies eu vestibulum, bibendum quam lorem id. Dolor lacus, eget nunc lectus in tellus, pharetra, porttitor.</p>
-          <p>Ipsum sit mattis nulla quam nulla. Gravida id gravida ac enim mauris id. Non pellentesque congue eget consectetur turpis. Sapien, dictum molestie sem tempor. Diam elit, orci, tincidunt aenean tempus. Quis velit eget ut tortor tellus. Sed vel, congue felis elit erat nam nibh orci.</p>
-          <h3>Software and tools</h3>
-          <p>Pharetra morbi libero id aliquam elit massa integer tellus. Quis felis aliquam ullamcorper porttitor. Pulvinar ullamcorper sit dictumst ut eget a, elementum eu. Maecenas est morbi mattis id in ac pellentesque ac.</p>
-          <h3>Other resources</h3>
-          <p>Sagittis et eu at elementum, quis in. Proin praesent volutpat egestas sociis sit lorem nunc nunc sit. Eget diam curabitur mi ac. Auctor rutrum lacus malesuada massa ornare et. Vulputate consectetur ac ultrices at diam dui eget fringilla tincidunt. Arcu sit dignissim massa erat cursus vulputate gravida id. Sed quis auctor vulputate hac elementum gravida cursus dis.</p>
+          <p>Start with the outcome your audience cares about most — whether that&apos;s revenue attainment, task completion rate, or employee engagement score. Ground the room in one headline number before drilling down. If you open with twenty charts, you lose people before the important context arrives.</p>
+          <p>From there, move through the story in three beats: where we aimed, where we landed, and what we learned. The KPILY dashboard structures data in exactly this sequence — your goal vs. actual rate, a trend line, and the delta from the previous period. Mirror that structure in your slides and your audience will follow without effort.</p>
+          <p>Anticipate the hard questions before someone asks them. If a KPI missed its target, come prepared with at least one root cause and one corrective action. Presenters who name the problem themselves are seen as self-aware and trustworthy; those who wait to be challenged look defensive.</p>
+          <h3>Tools and setup</h3>
+          <p>KPILY exports performance snapshots as CSV and PDF, so you can pull a current data set moments before any presentation. Pair this with a slide tool that lets you embed live numbers — even a simple Google Sheet link updated by your KPILY export will ensure your figures are never stale on the day.</p>
+          <h3>Further reading</h3>
+          <p>The principles here apply whether you&apos;re a team lead presenting to a manager or a Head of People presenting to a CEO. The scale changes; the structure doesn&apos;t. For deeper dives, we recommend the KPILY Help Centre guides on setting KPI targets and reading the performance trend graph.</p>
           <ol>
-            <li>Lectus id duis vitae porttitor enim <a href="#">gravida morbi</a>.</li>
-            <li>Eu turpis <a href="#">posuere semper feugiat</a> volutpat elit, ultrices suspendisse. Auctor vel in vitae placerat.</li>
-            <li>Suspendisse maecenas ac <a href="#">donec scelerisque</a> diam sed est duis purus.</li>
+            <li>Keep your headline metric to <a href="/dashboard">one number per slide</a> — let supporting data live in the appendix.</li>
+            <li>Show the trend, not just the snapshot — a single data point without context <a href="/blogs">misleads more than it informs</a>.</li>
+            <li>Close every review with explicit next steps — who owns what, and by when.</li>
           </ol>
           <figure>
             <img src="/figma/post/inline-2.png" alt="Person working on a laptop" />
             <figcaption>Image courtesy of Leon via <a href="https://unsplash.com/photos/bzqU01v-G54" target="_blank" rel="noreferrer">Unsplash</a></figcaption>
           </figure>
-          <p>Lectus leo massa amet posuere. Malesuada mattis non convallis quisque. Libero sit et imperdiet bibendum quisque dictum vestibulum in non. Pretium ultricies tempor non est diam. Enim ut enim amet amet integer cursus. Sit ac commodo pretium sed etiam turpis suspendisse at.</p>
-          <p>Tristique odio senectus nam posuere ornare leo metus, ultricies. Blandit duis ultricies vulputate morbi feugiat cras placerat elit. Aliquam tellus lorem sed ac. Montes, sed mattis pellentesque suscipit accumsan. Cursus viverra aenean magna risus elementum faucibus molestie pellentesque. Arcu ultricies sed mauris vestibulum.</p>
+          <p>If your team uses KPILY&apos;s leaderboard, consider including a recognition slide at the end of your presentation — spotlight the top performers by name. Public recognition in a group setting is one of the highest-impact, lowest-cost motivators available to managers, and it gives your review a positive close that people remember.</p>
+          <p>Finally, send the deck afterwards. A presentation that disappears after the meeting loses most of its value. Share a PDF with the key numbers and the agreed actions so everyone leaves with the same record.</p>
           <section className="kp-prose__box">
             <h2>Conclusion</h2>
-            <p>Morbi sed imperdiet in ipsum, adipiscing elit dui lectus. Tellus id scelerisque est ultricies ultricies. Duis est sit sed leo nisl, blandit elit sagittis. Quisque tristique consequat quam sed. Nisl at scelerisque amet nulla purus habitasse.</p>
-            <p>Nunc sed faucibus bibendum feugiat sed interdum. Ipsum egestas condimentum mi massa. In tincidunt pharetra consectetur sed duis facilisis metus. Etiam egestas in nec sed et. Quis lobortis at sit dictum eget nibh tortor commodo cursus.</p>
-            <p>Odio felis sagittis, morbi feugiat tortor vitae feugiat fusce aliquet. Nam elementum urna nisi aliquet erat dolor enim. Ornare id morbi eget ipsum. Aliquam senectus neque ut id eget consectetur dictum. Donec posuere pharetra odio consequat scelerisque et, nunc tortor.</p>
-            <p>Nulla adipiscing erat a erat. Condimentum lorem posuere gravida enim posuere cursus diam.</p>
+            <p>A great performance review presentation does three things: it tells the truth about where the team stands, it explains why, and it points clearly toward what happens next. Everything else — colour schemes, animations, chart types — is secondary to those three things.</p>
+            <p>KPILY is built around the belief that performance clarity should be continuous, not quarterly. The best presenters we&apos;ve seen are the ones who treat their review deck as a summary of conversations that have already happened — not a first reveal.</p>
+            <p>If you&apos;re not already running frequent check-ins and capturing feedback in real time, that&apos;s where to start. The presentation will take care of itself when the underlying data is honest and up to date.</p>
+            <p>Ready to make performance data a daily habit? <a href="/register">Start your free trial</a> and see what your team looks like with full KPI visibility.</p>
           </section>
           <hr />
           <div className="kp-author">

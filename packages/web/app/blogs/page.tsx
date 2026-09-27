@@ -10,8 +10,6 @@ import { allPosts, recentPosts, type BlogPost } from '@/lib/blogPosts'
 import '@/styles/Figma.css'
 import '@/styles/FigmaSite.css'
 
-const PAGES = ['1', '2', '3', '...', '8', '9', '10']
-
 function Meta({ p }: { p: BlogPost }) {
   return <p className="kp-card__meta">{p.author} • {p.date}</p>
 }
@@ -52,7 +50,6 @@ function SideCard({ p }: { p: BlogPost }) {
 export default function Blog() {
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
-  const [page, setPage] = useState('1')
 
   return (
     <div className="kp kp-site">
@@ -85,16 +82,6 @@ export default function Blog() {
           <div className="kp-grid3">
             {allPosts.map((p) => <Card key={p.slug} p={p} />)}
           </div>
-          <nav className="kp-pager" aria-label="Pagination">
-            <button type="button" onClick={() => setPage(String(Math.max(1, Number(page) - 1)))}><img src="/figma/blog/arrow-left.svg" alt="" />Previous</button>
-            <div className="kp-pager__nums">
-              {PAGES.map((n, i) => (
-                n === '...' ? <span key={`gap-${i}`}>...</span>
-                  : <button type="button" key={n} className={n === page ? 'is-active' : ''} aria-current={n === page ? 'page' : undefined} onClick={() => setPage(n)}>{n}</button>
-              ))}
-            </div>
-            <button type="button" onClick={() => setPage(String(Math.min(10, Number(page) + 1)))}>Next<img src="/figma/blog/arrow-right.svg" alt="" /></button>
-          </nav>
         </section>
       </main>
       <DemoCta />

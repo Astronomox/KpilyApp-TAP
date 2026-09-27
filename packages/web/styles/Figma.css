@@ -376,7 +376,9 @@ select.kp-input { appearance: none; background: #fff url('/figma/register/caret.
 .kp-fx-check:checked { background: #237155 url('/figma/register/check-small.svg') center/80% no-repeat; border-color: #237155; }
 
 /* ---------- Loader ---------- */
-.kp-loader { position: fixed; inset: 0; z-index: 100; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 56px; }
+.kp-loader { position: fixed; inset: 0; z-index: 100; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 56px; animation: kp-loader-fadein .3s ease; }
+@keyframes kp-loader-fadein { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .kp-loader { animation: none; } }
 .kp-loader__logo { width: 200px; height: auto; animation: kp-loader-breathe 2.4s ease-in-out infinite; }
 .kp-loader__spinner { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #252525; border-right-color: transparent; animation: kp-loader-spin .8s linear infinite; }
 @keyframes kp-loader-spin { to { transform: rotate(360deg); } }

@@ -139,6 +139,7 @@
 .kp-contact-form__agree input { appearance: none; width: 20px; height: 20px; padding: 0; border-radius: 6px; box-shadow: none; cursor: pointer; }
 .kp-contact-form__agree input:checked { background: var(--kp-primary); border-color: var(--kp-primary); }
 .kp-contact-form__agree a { text-decoration: underline; }
+.kp-contact-form__hint { font: 400 13px/20px var(--kp-inter); color: #667085; margin: -8px 0 0; }
 .kp-contact-form button { margin-top: 8px; background: var(--kp-primary); border: 1px solid var(--kp-primary); color: #fff; border-radius: 8px; padding: 12px 20px; font: 600 16px/24px var(--kp-inter); box-shadow: 0 1px 2px rgba(16,24,40,.05); }
 .kp-press { padding-top: 96px; padding-bottom: 96px; text-align: center; }
 .kp-press p { font: 500 16px/24px var(--kp-inter); color: #667085; margin: 0 0 32px; }
