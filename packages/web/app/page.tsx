@@ -43,7 +43,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 export default function Home() {
   const [billing, setBilling] = useState('monthly')
   const plans = usePlans()
-  const [signup, setSignup] = useState({ email: '', password: '' })
+  const [signup, setSignup] = useState({ email: '' })
 
   return (
     <div className="kp kp-site kp-home">
@@ -64,7 +64,7 @@ export default function Home() {
         <section className="kp-home__clients kp-home__container">
           <Reveal as="h2">Over 32k+ Technology businesses growing with KPILY</Reveal>
           <div className="kp-home__logos">
-            {CLIENTS.map(([slug, name], i) => <Reveal key={slug} delay={i * 80} from="zoom"><img src={`/site/${slug}.png`} alt={name} /></Reveal>)}
+            {CLIENTS.map(([slug, name], i) => <Reveal key={slug} delay={i * 80} from="zoom"><img src={`/site/${slug}.png`} alt={name} width={120} height={40} loading="lazy" /></Reveal>)}
           </div>
         </section>
 
@@ -75,11 +75,11 @@ export default function Home() {
             <p className="kp-home__body kp-home__body--dark">KPILY&apos;s real-time feedback system uses points, keywords, and gamification to provide instant feedback and keep team members engaged and motivated. With advanced keyword recognition technology, you can easily track trends in your team&apos;s performance over time and make data-driven decisions.</p>
             <GetStarted />
           </Reveal>
-          <img className="kp-home__feature-img kp-float kp-float--slow" src="/site/real-time-feedback.png" alt="Real-time feedback dashboard with points received" />
+          <img className="kp-home__feature-img kp-float kp-float--slow" src="/site/real-time-feedback.png" alt="Real-time feedback dashboard with points received" width={560} height={400} loading="lazy" />
         </section>
 
         <section className="kp-home__container kp-home__rel">
-          <img className="kp-home__birds kp-bob" src="/site/birds.png" alt="" aria-hidden="true" />
+          <img className="kp-home__birds kp-bob" src="/site/birds.png" alt="" aria-hidden="true" loading="lazy" />
           <Reveal className="kp-home__card kp-home__rewards">
             <div>
               <Eyebrow>Our Features</Eyebrow>
@@ -90,8 +90,6 @@ export default function Home() {
               <h3>Get Started for Free</h3>
               <label className="sr-only" htmlFor="home-email">Work Email</label>
               <input id="home-email" type="email" placeholder="Email Address" required value={signup.email} onChange={(e) => setSignup({ ...signup, email: e.target.value })} />
-              <label className="sr-only" htmlFor="home-password">Password</label>
-              <input id="home-password" type="password" placeholder="Password" required value={signup.password} onChange={(e) => setSignup({ ...signup, password: e.target.value })} />
               <button type="submit" className="kp-btn kp-home__btn">Get Started</button>
             </form>
           </Reveal>
@@ -104,7 +102,7 @@ export default function Home() {
             <p className="kp-home__body">Define your own KPIs that align with your business goals. </p>
             <GetStarted />
           </Reveal>
-          <img className="kp-home__feature-img kp-float kp-float--slow" src="/site/customizable-kpis.png" alt="Customizable KPI progress card" />
+          <img className="kp-home__feature-img kp-float kp-float--slow" src="/site/customizable-kpis.png" alt="Customizable KPI progress card" width={560} height={400} loading="lazy" />
         </section>
 
         <section className="kp-home__container kp-home__testimonials">
@@ -127,11 +125,11 @@ export default function Home() {
             <p className="kp-home__body">Your employees can see their progress in real-time, as well as how they stack up against their peers. The leaderboard is designed to keep your team engaged and motivated, and it can be a powerful tool for driving performance. </p>
             <GetStarted />
           </Reveal>
-          <img className="kp-home__feature-img kp-float kp-float--slow" src="/site/leaderboard-tracking.png" alt="Team leaderboard" />
+          <img className="kp-home__feature-img kp-float kp-float--slow" src="/site/leaderboard-tracking.png" alt="Team leaderboard" width={560} height={400} loading="lazy" />
         </section>
 
         <section className="kp-home__container kp-home__rel">
-          <img className="kp-home__feathers kp-bob kp-home__feathers--tl" src="/site/feathers.png" alt="" aria-hidden="true" />
+          <img className="kp-home__feathers kp-bob kp-home__feathers--tl" src="/site/feathers.png" alt="" aria-hidden="true" loading="lazy" />
           <div className="kp-home__card kp-home__why">
             <Eyebrow>Why KPILY</Eyebrow>
             <h2 className="kp-home__h2">Why Choose Us</h2>
@@ -147,8 +145,8 @@ export default function Home() {
         </section>
 
         <section className="kp-home__container kp-home__rel">
-          <img className="kp-home__feathers kp-bob kp-home__feathers--tr" src="/site/feathers.png" alt="" aria-hidden="true" />
-          <img className="kp-home__feathers kp-bob kp-home__feathers--bl" src="/site/feathers.png" alt="" aria-hidden="true" />
+          <img className="kp-home__feathers kp-bob kp-home__feathers--tr" src="/site/feathers.png" alt="" aria-hidden="true" loading="lazy" />
+          <img className="kp-home__feathers kp-bob kp-home__feathers--bl" src="/site/feathers.png" alt="" aria-hidden="true" loading="lazy" />
           <div className="kp-home__card kp-home__plans">
             <Eyebrow>Choose A Plan</Eyebrow>
             <BillingToggle value={billing} onChange={setBilling} />

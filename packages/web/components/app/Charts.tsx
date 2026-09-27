@@ -1,7 +1,7 @@
 'use client'
 
 // Small dependency-free SVG charts for the performance pages.
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import type { Rate } from '@/lib/kpily'
 
 export const BIMONTHS = ['Jan-Feb', 'Mar-Apr', 'May-Jun', 'Jul-Aug', 'Sep-Oct', 'Nov-Dec']
@@ -47,6 +47,7 @@ export function BarChart({ labels, series, height = 280, legend = series.length 
 
 /** Smoothed area line. */
 export function LineChart({ labels, values, color = '#7a3fb0', height = 280, label }: { labels: string[]; values: number[]; color?: string; height?: number; label: string }) {
+  const uid = useId()
   const max = niceMax(Math.max(...values, 0))
   const W = 560, H = height, L = 40, B = 28, T = 10, plotH = H - B - T, step = (W - L - 20) / Math.max(labels.length - 1, 1)
   const pts = values.map((v, i) => [L + 10 + step * i, T + plotH - (v / max) * plotH])
@@ -55,7 +56,7 @@ export function LineChart({ labels, values, color = '#7a3fb0', height = 280, lab
     const [px, py] = pts[i - 1], cx = (px + x) / 2
     return `C${cx},${py} ${cx},${y} ${x},${y}`
   }).join(' ')
-  const gid = `ka-area-${label.replace(/\W/g, '')}`
+  const gid = `ka-area-${uid.replace(/:/g, '')}-${label.replace(/\W/g, '')}`
   return (
     <figure className="ka-chart">
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${label}: ${labels.map((l, i) => `${l} ${values[i]}`).join(', ')}`}>

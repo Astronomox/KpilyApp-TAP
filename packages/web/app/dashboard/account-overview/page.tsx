@@ -8,6 +8,7 @@ import { Gauge, grade } from '@/components/app/Charts'
 import Icon from '@/components/app/Icon'
 import Modal from '@/components/app/Modal'
 import { useProfile } from '@/components/app/ProfileContext'
+import SkeletonCard from '@/components/app/SkeletonCard'
 import {
   API_BASE, clearSession, endSession, getActiveSessions, getDashboard, getSelf, getTasks, getTeams, updateProfile, uploadProfileImage,
   type Dashboard, type Task, type Team,
@@ -25,7 +26,7 @@ function PointsChart({ points }: { points: Dashboard['pointsThisYear'] }) {
   const max = Math.max(...values, 1)
   return (
     <figure className="ka-points">
-      <figcaption>Total Team Point %</figcaption>
+      <figcaption>Total Team Points %</figcaption>
       <div className="ka-points__plot" role="img" aria-label={`Points earned this year by month: ${MONTHS.map((m, i) => `${m} ${values[i]}`).join(', ')}`}>
         {values.map((v, i) => (
           <div key={MONTHS[i]} className="ka-points__col" title={`${MONTHS[i]}: ${v} points (${total ? Math.round((v / total) * 100) : 0}%)`}>
@@ -52,7 +53,7 @@ export default function AccountOverview() {
   const file = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    getDashboard().then(setDash).catch(() => {})
+    getDashboard().then(setDash).catch(() => setError('Failed to load performance data'))
     getTeams().then(setTeams).catch(() => setTeams([]))
     getTasks().then(setTasks).catch(() => setTasks([]))
   }, [])
@@ -107,7 +108,7 @@ export default function AccountOverview() {
 
       <section className="ka-card ka-ov-perf">
         <div className="ka-card__head"><h2>Performance Data</h2><Link className="ka-link" href="/dashboard/performance-data/performance-data">See all</Link></div>
-        {dash ? <PointsChart points={dash.pointsThisYear || []} /> : <p className="ka-muted">Loading…</p>}
+        {dash ? <PointsChart points={dash.pointsThisYear || []} /> : <SkeletonCard lines={2} height={120} />}
       </section>
 
       <section className="ka-card ka-ov-settings">
@@ -124,7 +125,7 @@ export default function AccountOverview() {
           <span><strong>Password</strong>Set a new password</span><Icon name="chevron" size={18} className="ka-flip" />
         </Link>
         <button type="button" className="ka-ov-row" onClick={() => setConfirmOut(true)}>
-          <span><strong>Log out off all devices</strong>Log out</span><Icon name="chevron" size={18} className="ka-flip" />
+          <span><strong>Log out of all devices</strong>Log out</span><Icon name="chevron" size={18} className="ka-flip" />
         </button>
       </section>
 
@@ -132,7 +133,7 @@ export default function AccountOverview() {
         <div className="ka-card__head"><h2>Teams</h2><Link className="ka-link" href="/dashboard/team">See all</Link></div>
         {teams === null ? <p className="ka-muted">Loading…</p> : !teams.length ? <p className="ka-muted">No teams yet.</p> : (
           <ul className="ka-ov-teamlist">
-            {teams.slice(0, 5).map((t) => <li key={t.id}><span className="ka-dot" style={{ background: t.color || '#106190' }} />{t.teamName}</li>)}
+            {teams.slice(0, 5).map((t) => <li key={t.id}><span className="ka-dot" style={{ background: t.color || 'var(--ka-blue)' }} />{t.teamName}</li>)}
           </ul>
         )}
       </section>
@@ -160,7 +161,7 @@ export default function AccountOverview() {
         </form>
       </Modal>
 
-      <Modal open={confirmOut} title="Log out off all devices" onClose={() => setConfirmOut(false)} width={420}>
+      <Modal open={confirmOut} title="Log out of all devices" onClose={() => setConfirmOut(false)} width={420}>
         <p>You will be signed out everywhere, including this browser.</p>
         {error && <p role="alert" className="ka-error">{error}</p>}
         <div className="ka-actions">

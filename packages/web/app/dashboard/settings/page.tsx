@@ -64,7 +64,7 @@ export default function Settings() {
 
   async function act(key: string, fn: () => Promise<unknown>, ok: string) {
     setSt((s) => ({ ...s, [key]: { busy: true } }))
-    try { await fn(); setSt((s) => ({ ...s, [key]: { ok } })) } catch (e) { setSt((s) => ({ ...s, [key]: { error: e.message } })) }
+    try { await fn(); setSt((s) => ({ ...s, [key]: { ok } })) } catch (e) { setSt((s) => ({ ...s, [key]: { error: e instanceof Error ? e.message : String(e) } })) }
   }
   const refresh = async () => { const me = await getSelf(); if (profile) { setProfile({ ...profile, ...me }); updateStoredProfile(me) } }
 
@@ -73,7 +73,7 @@ export default function Settings() {
     const f = formValues(e.currentTarget)
     act('company', async () => {
       await updateOrg(check(orgSchema, f))
-      const organization = { ...org, compnayName: f.companyName.trim(), companyName: f.companyName.trim(), companyWebsite: f.companyWebsite.trim(), mailDomain: f.mailDomain.trim(), industry: f.industry.trim(), country: f.country.trim(), state: f.state.trim() }
+      const organization = { ...org, companyName: f.companyName.trim(), companyWebsite: f.companyWebsite.trim(), mailDomain: f.mailDomain.trim(), industry: f.industry.trim(), country: f.country.trim(), state: f.state.trim() }
       if (profile) setProfile({ ...profile, organization })
       updateStoredProfile({ organization })
     }, 'Company details saved.')
@@ -151,7 +151,7 @@ export default function Settings() {
                 <input name="phone" type="tel" aria-label="Phone number" defaultValue={local} placeholder="Phone" />
               </div>
             </div>
-            <label className="ka-field">Gender<select name="gender" defaultValue={pretty(profile?.gender) || 'Male'}><option>Male</option><option>Female</option></select></label>
+            <label className="ka-field">Gender<select name="gender" defaultValue={pretty(profile?.gender) || 'Male'}><option>Male</option><option>Female</option><option value="other">Prefer not to say</option></select></label>
             <div className="ka-set__inline"><button type="submit" className="ka-btn ka-btn--sm" disabled={st.name?.busy}>{st.name?.busy ? 'Saving…' : 'Save'}</button></div>
           </div>
           <Note s={st.name ?? {}} />
@@ -167,7 +167,7 @@ export default function Settings() {
       </Row>
 
       <Row title="Personal Email"><input className="ka-set__ro" value={profile?.email ?? ''} readOnly aria-label="Personal email" /></Row>
-      <Row title="Language"><select className="ka-set__ro" aria-label="Language" defaultValue="en"><option value="en">English</option></select></Row>
+      <Row title="Language"><select className="ka-set__ro" aria-label="Language" defaultValue="en" disabled title="More languages coming soon"><option value="en">English</option></select></Row>
       <Row title="Verification Status"><span className="ka-set__ro ka-set__verified">Active <Icon name="check" size={16} /></span></Row>
 
       <Row title="Password" hint="Enter your current password to change your account">

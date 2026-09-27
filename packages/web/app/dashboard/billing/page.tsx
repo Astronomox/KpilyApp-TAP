@@ -40,7 +40,7 @@ export default function Billing() {
         <span>{s.accounts} user{s.accounts === 1 ? '' : 's'}</span>
         <span>{s.subscriptionType === 2 ? 'Billed annually' : 'Billed monthly'}</span>
         {typeof s.amount === 'number' && <span>{money(s.amount)}</span>}
-        <span>Renews {date(s.endDate)}</span>
+        {s.endDate ? <span>Renews {date(s.endDate)}</span> : <span>No expiry</span>}
       </div>
     )
   }
@@ -77,7 +77,8 @@ export default function Billing() {
             <label><input type="radio" name="invoice" checked={contact.mode === 'account'} onChange={() => setContact({ ...contact, mode: 'account' })} />Send to my account email</label>
             <small><Icon name="mail" size={14} />{profile?.email}</small>
             <label><input type="radio" name="invoice" checked={contact.mode === 'other'} onChange={() => setContact({ ...contact, mode: 'other' })} />Send to an alternative email</label>
-            <input className="ka-set__ro" type="email" aria-label="Alternative invoice email" placeholder="dej@gmail.com" value={contact.email} disabled={contact.mode !== 'other'} onChange={(e) => setContact({ ...contact, email: e.target.value })} />
+            <input className="ka-set__ro" type="email" aria-label="Alternative invoice email" placeholder="billing@yourcompany.com" value={contact.email} disabled={contact.mode !== 'other'} onChange={(e) => setContact({ ...contact, email: e.target.value })} />
+            <p className="ka-field__hint">Saved in this browser only. Contact support to set a permanent billing address.</p>
           </div>
         )}
       </section>

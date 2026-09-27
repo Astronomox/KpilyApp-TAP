@@ -10,9 +10,9 @@
 .ka-tasks__tools { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
 .ka-statuscell { display: inline-flex; align-items: center; gap: 8px; }
 .ka-status { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--ka-text); flex: none; }
-.ka-status--1 { border-color: #e6a700; background: #fff4cf; }
-.ka-status--2 { border-color: #d35400; background: #fde3d3; }
-.ka-status--3 { border-color: #5b5bd6; background: #5b5bd6; }
+.ka-status--1 { border-color: var(--ka-warn); background: #fff4cf; }
+.ka-status--2 { border-color: var(--ka-status-reviewed); background: #fde3d3; }
+.ka-status--3 { border-color: var(--ka-status-complete); background: var(--ka-status-complete); }
 .ka-status--4 { border-color: var(--ka-green); background: #d7f0e5; }
 
 @media (max-width: 900px) {

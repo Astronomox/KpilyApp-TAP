@@ -59,8 +59,8 @@ export default function Login() {
         {error && <p role="alert" className="kp-m-error">{error}</p>}
         <button type="submit" className="kp-m-btn" disabled={loading}>{loading ? 'Signing in…' : 'Sign In'}</button>
         <hr className="kp-m-divider" />
-        <button type="button" className="kp-m-btn kp-m-btn--outlined"><img src="/figma/login/google.png" alt="" />Sign in with Google</button>
-        <button type="button" className="kp-m-btn kp-m-btn--outlined"><img src="/figma/login/microsoft.png" alt="" />Sign in with Microsoft</button>
+        <button type="button" className="kp-m-btn kp-m-btn--outlined" disabled title="Coming soon"><img src="/figma/login/google.png" alt="" />Sign in with Google<span style={{ fontSize: 11, marginLeft: 6, opacity: 0.6 }}>Coming soon</span></button>
+        <button type="button" className="kp-m-btn kp-m-btn--outlined" disabled title="Coming soon"><img src="/figma/login/microsoft.png" alt="" />Sign in with Microsoft<span style={{ fontSize: 11, marginLeft: 6, opacity: 0.6 }}>Coming soon</span></button>
       </form>
     </MobileAuth>
   )
@@ -96,13 +96,15 @@ export default function Login() {
       </form>
 
       <img src="/figma/login/divider.svg" alt="" style={at(120, 598, 299, 1)} />
-      <button type="button" className="kp-fx-btn kp-fx-btn--outlined" style={at(137, 639, 257, 46)}>
+      <button type="button" className="kp-fx-btn kp-fx-btn--outlined" disabled title="Coming soon" style={at(137, 639, 257, 46)}>
         <img src="/figma/login/google.png" alt="" style={{ width: 26, height: 27, objectFit: 'cover' }} />
-        <span style={{ padding: '10px 24px 10px 16px', fontWeight: 500 }}>Sign in with Google</span>
+        <span style={{ padding: '10px 16px 10px 16px', fontWeight: 500 }}>Sign in with Google</span>
+        <span style={{ fontSize: 11, opacity: 0.5 }}>Soon</span>
       </button>
-      <button type="button" className="kp-fx-btn kp-fx-btn--outlined" style={at(137, 710, 257, 46)}>
+      <button type="button" className="kp-fx-btn kp-fx-btn--outlined" disabled title="Coming soon" style={at(137, 710, 257, 46)}>
         <span style={{ width: 26, height: 27 }} />
-        <span style={{ padding: '10px 24px 10px 16px', fontWeight: 500 }}>Sign in with Microsoft</span>
+        <span style={{ padding: '10px 16px 10px 16px', fontWeight: 500 }}>Sign in with Microsoft</span>
+        <span style={{ fontSize: 11, opacity: 0.5 }}>Soon</span>
       </button>
       <img src="/figma/login/microsoft.png" alt="" style={at(156, 721, 26, 26, { objectFit: 'cover', pointerEvents: 'none' })} />
 

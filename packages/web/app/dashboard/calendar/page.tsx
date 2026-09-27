@@ -60,14 +60,15 @@ function Chip({ it, onOpen }: { it: Item; onOpen: (it: Item) => void }) {
 
 function EventForm({ open, event, date, onClose, onSaved }: { open: boolean; event?: CalEvent | null; date: Date; onClose: () => void; onSaved: () => void }) {
   const [members, setMembers] = useState<Member[]>([])
+  const [memberError, setMemberError] = useState('')
   const [picked, setPicked] = useState<string[]>([])
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [openedFor, setOpenedFor] = useState<string | null>(null)
   const key = open ? event?.id ?? 'new' : null
-  if (key !== openedFor) { setOpenedFor(key); setPicked(event?.attendees.map((a) => a.username) ?? []); setError('') }
+  if (key !== openedFor) { setOpenedFor(key); setPicked(event?.attendees.map((a) => a.username) ?? []); setError(''); setMemberError('') }
 
-  useEffect(() => { if (open) getMembers().then(setMembers).catch(() => {}) }, [open])
+  useEffect(() => { if (open) getMembers().then(setMembers).catch(() => setMemberError('Could not load members. You can still create the event.')) }, [open])
 
   const start = event ? new Date(event.time * 1000) : new Date(date.getFullYear(), date.getMonth(), date.getDate(), 9)
   const end = event?.endTime ? new Date(event.endTime * 1000) : new Date(start.getTime() + 36e5)
@@ -85,7 +86,7 @@ function EventForm({ open, event, date, onClose, onSaved }: { open: boolean; eve
       phyicalLocation: String(f.get('place')).trim(), onlineLocation: String(f.get('link')).trim(),
     }
     setBusy(true); setError('')
-    try { await (event ? updateEvent(event.id, input) : createEvent(input)); onSaved(); onClose() } catch (err) { setError(err.message) } finally { setBusy(false) }
+    try { await (event ? updateEvent(event.id, input) : createEvent(input)); onSaved(); onClose() } catch (err) { setError(err instanceof Error ? err.message : String(err)) } finally { setBusy(false) }
   }
 
   return (
@@ -98,7 +99,7 @@ function EventForm({ open, event, date, onClose, onSaved }: { open: boolean; eve
         </div>
         <fieldset className="ka-field ka-attendees">
           <legend>Attendees</legend>
-          {members.length ? members.map((m) => (
+          {memberError ? <p role="alert" className="ka-error">{memberError}</p> : members.length ? members.map((m) => (
             <label key={m.id}><input type="checkbox" checked={picked.includes(m.email)} onChange={() => setPicked(picked.includes(m.email) ? picked.filter((x) => x !== m.email) : [...picked, m.email])} />{m.fullname} <small>{m.email}</small></label>
           )) : <small>Loading members…</small>}
         </fieldset>

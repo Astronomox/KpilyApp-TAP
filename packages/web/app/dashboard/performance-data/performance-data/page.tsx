@@ -87,7 +87,7 @@ export default function PerformanceData() {
       )}
 
       <div className="ka-perf__two">
-        <section className="ka-card"><h2 className="ka-perf__center">Total Team Point</h2><BarChart labels={BIMONTHS} series={[{ label: 'Points', color: GREEN.dark, values: totalPoints }]} label="Total team points" /></section>
+        <section className="ka-card"><h2 className="ka-perf__center">Total Team Points</h2><BarChart labels={BIMONTHS} series={[{ label: 'Points', color: GREEN.dark, values: totalPoints }]} label="Total team points" /></section>
         <section className="ka-card"><h2 className="ka-perf__center">Average Points Given</h2><LineChart labels={BIMONTHS} values={avgPoints} label="Average points given per task" /></section>
       </div>
 
@@ -110,7 +110,7 @@ export default function PerformanceData() {
               {rankedTeams.slice(0, 5).map(({ t, pts }, i) => (
                 <li key={t.id} className={i === 0 ? 'is-first' : ''}>
                   <span className="ka-board__rank"><strong>{i + 1}{['st', 'nd', 'rd'][i] ?? 'th'}</strong>{pts} PTS</span>
-                  <span className="ka-dot" style={{ background: t.color || '#106190' }} /><span className="ka-grow">{t.teamName}</span>
+                  <span className="ka-dot" style={{ background: t.color || 'var(--ka-blue)' }} /><span className="ka-grow">{t.teamName}</span>
                   <Link className="ka-btn ka-btn--sm" href="/dashboard/team">View</Link>
                 </li>
               ))}

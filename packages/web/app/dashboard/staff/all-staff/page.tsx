@@ -40,8 +40,8 @@ export default function AllStaff() {
   const roles = Object.entries(ROLE).map(([k, v]) => [Number(k), v] as const).filter(([k]) => k <= mine && k !== 200).sort((a, b) => b[0] - a[0])
 
   const load = useCallback(() => {
-    getMembers().then(setMembers).catch((e) => { setError(e.message); setMembers([]) })
-    getTeams().then(setTeams).catch(() => {})
+    getMembers().then(setMembers).catch((e) => { setError(e instanceof Error ? e.message : String(e)); setMembers([]) })
+    getTeams().then(setTeams).catch((e) => { setError(e instanceof Error ? e.message : String(e)) })
   }, [])
   useEffect(load, [load])
 
@@ -67,7 +67,7 @@ export default function AllStaff() {
 
   async function run(fn: () => Promise<unknown>, done: () => void) {
     setBusy(true); setError('')
-    try { await fn(); done(); load() } catch (e) { setError(e.message) } finally { setBusy(false) }
+    try { await fn(); done(); load() } catch (e) { setError(e instanceof Error ? e.message : String(e)) } finally { setBusy(false) }
   }
 
   function submitInvite(e: React.FormEvent<HTMLFormElement>) {

@@ -6,7 +6,7 @@ type Testimonial = { name: string; role: string; title: string; quote: string; p
 
 // Placeholder testimonials carried over from the previous landing page.
 const TESTIMONIALS: Testimonial[] = [
-  { name: 'Angela Taylor', role: 'CEO SAMSUNG', title: 'Save Time Managing Social Media For Your Business', quote: 'KPILY has completely transformed our performance tracking process. The real-time feedback has made a huge difference in employee engagement and productivity.', photo: '/assets/landing-testimonial.jpg' },
+  { name: 'Sandra Okafor', role: 'CEO, Meridian Tech', title: 'Save Time Managing Social Media For Your Business', quote: 'KPILY has completely transformed our performance tracking process. The real-time feedback has made a huge difference in employee engagement and productivity.', photo: '/assets/landing-testimonial.jpg' },
   { name: 'Michael V', role: 'TEAM LEAD', title: 'A clearer path for every team member', quote: 'The simple feedback loop keeps our teams aligned, motivated, and focused on the work that matters.', photo: '/site/testimonial-michael.jpg' },
 ]
 

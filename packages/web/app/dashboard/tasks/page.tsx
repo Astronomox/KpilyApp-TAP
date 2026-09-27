@@ -72,7 +72,7 @@ export default function Tasks() {
   const [busy, setBusy] = useState(false)
   const canManage = (profile?.privilege ?? 0) >= 40
 
-  const load = useCallback(() => { getTasks().then(setTasks).catch((e) => { setError(e.message); setTasks([]) }) }, [])
+  const load = useCallback(() => { getTasks().then(setTasks).catch((e) => { setError(e instanceof Error ? e.message : String(e)); setTasks([]) }) }, [])
   useEffect(load, [load])
 
   const counts = useMemo(() => TASK_STATUS.map((_, i) => tasks?.filter((t) => t.status === i).length ?? 0), [tasks])
@@ -89,7 +89,7 @@ export default function Tasks() {
 
   async function run(fn: () => Promise<unknown>) {
     setBusy(true); setError('')
-    try { await fn(); setPending(null); load() } catch (e) { setError(e.message) } finally { setBusy(false) }
+    try { await fn(); setPending(null); load() } catch (e) { setError(e instanceof Error ? e.message : String(e)) } finally { setBusy(false) }
   }
 
   function onAction(a: string, t: Task) {
@@ -174,7 +174,7 @@ export default function Tasks() {
               </tr>
             </thead>
             <tbody>
-              {tasks === null ? <tr><td colSpan={8} className="ka-table__empty">Loading…</td></tr> : !visible.length ? <tr><td colSpan={8} className="ka-table__empty">No results.</td></tr> : visible.map((t) => (
+              {tasks === null ? <tr><td colSpan={2 + COLS.filter(([c]) => show(c)).length} className="ka-table__empty">Loading…</td></tr> : !visible.length ? <tr><td colSpan={2 + COLS.filter(([c]) => show(c)).length} className="ka-table__empty">No results.</td></tr> : visible.map((t) => (
                 <tr key={t.id} className={selected.includes(t.id) ? 'is-selected' : ''}>
                   <td className="ka-table__check"><input type="checkbox" aria-label={`Select ${t.name}`} checked={selected.includes(t.id)} onChange={() => setSelected(selected.includes(t.id) ? selected.filter((x) => x !== t.id) : [...selected, t.id])} /></td>
                   {show('name') && <td><button type="button" className="ka-table__name" onClick={() => setViewing(t)}>{t.name}</button></td>}

@@ -114,7 +114,7 @@ export default function TeamPage() {
                 : rows.map((t) => (
                   <tr key={t.id}>
                     <td className="ka-table__check"><input type="checkbox" aria-label={`Select ${t.teamName}`} checked={selected.includes(t.id)} onChange={() => setSelected(selected.includes(t.id) ? selected.filter((x) => x !== t.id) : [...selected, t.id])} /></td>
-                    <td><span className="ka-teamname"><span className="ka-dot" style={{ background: t.color || '#106190' }} />{t.teamName}</span></td>
+                    <td><span className="ka-teamname"><span className="ka-dot" style={{ background: t.color || 'var(--ka-blue)' }} />{t.teamName}</span></td>
                     <td>{name(t.teamLeader)}</td>
                     <td>{name(t.reportsTo)}</td>
                     {canManage && <td><button type="button" className="ka-sq ka-sq--edit" aria-label={`Edit ${t.teamName}`} onClick={() => setForm({ open: true, team: t })}><Icon name="edit" size={16} /></button></td>}

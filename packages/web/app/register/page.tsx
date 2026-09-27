@@ -33,7 +33,7 @@ function SignUp() {
       if (sent) setResent(true)
       setSent(true)
     } catch (err) {
-      setError(err.message)
+      setError(err instanceof Error ? err.message : String(err))
     } finally {
       setBusy(false)
     }

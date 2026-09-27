@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
 const SOCIAL = [
-  { name: 'Twitter', icon: 'twitter', href: '#twitter-link' },
+  { name: 'Twitter', icon: 'twitter', href: 'https://twitter.com/kpilyapp' },
   { name: 'Facebook', icon: 'facebook', href: 'https://m.facebook.com/100980035046229/' },
   { name: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/kpilyapp/' },
   { name: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/company/92823514/' },
-  { name: 'YouTube', icon: 'youtube', href: '#youtube-link' },
+  { name: 'YouTube', icon: 'youtube', href: 'https://youtube.com/@kpilyapp' },
 ]
 
 // Footer from kpily.netlify.app.

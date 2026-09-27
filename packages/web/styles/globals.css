@@ -47,6 +47,50 @@
   /* Transitions */
   --ka-ease:      cubic-bezier(.4,0,.2,1);
   --ka-duration:  .15s;
+
+  /* Accent */
+  --ka-accent:       #1ab0b3;
+  --ka-accent-light: #e8f8f8;
+
+  /* Action buttons */
+  --ka-sq-edit: #3f8fc6;
+  --ka-sq-del:  #e06b6b;
+
+  /* Badge / board */
+  --ka-badge-warn-bg:   #fdf0c7;
+  --ka-badge-warn-text: #7a5a00;
+  --ka-badge-pending-bg: #f8ecd0;
+  --ka-board-hover:     #fafafa;
+
+  /* Surface tones */
+  --ka-nav-hover:  #f5f5f5;
+  --ka-menu-hover: #f2f2f2;
+  --ka-track:      #f0f0f0;
+  --ka-hbar-track: #f2f2f2;
+
+  /* Danger hover */
+  --ka-danger-hover: #971f19;
+
+  /* Chart */
+  --ka-chart-grid: #ececec;
+
+  /* Task status */
+  --ka-status-wip:      #e6a700;
+  --ka-status-reviewed: #d35400;
+  --ka-status-complete: #5b5bd6;
+
+  /* Calendar event colours */
+  --ka-cal-red:    #e5395b;
+  --ka-cal-yellow: #f2b705;
+  --ka-cal-orange: #e8590c;
+  --ka-cal-purple: #5b5bd6;
+  --ka-cal-green:  #1e9e6a;
+  --ka-cal-blue:   #2f80ed;
+
+  /* Calendar utility */
+  --ka-cal-today-bg:      #eef1f5;
+  --ka-cal-today-hl:      #fdf7df;
+  --ka-cal-segment-hover: #d7ede5;
 }
 
 /* Global Styles */

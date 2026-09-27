@@ -12,15 +12,15 @@
 .ka-mini__dow { font-size: 12px; color: #555; }
 .ka-mini__grid button { justify-self: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: none; font-family: inherit; font-size: 14px; cursor: pointer; transition: background .12s; }
 .ka-mini__grid button.is-out { color: #bbb; }
-.ka-mini__grid button.is-today { background: #eef1f5; font-weight: 600; }
+.ka-mini__grid button.is-today { background: var(--ka-cal-today-bg); font-weight: 600; }
 .ka-mini__grid button.is-picked { background: var(--ka-green); color: #fff; }
-.ka-mini__grid button:hover:not(.is-picked) { background: #f2f2f2; }
+.ka-mini__grid button:hover:not(.is-picked) { background: var(--ka-menu-hover); }
 .ka-cal__filters { padding: 20px 22px; }
 .ka-cal__filters p { margin: 0 0 16px; font-size: 14px; color: var(--ka-muted-light); }
 .ka-filt { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; font-size: 14px; cursor: pointer; }
 .ka-filt input { width: 18px; height: 18px; margin: 0; accent-color: var(--c); }
-.ka-filt--all { --c: #1e7a5a; } .ka-filt--new { --c: #e5395b; } .ka-filt--accepted { --c: #f2b705; } .ka-filt--reviewed { --c: #e8590c; }
-.ka-filt--completed { --c: #5b5bd6; } .ka-filt--submitted { --c: #1e9e6a; } .ka-filt--event { --c: #2f80ed; }
+.ka-filt--all { --c: var(--ka-green); } .ka-filt--new { --c: var(--ka-cal-red); } .ka-filt--accepted { --c: var(--ka-cal-yellow); } .ka-filt--reviewed { --c: var(--ka-cal-orange); }
+.ka-filt--completed { --c: var(--ka-cal-purple); } .ka-filt--submitted { --c: var(--ka-cal-green); } .ka-filt--event { --c: var(--ka-cal-blue); }
 
 .ka-cal__main { min-width: 0; display: flex; flex-direction: column; }
 .ka-cal__bar { display: flex; align-items: center; gap: 4px; padding: 20px 24px; border-bottom: 1px solid var(--ka-border); flex-wrap: wrap; }
@@ -32,36 +32,36 @@
 .ka-seg button { padding: 8px 18px; border: 0; border-left: 1px solid var(--ka-green); background: #eef6f2; color: var(--ka-green); font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; transition: background .15s; }
 .ka-seg button:first-child { border-left: 0; }
 .ka-seg button.is-on { background: var(--ka-green); color: #fff; }
-.ka-seg button:hover:not(.is-on) { background: #d7ede5; }
+.ka-seg button:hover:not(.is-on) { background: var(--ka-cal-segment-hover); }
 
 .ka-month { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); grid-template-rows: 40px; grid-auto-rows: minmax(120px, 1fr); flex: 1; }
 .ka-month__dow { display: grid; place-items: center; height: 40px; border-bottom: 1px solid var(--ka-border); color: var(--ka-blue); font-weight: 500; }
 .ka-month__dow, .ka-month__cell { border-left: 1px solid var(--ka-border); }
 .ka-month__dow:nth-child(7n+1), .ka-month__cell:nth-child(7n+1) { border-left: 0; }
 .ka-month__cell { display: flex; flex-direction: column; gap: 3px; min-width: 0; padding: 6px 8px; border-bottom: 1px solid var(--ka-border); cursor: pointer; }
-.ka-month__cell:hover { background: #fafafa; }
+.ka-month__cell:hover { background: var(--ka-board-hover); }
 .ka-month__cell.is-out .ka-month__n { color: #bbb; }
-.ka-month__cell.is-today { background: #fdf7df; }
+.ka-month__cell.is-today { background: var(--ka-cal-today-hl); }
 .ka-month__n { font-size: 15px; margin-bottom: 2px; }
 .ka-month__more { border: 0; background: none; padding: 0; font-family: inherit; font-size: 12px; color: var(--ka-blue); text-align: left; cursor: pointer; }
 
-.ka-ev { --c: #2f80ed; display: block; width: 100%; overflow: hidden; padding: 2px 6px; border: 0; border-left: 3px solid var(--c); border-radius: 3px; background: color-mix(in srgb, var(--c) 14%, #fff); color: var(--ka-text); font-family: inherit; font-size: 12px; text-align: left; white-space: nowrap; text-overflow: ellipsis; cursor: pointer; }
+.ka-ev { --c: var(--ka-cal-blue); display: block; width: 100%; overflow: hidden; padding: 2px 6px; border: 0; border-left: 3px solid var(--c); border-radius: 3px; background: color-mix(in srgb, var(--c) 14%, #fff); color: var(--ka-text); font-family: inherit; font-size: 12px; text-align: left; white-space: nowrap; text-overflow: ellipsis; cursor: pointer; }
 .ka-ev__time { margin-right: 4px; font-weight: 600; }
-.ka-ev--new { --c: #e5395b; } .ka-ev--accepted { --c: #f2b705; } .ka-ev--reviewed { --c: #e8590c; } .ka-ev--completed { --c: #5b5bd6; } .ka-ev--submitted { --c: #1e9e6a; } .ka-ev--event { --c: #2f80ed; }
+.ka-ev--new { --c: var(--ka-cal-red); } .ka-ev--accepted { --c: var(--ka-cal-yellow); } .ka-ev--reviewed { --c: var(--ka-cal-orange); } .ka-ev--completed { --c: var(--ka-cal-purple); } .ka-ev--submitted { --c: var(--ka-cal-green); } .ka-ev--event { --c: var(--ka-cal-blue); }
 
 .ka-week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); flex: 1; }
 .ka-week--day { grid-template-columns: 1fr; }
 .ka-week__col { display: flex; flex-direction: column; border-left: 1px solid var(--ka-border); min-width: 0; }
 .ka-week__col:first-child { border-left: 0; }
-.ka-week__col.is-today { background: #fdf7df; }
+.ka-week__col.is-today { background: var(--ka-cal-today-hl); }
 .ka-week__head { padding: 10px; border-bottom: 1px solid var(--ka-border); text-align: center; color: var(--ka-blue); font-weight: 500; }
 .ka-week__body { flex: 1; display: flex; flex-direction: column; gap: 4px; padding: 8px; cursor: pointer; }
 .ka-week__none { font-size: 12px; color: #bbb; }
 
 .ka-list { padding: 8px 24px 24px; }
-.ka-list h3 { margin: 16px 0 4px; padding: 8px 12px; background: #f5f5f5; font-size: 14px; font-weight: 600; }
+.ka-list h3 { margin: 16px 0 4px; padding: 8px 12px; background: var(--ka-nav-hover); font-size: 14px; font-weight: 600; }
 .ka-list__row { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 12px; border: 0; border-bottom: 1px solid #eee; background: none; font-family: inherit; font-size: 14px; text-align: left; cursor: pointer; }
-.ka-list__row:hover { background: #fafafa; }
+.ka-list__row:hover { background: var(--ka-board-hover); }
 .ka-list__row small { margin-left: auto; color: var(--ka-muted-light); }
 .ka-list__time { width: 160px; flex: none; color: #555; }
 .ka-list__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c); flex: none; }
