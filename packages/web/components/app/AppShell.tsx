@@ -13,6 +13,7 @@ import { getActiveSessions, logout, type Profile } from '@/lib/kpily'
 import { navFor, roleLabel, type NavItem } from '@/lib/nav'
 import { useRequireSession } from '@/lib/useSession'
 import '@/styles/App.css'
+import '@/styles/Table.css'
 
 const fmtLogin = (unix?: number) => {
   const d = unix ? new Date(unix * 1000) : new Date()
