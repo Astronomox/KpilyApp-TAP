@@ -1,0 +1,39 @@
+/* Settings and Billing: label column + content column, dashed separators. */
+.ka-set { max-width: 1180px; }
+.ka-set__row { display: grid; grid-template-columns: 320px 1fr; gap: 24px; padding: 32px 0; border-top: 1px dashed #d9d9d9; }
+.ka-set .ka-pagehead + .ka-set__row { border-top: 0; }
+.ka-set__label h2 { margin: 0; font-size: 18px; font-weight: 500; }
+.ka-set__label p { margin: 6px 0 0; font-size: 15px; font-style: italic; }
+.ka-set__body { min-width: 0; }
+.ka-set__inline { display: flex; align-items: flex-end; padding-bottom: 16px; }
+.ka-set__media { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.ka-set__media .ka-avatar { background: #eff3f8; color: #252525; font-weight: 400; }
+.ka-set__logo { max-width: 200px; max-height: 100px; object-fit: contain; }
+.ka-set__ro { width: 280px; max-width: 100%; box-sizing: border-box; min-height: 40px; padding: 8px 12px; border: 1px solid #d9d9d9; border-radius: 6px; background: #fff; font-family: inherit; font-size: 14px; color: #252525; }
+.ka-set__verified { display: inline-flex; align-items: center; gap: 8px; color: #1e7a5a; }
+.ka-set__verified svg { padding: 2px; border-radius: 50%; background: #1e7a5a; color: #fff; }
+.ka-set__btns { display: flex; gap: 16px; flex-wrap: wrap; }
+.ka-drop { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 400px; max-width: 100%; padding: 28px 16px; border: 1.5px dashed #cfcfcf; border-radius: 4px; background: #fff; font-family: inherit; color: #1e7a5a; cursor: pointer; }
+.ka-drop:hover, .ka-drop.is-drag { border-color: #1e7a5a; background: #f3faf7; }
+.ka-drop__cta { font-size: 14px; }
+.ka-drop small { font-size: 12px; color: #252525; }
+.ka-phone { display: flex; }
+.ka-phone select { width: 88px !important; border-radius: 8px 0 0 8px !important; border-right: 0 !important; color: #1e7a5a !important; }
+.ka-phone input { border-radius: 0 8px 8px 0 !important; }
+.ka-ok { margin: 0 0 12px; color: #1e7a5a; font-size: 13px; }
+.ka-btn--outline { background: #fff; color: #1e7a5a; border-color: #1e7a5a; }
+.ka-btn--outline:hover { background: #f3faf7; }
+
+.ka-bill__plan { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 16px 20px; border: 1px solid #e6e6e6; border-radius: 10px; }
+.ka-bill__plan strong { font-size: 18px; }
+.ka-bill__plan + .ka-bill__plan { margin-top: 12px; }
+.ka-bill__muted { margin: 0; padding-left: 32px; font-size: 16px; }
+.ka-bill__radios { display: grid; gap: 10px; font-size: 16px; }
+.ka-bill__radios label { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.ka-bill__radios input[type=radio] { accent-color: #1e7a5a; width: 16px; height: 16px; }
+.ka-bill__radios small { display: flex; align-items: center; gap: 6px; margin: -6px 0 0 26px; font-size: 13px; }
+.ka-bill__radios input[type=email] { margin-left: 26px; width: 300px; max-width: calc(100% - 26px); }
+
+@media (max-width: 900px) {
+  .ka-set__row { grid-template-columns: 1fr; gap: 12px; }
+}

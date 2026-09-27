@@ -285,3 +285,7 @@ export const getSubscriptions = () => request<{ subscription: Subscription[] }>(
 /** subscriptionType: 1 = monthly, 2 = yearly. */
 export const subscribe = (planID: string, accounts: number, subscriptionType: number) =>
   request<unknown>('/v1/org/subscribe', { method: 'POST', data: { planID, accounts, subscriptionType }, auth: true })
+
+/** Checks a password without replacing the stored session. */
+export const verifyPassword = (email: string, password: string) =>
+  request<Session>('/v1/auth', { method: 'POST', data: { username: email.trim(), password } }).then(() => true)
