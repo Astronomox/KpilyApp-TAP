@@ -81,6 +81,7 @@
   .ka-cal__side { border-right: 0; border-bottom: 1px solid var(--ka-border); display: grid; grid-template-columns: 1fr 1fr; }
   .ka-cal__btns { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; }
   .ka-mini { border-bottom: 0; border-right: 1px solid var(--ka-border); }
+  .ka-cal__filters { overflow: hidden; }
 }
 @media (max-width: 640px) {
   .ka-cal__side { grid-template-columns: 1fr; }

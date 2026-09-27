@@ -35,7 +35,8 @@
 .ka-meter progress::-moz-progress-bar { background: var(--ka-green); border-radius: var(--ka-radius); }
 .ka-score__progress .ka-card__head h2 { color: var(--ka-text); }
 
-@media (max-width: 1200px) { .ka-perf__stats { grid-template-columns: 1fr 1fr; } .ka-score__row { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 1024px) { .ka-perf__stats { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 1200px) { .ka-score__row { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 900px) { .ka-perf__two, .ka-perf__kpi, .ka-score__two { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .ka-perf__stats, .ka-score__row { grid-template-columns: 1fr; } .ka-perf__rings { grid-template-columns: repeat(2, 1fr); } }
 .ka-settings-form { max-width: 880px; }
