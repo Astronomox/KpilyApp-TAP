@@ -63,7 +63,7 @@ function ChangePassword() {
           <div className="kp-m-meter" aria-label={`Password strength ${filled} of 12`}>{Array.from({ length: 12 }, (_, i) => <span key={i} className={i < filled ? 'is-on' : ''} />)}</div>
         </div>
         <div className="kp-m-field">
-          <label className="kp-m-label" htmlFor="m-cp-confirm">Connfirm new password <img src="/figma/register/icon-help.svg" alt="" title="Re-enter your new password" /></label>
+          <label className="kp-m-label" htmlFor="m-cp-confirm">Confirm new password <img src="/figma/register/icon-help.svg" alt="" title="Re-enter your new password" /></label>
           <input id="m-cp-confirm" className="kp-m-input" type="password" autoComplete="new-password" required value={confirm} onChange={(e) => setConfirm(e.target.value)} />
         </div>
         {msg && <p role={msg.ok ? 'status' : 'alert'} className={msg.ok ? 'kp-m-status' : 'kp-m-error'}>{msg.text}{msg.ok && <> <Link href="/login">Log in</Link></>}</p>}
@@ -89,7 +89,7 @@ function ChangePassword() {
             <span key={i} style={at(92 + i * 25, 473, 24, 6, { background: i < filled ? '#f3c652' : '#eaeaea' })} />
           ))}
         </div>
-        <label htmlFor="cp-confirm" style={at(92, 518, 344, 33, label)}>Connfirm new password</label>
+        <label htmlFor="cp-confirm" style={at(92, 518, 344, 33, label)}>Confirm new password</label>
         <img src="/figma/register/icon-help.svg" alt="" title="Re-enter your new password" style={at(375, 518, 16, 16)} />
         <input id="cp-confirm" className="kp-fx-input" type="password" autoComplete="new-password" required value={confirm} onChange={(e) => setConfirm(e.target.value)} style={at(92, 543, 300, 48, { paddingLeft: 16 })} />
         <button type="submit" className="kp-fx-btn" style={at(144, 630)}>Change Password</button>
