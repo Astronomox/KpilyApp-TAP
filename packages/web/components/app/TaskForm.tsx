@@ -17,6 +17,7 @@ export default function TaskForm({ open, task, defaultDate, onClose, onSaved }: 
   const [nextWeek] = useState(() => Date.now() + 7 * 864e5)
   const MAX_DETAILS = 500
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { if (open) { getMembers().then(setMembers).catch(() => {}); setDetails(task?.details ?? '') } }, [open, task?.details])
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {

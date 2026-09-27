@@ -153,7 +153,6 @@ export function StatCard({ title, rate }: { title: string; rate?: Rate }) {
   const [displayed, setDisplayed] = useState(0)
 
   useEffect(() => {
-    if (!target) { setDisplayed(0); return }
     const start = performance.now()
     const duration = 600
     const frame = (now: number) => {
