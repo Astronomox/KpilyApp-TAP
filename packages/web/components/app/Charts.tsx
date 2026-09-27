@@ -1,4 +1,7 @@
+'use client'
+
 // Small dependency-free SVG charts for the performance pages.
+import { useEffect, useState } from 'react'
 import type { Rate } from '@/lib/kpily'
 
 export const BIMONTHS = ['Jan-Feb', 'Mar-Apr', 'May-Jun', 'Jul-Aug', 'Sep-Oct', 'Nov-Dec']
@@ -132,8 +135,8 @@ export function Gauge({ pct }: { pct: number }) {
   return (
     <div className="ka-gauge">
       <svg viewBox="0 0 220 124" aria-hidden="true">
-        <path d="M20 110 A90 90 0 0 1 200 110" fill="none" stroke="#9a9a9a" strokeWidth="22" strokeLinecap="round" />
-        {pct > 0 && <path d="M20 110 A90 90 0 0 1 200 110" fill="none" stroke="#1e7a5a" strokeWidth="22" strokeLinecap="round" strokeDasharray={`${(pct / 100) * len} ${len}`} />}
+        <path d="M20 110 A90 90 0 0 1 200 110" fill="none" stroke="var(--ka-border-mid, #d9d9d9)" strokeWidth="22" strokeLinecap="round" />
+        {pct > 0 && <path d="M20 110 A90 90 0 0 1 200 110" fill="none" stroke="var(--ka-green, #1e7a5a)" strokeWidth="22" strokeLinecap="round" strokeDasharray={`${(pct / 100) * len} ${len}`} />}
       </svg>
       <p><strong>{Math.round(pct)}%</strong>Complete</p>
     </div>
@@ -145,11 +148,26 @@ export const grade = (pct: number) => (pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >
 
 /** Headline percentage with its change against the previous 30 days. */
 export function StatCard({ title, rate }: { title: string; rate?: Rate }) {
+  const target = rate ? Math.round(rate.value) : 0
+  const [displayed, setDisplayed] = useState(0)
+
+  useEffect(() => {
+    if (!target) { setDisplayed(0); return }
+    const start = performance.now()
+    const duration = 600
+    const frame = (now: number) => {
+      const t = Math.min((now - start) / duration, 1)
+      setDisplayed(Math.round(target * (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2)))
+      if (t < 1) requestAnimationFrame(frame)
+    }
+    requestAnimationFrame(frame)
+  }, [target])
+
   const diff = typeof rate?.difference === 'number' ? rate.difference : 0
   return (
     <section className="ka-card ka-statcard">
       <h2>{title}</h2>
-      <strong>{rate ? Math.round(rate.value) : 0}%</strong>
+      <strong>{displayed}%</strong>
       <span className={diff < 0 ? 'is-down' : 'is-up'}>{diff > 0 ? '+' : ''}{Math.round(diff)}%</span>
       <p>vs previous 30 days</p>
     </section>

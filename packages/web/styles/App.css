@@ -119,6 +119,39 @@
 
 .ka-flip { transform: rotate(180deg); }
 
+/* Page fade-in */
+@keyframes ka-fadein {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+.ka-app__main > * { animation: ka-fadein .2s ease-out both; }
+.ka-app__main > *:nth-child(2) { animation-delay: .04s; }
+.ka-app__main > *:nth-child(3) { animation-delay: .08s; }
+.ka-app__main > *:nth-child(n+4) { animation-delay: .12s; }
+
+/* Modal open scale */
+@keyframes ka-scale-in {
+  from { opacity: 0; transform: scale(.96); }
+  to   { opacity: 1; transform: none; }
+}
+.ka-modal__box { animation: ka-scale-in .18s var(--ka-ease) both; }
+
+/* Inline form spinner */
+@keyframes ka-spin {
+  to { transform: rotate(360deg); }
+}
+.ka-spin { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: ka-spin .6s linear infinite; vertical-align: -2px; }
+
+/* Card hover lift for interactive cards */
+.ka-card--lift { transition: box-shadow .2s var(--ka-ease), transform .2s var(--ka-ease); }
+.ka-card--lift:hover { transform: translateY(-2px); box-shadow: var(--ka-shadow-lift); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ka-app__main > * { animation: none; }
+  .ka-modal__box { animation: none; }
+  .ka-spin { animation: ka-spin .6s linear infinite; }
+}
+
 /* Skeleton shimmer */
 @keyframes ka-shimmer {
   0%   { background-position: -400px 0; }
