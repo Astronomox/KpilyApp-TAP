@@ -8,6 +8,7 @@ import { startPasswordReset } from '@/lib/kpily'
 import MobileAuth from '@/components/figma/MobileAuth'
 import { at, pop } from '@/lib/fig'
 import '@/styles/Figma.css'
+import { check, emailSchema } from '@/lib/schemas'
 
 // Figma: Landing page, Sign up and Login → "Forgot password" (1074:18016), 1440×1018.
 export default function ForgotPassword() {
@@ -21,7 +22,7 @@ export default function ForgotPassword() {
     e.preventDefault()
     if (!email || busy) return
     setBusy(true); setError(''); setSent(false)
-    try { await startPasswordReset(email); setSent(true) } catch (err) { setError(err.message) } finally { setBusy(false) }
+    try { await startPasswordReset(check(emailSchema, { email: email.trim() }).email); setSent(true) } catch (err) { setError(err.message) } finally { setBusy(false) }
   }
   const note = pop(500, 12, 'normal', '#333', { letterSpacing: 0.5, textAlign: 'center' })
 

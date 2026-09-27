@@ -10,6 +10,7 @@ import PageLoader from '@/components/figma/PageLoader'
 import { requestVerification } from '@/lib/kpily'
 import { at, pop } from '@/lib/fig'
 import '@/styles/Figma.css'
+import { check, emailSchema } from '@/lib/schemas'
 
 // Figma: Landing page, Sign up and Login →
 //   "Sign Up" (1467:27926) – Register with work email
@@ -28,7 +29,7 @@ function SignUp() {
     if (!email || busy) return
     setBusy(true); setError('')
     try {
-      await requestVerification(email)
+      await requestVerification(check(emailSchema, { email: email.trim() }).email)
       if (sent) setResent(true)
       setSent(true)
     } catch (err) {
