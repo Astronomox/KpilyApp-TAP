@@ -3,6 +3,7 @@ import '../styles/fonts.css'
 import '../styles/globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kpily.com'),
   title: 'KPILY - Performance Management',
   description: 'Track KPIs, manage tasks, and celebrate team achievements.',
   icons: { icon: '/favicon.svg' },
