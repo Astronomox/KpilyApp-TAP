@@ -7,9 +7,9 @@ import '@/styles/Figma.css'
 import '@/styles/FigmaSite.css'
 
 const CONTACTS = [
-  { title: 'Support', text: 'Our friendly team is here to help.', link: 'support@kpilycom', href: 'mailto:support@kpily.com' },
+  { title: 'Support', text: 'Our friendly team is here to help.', link: 'support@kpily.com', href: 'mailto:support@kpily.com' },
   { title: 'Sales', text: 'Questions or queries? Get in touch!', link: 'sales@kpily.com', href: 'mailto:sales@kpily.com' },
-  { title: 'Phone', text: 'Mon-Fri from 8am to 5pm.', link: '+1 (555) 000-0000', href: 'tel:+15550000000' },
+  { title: 'Phone', text: 'Mon-Fri from 8am to 5pm.', link: '+234 090 2442 9918', href: 'tel:+2349024429918' },
 ]
 
 // Figma: Landing page, Sign up and Login → "Desktop" (About us / Contact, 1557:94652)
@@ -26,8 +26,8 @@ export default function About() {
           <p>We have offices and teams all around the world.</p>
         </section>
         <div className="kp-about-copy">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>KPILY was built around one belief: great performance starts with clear goals, honest feedback and recognition that matters. We set out to give every organisation — whether a fast-growing startup or an established enterprise — a single platform where managers and employees stay aligned, work gets tracked, and achievements are celebrated in real time.</p>
+          <p>Our platform combines task management, KPI tracking, points and badges, and in-depth analytics into one product that&apos;s easy to roll out and even easier to use day-to-day. With KPILY, performance reviews become a continuous conversation rather than a once-a-year event — so your people always know where they stand and what to focus on next.</p>
         </div>
         <section className="kp-container kp-contacts">
           {CONTACTS.map((c) => (
