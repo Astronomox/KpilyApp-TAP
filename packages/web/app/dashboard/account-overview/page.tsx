@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import Avatar from '@/components/app/Avatar'
+import { Gauge, grade } from '@/components/app/Charts'
 import Icon from '@/components/app/Icon'
 import Modal from '@/components/app/Modal'
 import { useProfile } from '@/components/app/ProfileContext'
@@ -16,11 +17,6 @@ import '@/styles/Overview.css'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const photoUrl = (alias: unknown) => (typeof alias === 'string' && alias ? `${API_BASE}/v1/file/get/${alias}` : null)
-
-/** Letter grade for a completion percentage. */
-function grade(pct: number) {
-  return pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : pct >= 60 ? 'D' : 'F'
-}
 
 function PointsChart({ points }: { points: Dashboard['pointsThisYear'] }) {
   const values = MONTHS.map((_, i) => points.find((p) => p.month === i + 1)?.value ?? 0)
@@ -39,19 +35,6 @@ function PointsChart({ points }: { points: Dashboard['pointsThisYear'] }) {
         ))}
       </div>
     </figure>
-  )
-}
-
-function Gauge({ pct }: { pct: number }) {
-  const r = 90, len = Math.PI * r
-  return (
-    <div className="ka-gauge">
-      <svg viewBox="0 0 220 124" aria-hidden="true">
-        <path d="M20 110 A90 90 0 0 1 200 110" fill="none" stroke="#9a9a9a" strokeWidth="22" strokeLinecap="round" />
-        {pct > 0 && <path d="M20 110 A90 90 0 0 1 200 110" fill="none" stroke="#1e7a5a" strokeWidth="22" strokeLinecap="round" strokeDasharray={`${(pct / 100) * len} ${len}`} />}
-      </svg>
-      <p><strong>{Math.round(pct)}%</strong>Complete</p>
-    </div>
   )
 }
 

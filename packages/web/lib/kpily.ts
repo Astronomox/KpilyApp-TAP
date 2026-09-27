@@ -234,3 +234,58 @@ export type EventInput = { name: string; details: string; time: number; endTime?
 export const getEvents = () => request<CalEvent[]>('/v1/org/get-event/-', { auth: true }).then((c) => c || [])
 export const createEvent = (e: EventInput) => request<unknown>('/v1/org/create-event', { method: 'POST', data: e, auth: true })
 export const updateEvent = (id: string, e: EventInput) => request<unknown>('/v1/org/update-event', { method: 'PUT', data: { ...e, id }, auth: true })
+
+// ---------- Staff & teams ----------
+
+export type InviteInput = { email: string; fullname: string; team?: string; privilege: number; designation?: string }
+export const inviteUser = (data: InviteInput) => request<unknown>('/v1/invite-user', { method: 'POST', data, auth: true })
+/** 1 = active, 0 = pending, -1 = archived, -2 = deleted. */
+export const changeUserStatus = (username: string, status: number) => request<unknown>('/v1/change-user-status', { method: 'POST', data: { username, status }, auth: true })
+export const changeUserPrivilege = (data: { username: string; team?: string; privilege: number; designation?: string }) =>
+  request<unknown>('/v1/org/change-user-privilege', { method: 'POST', data, auth: true })
+
+export type TeamInput = { teamName: string; teamLeader: string; color: string; reportsTo: string }
+export const createTeam = (data: TeamInput) => request<unknown>('/v1/org/create-team', { method: 'POST', data, auth: true })
+export const updateTeam = (id: string, data: TeamInput) => request<unknown>('/v1/org/update-team', { method: 'PUT', data: { ...data, id }, auth: true })
+
+// ---------- Organisation ----------
+
+export type Organization = {
+  id: string; compnayName?: string; companyName?: string; companyWebsite?: string; mailDomain?: string; country?: string; state?: string
+  employeeBand?: string[] | string; industry?: string; logoURL?: string | null; currentPlan?: string | null; planExpiry?: number
+}
+/** Company name (the API spells the field "compnayName"). */
+export const orgName = (o?: Organization | null) => o?.companyName || o?.compnayName || ''
+
+export const updateOrg = (data: { companyName: string; companyWebsite: string; mailDomain: string; industry: string; country: string; state: string; employeeBand?: string }) =>
+  request<unknown>('/v1/org/update', { method: 'PUT', data, auth: true })
+
+export function uploadOrgLogo(file: File) {
+  const form = new FormData()
+  form.append('file', file)
+  return request<unknown>('/v1/org/upload-org-image', { method: 'POST', form, auth: true })
+}
+
+/** Keeps the stored session in step with profile edits made in the app. */
+export function updateStoredProfile(patch: Partial<Profile>) {
+  try {
+    for (const store of [localStorage, sessionStorage]) {
+      const raw = store.getItem(KEY)
+      if (!raw) continue
+      const s = JSON.parse(raw) as Session
+      store.setItem(KEY, JSON.stringify({ ...s, profile: { ...s.profile, ...patch } }))
+    }
+  } catch { /* storage blocked */ }
+}
+
+// ---------- Subscription ----------
+
+export type Subscription = { id?: string; planID: string; planName?: string; accounts: number; subscriptionType: number; status?: number; startDate?: number; endDate?: number; amount?: number; [key: string]: unknown }
+export const getSubscriptions = () => request<{ subscription: Subscription[] }>('/v1/org/get-subscription', { auth: true }).then((c) => c.subscription || [])
+/** subscriptionType: 1 = monthly, 2 = yearly. */
+export const subscribe = (planID: string, accounts: number, subscriptionType: number) =>
+  request<unknown>('/v1/org/subscribe', { method: 'POST', data: { planID, accounts, subscriptionType }, auth: true })
+
+/** Checks a password without replacing the stored session. */
+export const verifyPassword = (email: string, password: string) =>
+  request<Session>('/v1/auth', { method: 'POST', data: { username: email.trim(), password } }).then(() => true)

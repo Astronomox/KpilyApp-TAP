@@ -89,7 +89,7 @@ export default function Blog() {
             <button type="button" onClick={() => setPage(String(Math.max(1, Number(page) - 1)))}><img src="/figma/blog/arrow-left.svg" alt="" />Previous</button>
             <div className="kp-pager__nums">
               {PAGES.map((n, i) => (
-                n === '...' ? <span key={i}>...</span>
+                n === '...' ? <span key={`gap-${i}`}>...</span>
                   : <button type="button" key={n} className={n === page ? 'is-active' : ''} aria-current={n === page ? 'page' : undefined} onClick={() => setPage(n)}>{n}</button>
               ))}
             </div>

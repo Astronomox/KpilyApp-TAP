@@ -1,7 +1,7 @@
 import type { IconName } from '@/lib/nav'
 
 // Menu icons (teal→blue brand gradient), 22px.
-const paths: Record<IconName | 'search' | 'cog' | 'logout' | 'menu' | 'chevron' | 'close' | 'user' | 'caret', string> = {
+const paths: Record<IconName | 'search' | 'cog' | 'logout' | 'menu' | 'chevron' | 'close' | 'user' | 'caret' | 'edit' | 'trash' | 'plus' | 'filter' | 'download' | 'upload' | 'check' | 'up' | 'mail' | 'chat' | 'help' | 'folder' | 'sparkle' | 'wave', string> = {
   overview: 'M4 6h2M4 12h2M4 18h2M9 6h11M9 12h11M9 18h11',
   performance: 'M3 17l5-5 4 4 8-8M15 8h5v5',
   team: 'M8 11a3 3 0 100-6 3 3 0 000 6zm8 0a3 3 0 100-6 3 3 0 000 6zM2 20c0-3 3-5 6-5s6 2 6 5M14 15c3 0 8 1 8 5',
@@ -20,6 +20,20 @@ const paths: Record<IconName | 'search' | 'cog' | 'logout' | 'menu' | 'chevron' 
   close: 'M6 6l12 12M18 6L6 18',
   user: 'M12 11a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 4-6 8-6s8 2 8 6',
   caret: 'M8 5l10 7-10 7z',
+  edit: 'M4 20h4L19 9l-4-4L4 16zM13 7l4 4',
+  trash: 'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6',
+  plus: 'M12 5v14M5 12h14',
+  filter: 'M4 6h16M7 12h10M10 18h4',
+  download: 'M12 4v11M7 10l5 5 5-5M4 19h16',
+  upload: 'M12 16V5M7 10l5-5 5 5M5 19h14',
+  check: 'M5 12l5 5 9-10',
+  up: 'M12 20V4M5 11l7-7 7 7',
+  mail: 'M3 6h18v12H3zM3 7l9 6 9-6',
+  chat: 'M4 5h16v11H9l-5 4zM9 10.5h.01M12 10.5h.01M15 10.5h.01',
+  help: 'M12 21a9 9 0 100-18 9 9 0 000 18zM9.5 9a2.5 2.5 0 114 2c-.9.6-1.5 1-1.5 2M12 16.5v.5',
+  folder: 'M3 7V5h7l2 2h9v12H3zM3 9h18',
+  sparkle: 'M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2zM19 3v4M17 5h4',
+  wave: 'M7 11V6a1.5 1.5 0 013 0v5M10 10V4.5a1.5 1.5 0 013 0V10M13 10V5.5a1.5 1.5 0 013 0V13c0 4-2.5 7-6 7-2.5 0-4-1.5-5.5-4L3 12.5a1.5 1.5 0 012.5-1.5L7 13',
 }
 
 export default function Icon({ name, size = 22, gradient = false, className = '' }: { name: keyof typeof paths; size?: number; gradient?: boolean; className?: string }) {

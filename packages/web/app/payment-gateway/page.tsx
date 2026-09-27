@@ -4,7 +4,10 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import Logo from '@/components/figma/Logo'
 import BillingToggle from '@/components/figma/BillingToggle'
-import { PLANS, findPlan } from '@/lib/plans'
+import { getSession, subscribe } from '@/lib/kpily'
+import { payWithPaystack } from '@/lib/paystack'
+import { money } from '@/lib/plans'
+import { usePlans } from '@/lib/usePlans'
 import '@/styles/Figma.css'
 
 
@@ -19,12 +22,35 @@ function Switch({ on, onToggle, label }: { on: boolean; onToggle: () => void; la
 function PaymentGateway() {
   const router = useRouter()
   const params = useSearchParams()
-  const [planId, setPlanId] = useState(findPlan(params.get('plan')).id as string)
+  const plans = usePlans()
+  const [planId, setPlanId] = useState(() => plans.find((p) => p.id === params.get('plan'))?.id ?? 'enterprise')
   const [billing, setBilling] = useState(params.get('billing') || 'annually')
   const [menu, setMenu] = useState(false)
   const [addOns, setAddOns] = useState({ psychometrics: true, games: true })
   const menuRef = useRef<HTMLDivElement>(null)
-  const plan = findPlan(planId)
+  const plan = plans.find((p) => p.id === planId) ?? plans[2]
+  const [seats, setSeats] = useState<number | null>(null)
+  const users = Math.min(Math.max(seats ?? plan.minEmployees, plan.minEmployees), plan.employees)
+  const unit = billing === 'annually' ? plan.costPerYear : plan.costPerMonth
+  const subtotal = unit * users
+  const [paying, setPaying] = useState(false)
+  const [error, setError] = useState('')
+
+  // Pay with Paystack, then record the subscription (free plans skip checkout).
+  async function pay() {
+    const session = getSession()
+    if (!session?.token) { router.push(`/login?next=${encodeURIComponent(`/payment-gateway?plan=${plan.id}&billing=${billing}`)}`); return }
+    if (!plan.apiId) { setError('Plans are still loading. Please try again in a moment.'); return }
+    setPaying(true); setError('')
+    try {
+      if (subtotal > 0) {
+        const ref = await payWithPaystack({ email: session.profile.email, amount: subtotal, metadata: { plan: plan.name, users, billing } })
+        if (!ref) { setPaying(false); return }
+      }
+      await subscribe(plan.apiId, users, billing === 'annually' ? 2 : 1)
+      router.push('/payment-success')
+    } catch (e) { setError(e.message); setPaying(false) }
+  }
 
   useEffect(() => {
     const close = (e: MouseEvent) => { if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenu(false) }
@@ -38,11 +64,16 @@ function PaymentGateway() {
         <Logo />
         <h1 className="kp-h1 kp-pay__title">Order Summary </h1>
         <dl className="kp-pay__lines">
-          <div><dt>Subtotal</dt><dd>$8,000</dd></div>
-          <div><dt>Add-Ons</dt><dd>$453.00</dd></div>
-          <div className="kp-pay__total"><dt>Total Amount</dt><dd>$8,453.00</dd></div>
+          <div><dt>Subtotal <small>({users} user{users === 1 ? '' : 's'} × {money(unit)})</small></dt><dd>{money(subtotal)}</dd></div>
+          <div><dt>Add-Ons</dt><dd>{money(0)}</dd></div>
+          <div className="kp-pay__total"><dt>Total Amount</dt><dd>{money(subtotal)}</dd></div>
         </dl>
-        <button type="button" className="kp-btn kp-pay__now" onClick={() => router.push('/payment-success')}>Pay Now</button>
+        <label className="kp-pay__users">Number of users
+          <input type="number" min={plan.minEmployees} max={plan.employees} value={users} onChange={(e) => setSeats(Number(e.target.value))} />
+          <small>{plan.minEmployees}–{plan.employees} users on this plan</small>
+        </label>
+        {error && <p role="alert" className="kp-error">{error}</p>}
+        <button type="button" className="kp-btn kp-pay__now" disabled={paying} onClick={pay}>{paying ? 'Processing…' : subtotal > 0 ? 'Pay Now' : 'Start Free Plan'}</button>
       </section>
       <section className="kp-pay__plan">
         <h2 className="kp-pay__your">Your Plan</h2>
@@ -53,7 +84,7 @@ function PaymentGateway() {
             </button>
             {menu && (
               <ul role="listbox">
-                {PLANS.map((p) => (
+                {plans.map((p) => (
                   <li key={p.id} role="option" aria-selected={p.id === planId} onClick={() => { setPlanId(p.id); setMenu(false) }}>{p.name} Plan</li>
                 ))}
               </ul>

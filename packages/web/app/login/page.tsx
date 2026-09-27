@@ -29,7 +29,7 @@ export default function Login() {
       // New organisations without a subscription are sent to choose a plan first.
       // ?next= (set by the dashboard guard) is honoured only for in-app paths.
       const next = new URLSearchParams(window.location.search).get('next') || ''
-      router.push(session.redirectToPlanPage ? '/pricing' : /^\/dashboard(\/|$)/.test(next) ? next : '/dashboard')
+      router.push(session.redirectToPlanPage && !next.startsWith('/payment-gateway') ? '/pricing' : /^\/(dashboard|payment-gateway)(\/|\?|$)/.test(next) ? next : '/dashboard')
     } catch (err) {
       setError(err.message || 'Unable to log in')
       setLoading(false)

@@ -33,11 +33,6 @@
 .ka-dot { width: 12px; height: 12px; border-radius: 50%; flex: none; }
 
 .ka-ov-progress__title { color: #252525 !important; }
-.ka-ov-grade { font-size: 56px; font-weight: 700; line-height: 1; color: #1e7a5a; }
-.ka-gauge { position: relative; max-width: 220px; margin: 32px auto 0; }
-.ka-gauge svg { display: block; width: 100%; }
-.ka-gauge p { position: absolute; left: 0; right: 0; bottom: 8px; margin: 0; text-align: center; color: #1e7a5a; font-size: 15px; }
-.ka-gauge strong { display: block; font-weight: 600; }
 
 @media (max-width: 1280px) {
   .ka-overview { grid-template-columns: 1fr 1fr; grid-template-areas: 'profile settings' 'perf perf' 'teams progress'; }
