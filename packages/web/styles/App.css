@@ -119,6 +119,13 @@
 
 .ka-flip { transform: rotate(180deg); }
 
+/* Skip-to-content link */
+.ka-skip { position: absolute; left: -9999px; top: 8px; z-index: 100; padding: 8px 16px; border-radius: var(--ka-radius); background: var(--ka-green); color: #fff; font-weight: 600; font-size: 14px; text-decoration: none; }
+.ka-skip:focus { left: 8px; }
+
+/* sr-only (accessible hide, also in Figma.css and Home.css for back-compat) */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
 /* Page fade-in */
 @keyframes ka-fadein {
   from { opacity: 0; transform: translateY(6px); }

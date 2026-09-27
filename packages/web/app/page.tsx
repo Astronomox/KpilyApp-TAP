@@ -14,7 +14,14 @@ import '@/styles/Figma.css'
 import '@/styles/FigmaSite.css'
 import '@/styles/Home.css'
 
-const CLIENTS = ['oracle', 'morpheus', 'samsung', 'monday', 'trudolegal', 'cowrywifi']
+const CLIENTS: [string, string][] = [
+  ['oracle', 'Oracle'],
+  ['morpheus', 'Morpheus'],
+  ['samsung', 'Samsung'],
+  ['monday', 'Monday.com'],
+  ['trudolegal', 'TrudoLegal'],
+  ['cowrywifi', 'CowryWifi'],
+]
 
 const REASONS = [
   { title: 'Feedback', color: 'var(--kp-secondary-20)', text: 'Real-time feedback system with points and gamification helps team members receive instant feedback and stay motivated to improve their performance. ' },
@@ -57,7 +64,7 @@ export default function Home() {
         <section className="kp-home__clients kp-home__container">
           <Reveal as="h2">Over 32k+ Technology businesses growing with KPILY</Reveal>
           <div className="kp-home__logos">
-            {CLIENTS.map((c, i) => <Reveal key={c} delay={i * 80} from="zoom"><img src={`/site/${c}.png`} alt={c} /></Reveal>)}
+            {CLIENTS.map(([slug, name], i) => <Reveal key={slug} delay={i * 80} from="zoom"><img src={`/site/${slug}.png`} alt={name} /></Reveal>)}
           </div>
         </section>
 

@@ -187,7 +187,8 @@ export default function Calendar() {
               const day = items.filter((i) => onDay(i, d))
               return (
                 <div key={d.toISOString()} className={`ka-month__cell ${d.getMonth() !== date.getMonth() ? 'is-out' : ''} ${sameDay(d, today) ? 'is-today' : ''}`}
-                  onClick={() => pickDay(d)} role="gridcell" aria-label={`${d.toDateString()}${day.length ? `, ${day.length} item${day.length > 1 ? 's' : ''}` : ''}`}>
+                  onClick={() => pickDay(d)} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && pickDay(d)}
+                  role="button" tabIndex={0} aria-label={`${d.toDateString()}${day.length ? `, ${day.length} item${day.length > 1 ? 's' : ''}` : ''}`}>
                   <span className="ka-month__n">{d.getDate()}</span>
                   {day.slice(0, 3).map((it) => <Chip key={it.kind + it.id} it={it} onOpen={setOpened} />)}
                   {day.length > 3 && <button type="button" className="ka-month__more" onClick={(e) => { e.stopPropagation(); setDate(d); setView('Day') }}>+{day.length - 3} more</button>}

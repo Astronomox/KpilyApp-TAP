@@ -116,6 +116,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className={`ka-app ${withRail ? 'ka-app--rail' : ''}`}>
+      <a href="#main-content" className="ka-skip">Skip to content</a>
       <header className="ka-topbar">
         <button type="button" className="ka-iconbtn ka-iconbtn--light" aria-label="Open menu" aria-expanded={menu} onClick={() => setMenu(true)}><Icon name="menu" size={26} /></button>
         <Link href="/dashboard/account-overview" className="ka-topbar__logo" aria-label="KPILY home"><img src="/site/logo-white.svg" alt="KPILY Performance Management" /></Link>
@@ -138,7 +139,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <Drawer open={menu} onClose={() => setMenu(false)} nav={nav} profile={profile} lastLogin={lastLogin} />
       <CommandPalette open={palette} onClose={() => setPalette(false)} nav={nav} />
 
-      <main className="ka-app__main">
+      <main id="main-content" className="ka-app__main">
         {needsPlan && (
           <div className="ka-planbar" role="status">
             <span>Your organisation doesn’t have a plan yet. Choose one to unlock KPILY for your whole team.</span>

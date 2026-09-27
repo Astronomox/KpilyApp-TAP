@@ -23,7 +23,7 @@ function Tags({ p }: { p: BlogPost }) {
 function Card({ p, large = false }: { p: BlogPost; large?: boolean }) {
   return (
     <Link href={`/blog-post?slug=${p.slug}`} className={`kp-card ${large ? 'kp-card--large' : ''}`}>
-      <img className="kp-card__img" src={p.image} alt="" />
+      <img className="kp-card__img" src={p.image} alt={p.title} />
       <div className="kp-card__body">
         <Meta p={p} />
         <div className="kp-card__heading"><h3>{p.title}</h3><img src="/figma/blog/arrow-up-right.svg" alt="" /></div>
@@ -37,7 +37,7 @@ function Card({ p, large = false }: { p: BlogPost; large?: boolean }) {
 function SideCard({ p }: { p: BlogPost }) {
   return (
     <Link href={`/blog-post?slug=${p.slug}`} className="kp-card kp-card--side">
-      <img className="kp-card__img" src={p.image} alt="" />
+      <img className="kp-card__img" src={p.image} alt={p.title} />
       <div className="kp-card__body">
         <Meta p={p} />
         <h3 className="kp-card__small-title">{p.title}</h3>
