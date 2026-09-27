@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Modal from './Modal'
 import { createTask, dueMs, getMembers, updateTask, type Member, type Task } from '@/lib/kpily'
+import { taskSchema } from '@/lib/schemas'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 const toLocal = (ms: number) => { const d = new Date(ms); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}` }
@@ -28,6 +29,8 @@ export default function TaskForm({ open, task, defaultDate, onClose, onSaved }: 
       reward: Number(f.get('reward')),
       files: (f.getAll('files') as File[]).filter((x) => x.size),
     }
+    const valid = taskSchema.safeParse(input)
+    if (!valid.success) { setError(valid.error.issues[0].message); return }
     setBusy(true); setError('')
     try {
       await (task ? updateTask(task.id, input) : createTask(input))

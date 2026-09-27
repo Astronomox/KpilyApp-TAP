@@ -10,6 +10,7 @@ import PageLoader from '@/components/figma/PageLoader'
 import { onboard, verifyInvitation, type Invitation } from '@/lib/kpily'
 import { at, pop } from '@/lib/fig'
 import '@/styles/Figma.css'
+import { onboardSchema } from '@/lib/schemas'
 
 const RANGES: [string, number][] = [['0<20', 103], ['20<50', 179.97], ['50<100', 256.94], ['>100', 333.9]]
 // Employee-count options → the API's "min-max" employeeBand.
@@ -74,7 +75,8 @@ function CompanyInfo() {
     e.preventDefault()
     setError('')
     if (!code) { setError('Open the verification link we emailed you to finish registering.'); return }
-    if (!f.gender) { setError('Please select your gender.'); return }
+    const fields = onboardSchema.safeParse({ firstName: f.firstName, lastName: f.lastName, gender: f.gender, phone: `${f.code}${f.phone}`, password: f.password, companyName: f.company })
+    if (!fields.success) { setError(fields.error.issues[0].message); return }
     if (!valid) { setError('Please meet the password rules and accept the terms and conditions.'); return }
     setBusy(true)
     try {

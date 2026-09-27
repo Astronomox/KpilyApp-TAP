@@ -9,6 +9,7 @@ import { finishPasswordReset, getSession, updatePassword } from '@/lib/kpily'
 import MobileAuth from '@/components/figma/MobileAuth'
 import { at, pop } from '@/lib/fig'
 import '@/styles/Figma.css'
+import { resetSchema } from '@/lib/schemas'
 
 // 12-segment strength meter (Figma shows 7 of 12 filled).
 function strength(pw: string) {
@@ -34,7 +35,8 @@ function ChangePassword() {
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null)
 
   async function doSubmit() {
-    if (pw !== confirm) { setMsg({ ok: false, text: 'Passwords must match.' }); return }
+    const valid = resetSchema.safeParse({ password: pw, confirm })
+    if (!valid.success) { setMsg({ ok: false, text: valid.error.issues[0].message }); return }
     if (!code && !getSession()) { setMsg({ ok: false, text: 'Open the reset link from your email, or log in first.' }); return }
     setBusy(true); setMsg(null)
     try {

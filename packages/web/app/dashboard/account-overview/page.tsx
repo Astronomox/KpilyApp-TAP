@@ -13,6 +13,7 @@ import {
   type Dashboard, type Task, type Team,
 } from '@/lib/kpily'
 import { roleLabel } from '@/lib/nav'
+import { check, profileFormSchema } from '@/lib/schemas'
 import '@/styles/Overview.css'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -79,7 +80,7 @@ export default function AccountOverview() {
     const f = new FormData(e.currentTarget)
     setBusy(true); setError('')
     try {
-      await updateProfile({ fullname: String(f.get('fullname')).trim(), phone: String(f.get('phone')).trim(), gender: String(f.get('gender')) })
+      await updateProfile(check(profileFormSchema, { fullname: String(f.get('fullname')), phone: String(f.get('phone')).trim(), gender: String(f.get('gender')) }))
       await refresh()
       setEditing(false)
     } catch (err) { setError(err.message) } finally { setBusy(false) }

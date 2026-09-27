@@ -9,6 +9,7 @@ import Leaderboard from '@/components/app/Leaderboard'
 import Modal from '@/components/app/Modal'
 import { useProfile } from '@/components/app/ProfileContext'
 import { createTeam, getMembers, getTeams, updateTeam, type Member, type Team } from '@/lib/kpily'
+import { teamSchema } from '@/lib/schemas'
 import '@/styles/People.css'
 
 const COLORS = ['#106190', '#1e7a5a', '#793079', '#e8590c', '#e5395b', '#f2b705']
@@ -21,6 +22,8 @@ function TeamForm({ open, team, members, onClose, onSaved }: { open: boolean; te
     e.preventDefault()
     const f = new FormData(e.currentTarget)
     const input = { teamName: String(f.get('teamName')).trim(), teamLeader: String(f.get('teamLeader')), reportsTo: String(f.get('reportsTo')), color: String(f.get('color')) }
+    const valid = teamSchema.safeParse(input)
+    if (!valid.success) { setError(valid.error.issues[0].message); return }
     setBusy(true); setError('')
     try { await (team ? updateTeam(team.id, input) : createTeam(input)); onSaved(); onClose() } catch (err) { setError(err.message) } finally { setBusy(false) }
   }
