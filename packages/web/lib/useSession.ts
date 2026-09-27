@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { getSelf, getSession, type Profile, type Session } from './kpily'
+import { clearSession, getSelf, getSession, type Profile, type Session } from './kpily'
 
 /** Requires a signed-in user: redirects to /login?next=… otherwise, and refreshes the profile. */
 export function useRequireSession() {
@@ -14,7 +14,7 @@ export function useRequireSession() {
 
   useEffect(() => {
     const s = getSession()
-    if (!s?.token) { router.replace(`/login?next=${encodeURIComponent(pathname || '/dashboard')}`); return }
+    if (!s?.token) { clearSession(); router.replace(`/login?next=${encodeURIComponent(pathname || '/dashboard')}`); return }
     // Deferred so the first client render matches the server's (loader) output.
     queueMicrotask(() => { setSession(s); setProfile(s.profile); setReady(true) })
     getSelf().then((me) => setProfile((p) => ({ ...(p as Profile), ...me }))).catch((err) => {

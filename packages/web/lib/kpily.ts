@@ -2,6 +2,8 @@
 // Every request body is wrapped as { data: {...} }; every response is
 // { result: { status, message, details }, content } where status 0 = success.
 
+import { envelopeSchema, sessionSchema } from './schemas'
+
 export const API_BASE = (process.env.NEXT_PUBLIC_KPILY_API_BASE || 'https://kpapis-cac9fhczeadxbvhm.uksouth-01.azurewebsites.net').replace(/\/$/, '')
 
 export class ApiError extends Error {
@@ -42,7 +44,10 @@ export async function request<T>(path: string, { method = 'GET', data, form, aut
   }
 
   let body: Envelope<T> | null = null
-  try { body = await res.json() } catch { /* non-JSON error page */ }
+  try {
+    const parsed = envelopeSchema.safeParse(await res.json())
+    if (parsed.success) body = parsed.data as Envelope<T>
+  } catch { /* non-JSON error page */ }
 
   const result = body?.result
   if (!res.ok || !result || result.status !== 0) {
@@ -72,12 +77,21 @@ export type Profile = {
 export type Session = { token: string; profile: Profile; redirectToPlanPage?: boolean }
 
 const KEY = 'kpily.session'
+/** Presence flag read by proxy.ts to guard /dashboard before any page loads (the token stays in storage). */
+export const SESSION_COOKIE = 'kpily_signed_in'
+const setCookie = (on: boolean) => {
+  try { document.cookie = `${SESSION_COOKIE}=${on ? '1' : ''}; path=/; SameSite=Lax${on ? '' : '; Max-Age=0'}` } catch { /* no document */ }
+}
 
 export function getSession(): Session | null {
   if (typeof window === 'undefined') return null
   try {
     const raw = localStorage.getItem(KEY) ?? sessionStorage.getItem(KEY)
-    return raw ? (JSON.parse(raw) as Session) : null
+    if (!raw) return null
+    const parsed = sessionSchema.safeParse(JSON.parse(raw))
+    if (!parsed.success) { clearSession(); return null }
+    if (!document.cookie.includes(`${SESSION_COOKIE}=1`)) setCookie(true)
+    return parsed.data as Session
   } catch { return null }
 }
 
@@ -85,17 +99,19 @@ function saveSession(s: Session, remember: boolean) {
   try {
     clearSession()
     ;(remember ? localStorage : sessionStorage).setItem(KEY, JSON.stringify(s))
+    setCookie(true)
   } catch { /* storage blocked: session lives for this page only */ }
 }
 
 export function clearSession() {
   try { localStorage.removeItem(KEY); sessionStorage.removeItem(KEY) } catch { /* ignore */ }
+  setCookie(false)
 }
 
 // ---------- Account ----------
 
 export async function login(email: string, password: string, remember = false): Promise<Session> {
-  const content = await request<Session>('/v1/auth', { method: 'POST', data: { username: email.trim(), password } })
+  const content = sessionSchema.parse(await request<unknown>('/v1/auth', { method: 'POST', data: { username: email.trim(), password } })) as Session
   saveSession(content, remember)
   return content
 }
@@ -257,7 +273,7 @@ export type Organization = {
 /** Company name (the API spells the field "compnayName"). */
 export const orgName = (o?: Organization | null) => o?.companyName || o?.compnayName || ''
 
-export const updateOrg = (data: { companyName: string; companyWebsite: string; mailDomain: string; industry: string; country: string; state: string; employeeBand?: string }) =>
+export const updateOrg = (data: { companyName: string; companyWebsite?: string; mailDomain: string; industry: string; country: string; state: string; employeeBand?: string }) =>
   request<unknown>('/v1/org/update', { method: 'PUT', data, auth: true })
 
 export function uploadOrgLogo(file: File) {
