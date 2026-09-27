@@ -1,0 +1,51 @@
+/* Performance Data and Scorecard. */
+.ka-perf, .ka-score { display: grid; gap: 32px; }
+.ka-perf .ka-pagehead, .ka-score .ka-pagehead { margin: 0; }
+.ka-perf h2, .ka-score h2 { margin: 0 0 12px; font-size: 18px; font-weight: 600; color: #106190; }
+.ka-perf__center { text-align: center; }
+.ka-perf__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.ka-statcard { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
+.ka-statcard h2 { max-width: 200px; }
+.ka-statcard > strong { font-size: 44px; font-weight: 700; line-height: 1.1; }
+.ka-statcard > span { font-size: 16px; font-weight: 600; color: #1e7a5a; }
+.ka-statcard > span.is-down { color: #b3261e; }
+.ka-statcard p { margin: 8px 0 0; font-size: 15px; }
+.ka-perf__two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.ka-perf__kpi { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: start; }
+.ka-perf__rings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 16px 0; justify-items: center; }
+.ka-perf__filter { width: 240px; padding: 16px; }
+.ka-perf__filter .ka-field:last-child { margin: 0; }
+.ka-grow { flex: 1; }
+
+.ka-score__row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: stretch; }
+.ka-score__side { display: grid; gap: 16px; }
+.ka-score__trend { display: flex; align-items: center; gap: 24px; }
+.ka-score__trend strong { display: block; font-size: 28px; }
+.ka-score__trend p { margin: 4px 0 0; }
+.ka-score__tip h2 { color: #252525; }
+.ka-score__tip p { margin: 0; line-height: 1.6; }
+.ka-score__two { display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; align-items: start; }
+.ka-score__bars { display: grid; gap: 18px; }
+.ka-score__bars h3 { margin: 8px 0 0; font-size: 15px; font-weight: 600; }
+.ka-meter { display: grid; gap: 8px; font-size: 14px; }
+.ka-meter div { display: flex; justify-content: space-between; font-weight: 500; }
+.ka-meter progress { width: 100%; height: 14px; appearance: none; border: 0; border-radius: 8px; background: #d9d9d9; overflow: hidden; }
+.ka-meter progress::-webkit-progress-bar { background: #d9d9d9; }
+.ka-meter progress::-webkit-progress-value { background: #1e7a5a; border-radius: 8px; }
+.ka-meter progress::-moz-progress-bar { background: #1e7a5a; border-radius: 8px; }
+.ka-score__progress .ka-card__head h2 { color: #252525; }
+
+@media (max-width: 1200px) { .ka-perf__stats { grid-template-columns: 1fr 1fr; } .ka-score__row { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 900px) { .ka-perf__two, .ka-perf__kpi, .ka-score__two { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .ka-perf__stats, .ka-score__row { grid-template-columns: 1fr; } .ka-perf__rings { grid-template-columns: repeat(2, 1fr); } }
+.ka-settings-form { max-width: 880px; }
+.ka-settings-form h2 { margin: 8px 0 16px; }
+.ka-row4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 16px; }
+.ka-badges { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 12px; }
+.ka-badges li { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border: 1px solid #eee; border-radius: 10px; font-size: 15px; }
+.ka-badges li > span:nth-of-type(2) { margin-left: auto; color: #555; }
+.ka-badges__medal { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; color: #fff; font-size: 18px; }
+.ka-badges__add { display: grid; grid-template-columns: 2fr 1fr 90px auto; gap: 16px; align-items: end; }
+.ka-badges__add .ka-btn { margin-bottom: 16px; }
+.ka-badges__add input[type=color] { padding: 4px; height: 42px; }
+@media (max-width: 640px) { .ka-row4 { grid-template-columns: 1fr 1fr; } .ka-badges__add { grid-template-columns: 1fr; } }
