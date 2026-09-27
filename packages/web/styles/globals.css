@@ -1,4 +1,54 @@
 
+/* ─── Design Tokens ──────────────────────────────────────────────── */
+:root {
+  /* Brand colours */
+  --ka-green:        #1e7a5a;
+  --ka-green-dark:   #186a4d;
+  --ka-green-light:  #f0faf6;
+  --ka-blue:         #106190;
+  --ka-blue-light:   #eef6f9;
+  --ka-danger:       #b3261e;
+  --ka-danger-light: #fef2f2;
+  --ka-warn:         #e6a700;
+  --ka-warn-light:   #fdf6e3;
+
+  /* Neutrals */
+  --ka-text:         #252525;
+  --ka-text-2:       #444;
+  --ka-muted:        #6b6b6b;
+  --ka-muted-light:  #8a8a8a;
+  --ka-border:       #e6e6e6;
+  --ka-border-mid:   #d9d9d9;
+  --ka-bg:           #f7f8fa;
+  --ka-surface:      #fff;
+
+  /* Radius */
+  --ka-radius-sm:    6px;
+  --ka-radius:       8px;
+  --ka-radius-md:    10px;
+  --ka-radius-card:  12px;
+  --ka-radius-btn:   20px;
+
+  /* Shadows */
+  --ka-shadow-card:  0 4px 24px rgba(0,0,0,.08);
+  --ka-shadow-lift:  0 8px 32px rgba(0,0,0,.12);
+  --ka-shadow-float: 0 12px 32px rgba(0,0,0,.16);
+  --ka-shadow-modal: 0 24px 64px rgba(0,0,0,.25);
+
+  /* Typography scale (7 steps) */
+  --ka-text-xs:   11px;
+  --ka-text-sm:   13px;
+  --ka-text-base: 14px;
+  --ka-text-md:   16px;
+  --ka-text-lg:   20px;
+  --ka-text-xl:   24px;
+  --ka-text-2xl:  32px;
+
+  /* Transitions */
+  --ka-ease:      cubic-bezier(.4,0,.2,1);
+  --ka-duration:  .15s;
+}
+
 /* Global Styles */
 
 * {

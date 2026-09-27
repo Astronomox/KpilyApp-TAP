@@ -1,40 +1,40 @@
 /* Account Overview: profile | performance on top, settings | teams | progress below. */
 .ka-overview { display: grid; grid-template-columns: 294px 1fr 1fr; grid-template-areas: 'profile perf perf' 'settings teams progress'; gap: 24px; align-items: start; }
 .ka-ov-profile { grid-area: profile; display: flex; flex-direction: column; align-items: center; text-align: center; padding-bottom: 40px; }
-.ka-ov-profile .ka-avatar { background: #eff3f8; color: #252525; font-size: 16px; font-weight: 400; }
-.ka-ov-profile h1 { margin: 20px 0 4px; font-size: 20px; font-weight: 600; color: #106190; }
+.ka-ov-profile .ka-avatar { background: #eff3f8; color: var(--ka-text); font-size: 16px; font-weight: 400; }
+.ka-ov-profile h1 { margin: 20px 0 4px; font-size: 20px; font-weight: 600; color: var(--ka-blue); }
 .ka-ov-profile p { margin: 4px 0 0; font-size: 15px; }
 .ka-ov-profile__report { margin-top: 16px !important; }
 .ka-ov-perf { grid-area: perf; align-self: stretch; }
 .ka-ov-settings { grid-area: settings; }
 .ka-ov-teams { grid-area: teams; align-self: stretch; }
 .ka-ov-progress { grid-area: progress; align-self: stretch; }
-.ka-muted { color: #8a8a8a; font-size: 14px; }
+.ka-muted { color: var(--ka-muted-light); font-size: 14px; }
 
-.ka-ov-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 14px 0; border: 0; border-bottom: 1px solid #f0f0f0; background: none; color: #252525; font-family: inherit; font-size: 15px; line-height: 1.6; text-align: left; text-decoration: none; cursor: pointer; overflow-wrap: anywhere; transition: background .12s; }
+.ka-ov-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 14px 0; border: 0; border-bottom: 1px solid #f0f0f0; background: none; color: var(--ka-text); font-family: inherit; font-size: 15px; line-height: 1.6; text-align: left; text-decoration: none; cursor: pointer; overflow-wrap: anywhere; transition: background .12s; }
 .ka-ov-row:last-child { border-bottom: 0; }
 .ka-ov-row > span { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
 .ka-ov-row strong { font-weight: 600; }
-.ka-ov-row .ka-avatar { background: #eff3f8; color: #252525; }
-.ka-ov-row:hover { background: #fafafa; border-radius: 8px; }
-.ka-ov-row:hover strong { color: #106190; }
+.ka-ov-row .ka-avatar { background: #eff3f8; color: var(--ka-text); }
+.ka-ov-row:hover { background: #fafafa; border-radius: var(--ka-radius); }
+.ka-ov-row:hover strong { color: var(--ka-blue); }
 .ka-ov-row:focus-visible { outline: 2px solid #1ab0b3; outline-offset: 2px; border-radius: 4px; }
 
 .ka-points { margin: 0; }
 .ka-points figcaption { text-align: center; font-weight: 600; font-size: 15px; margin-bottom: 16px; }
-.ka-points__plot { display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; height: 360px; align-items: end; border-bottom: 1px solid #e6e6e6; }
+.ka-points__plot { display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; height: 360px; align-items: end; border-bottom: 1px solid var(--ka-border); }
 .ka-points__col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; position: relative; }
-.ka-points__bar { width: 70%; max-width: 32px; min-height: 0; background: #1e7a5a; border-radius: 4px 4px 0 0; }
-.ka-points__col:hover .ka-points__bar { background: #186a4d; }
+.ka-points__bar { width: 70%; max-width: 32px; min-height: 0; background: var(--ka-green); border-radius: 4px 4px 0 0; }
+.ka-points__col:hover .ka-points__bar { background: var(--ka-green-dark); }
 .ka-points__val { font-size: 11px; color: #555; margin-bottom: 4px; }
-.ka-points__m { position: absolute; bottom: -22px; font-size: 11px; color: #8a8a8a; }
+.ka-points__m { position: absolute; bottom: -22px; font-size: 11px; color: var(--ka-muted-light); }
 .ka-points { padding-bottom: 24px; }
 
 .ka-ov-teamlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
 .ka-ov-teamlist li { display: flex; align-items: center; gap: 10px; font-size: 15px; }
 .ka-dot { width: 12px; height: 12px; border-radius: 50%; flex: none; }
 
-.ka-ov-progress__title { color: #252525 !important; }
+.ka-ov-progress__title { color: var(--ka-text) !important; }
 
 @media (max-width: 1280px) {
   .ka-overview { grid-template-columns: 1fr 1fr; grid-template-areas: 'profile settings' 'perf perf' 'teams progress'; }
