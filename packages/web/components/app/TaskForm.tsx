@@ -13,9 +13,11 @@ export default function TaskForm({ open, task, defaultDate, onClose, onSaved }: 
   const [members, setMembers] = useState<Member[]>([])
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const [details, setDetails] = useState(task?.details ?? '')
   const [nextWeek] = useState(() => Date.now() + 7 * 864e5)
+  const MAX_DETAILS = 500
 
-  useEffect(() => { if (open) getMembers().then(setMembers).catch(() => {}) }, [open])
+  useEffect(() => { if (open) { getMembers().then(setMembers).catch(() => {}); setDetails(task?.details ?? '') } }, [open, task?.details])
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -44,7 +46,11 @@ export default function TaskForm({ open, task, defaultDate, onClose, onSaved }: 
     <Modal open={open} title={task ? 'Edit Task' : 'Add Task'} onClose={onClose} width={600}>
       <form onSubmit={submit} key={task?.id ?? due}>
         <label className="ka-field">Task name<input name="name" required defaultValue={task?.name} placeholder="e.g. Prepare Q4 report" /></label>
-        <label className="ka-field">Details<textarea name="details" required defaultValue={task?.details} placeholder="What needs to be done?" /></label>
+        <label className="ka-field">Details
+          <textarea name="details" required value={details} maxLength={MAX_DETAILS}
+            onChange={(e) => setDetails(e.target.value)} placeholder="What needs to be done?" />
+          <span className={`ka-field__counter${details.length >= MAX_DETAILS ? ' is-max' : details.length > MAX_DETAILS * 0.8 ? ' is-warn' : ''}`}>{details.length}/{MAX_DETAILS}</span>
+        </label>
         <div className="ka-row2">
           <label className="ka-field">Assignee
             <select name="assignee" required defaultValue={task?.assignee ?? ''}>

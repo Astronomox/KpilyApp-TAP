@@ -108,6 +108,11 @@
 .ka-field input:focus, .ka-field select:focus, .ka-field textarea:focus { outline: 2px solid #1ab0b3; outline-offset: -1px; border-color: transparent; }
 .ka-field input:disabled, .ka-field select:disabled, .ka-field textarea:disabled { background: #f5f5f5; color: var(--ka-muted-light); cursor: not-allowed; }
 .ka-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.ka-field__hint { display: block; margin-top: 4px; font-size: 12px; font-weight: 400; color: var(--ka-muted-light); }
+.ka-field__counter { display: flex; justify-content: flex-end; font-size: 12px; color: var(--ka-muted-light); margin-top: 2px; }
+.ka-field__counter.is-warn { color: var(--ka-warn); }
+.ka-field__counter.is-max { color: var(--ka-danger); }
+.ka-field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23444' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
 .ka-error { margin: 0 0 12px; padding: 8px 12px; border-radius: var(--ka-radius-sm); background: var(--ka-danger-light); color: var(--ka-danger); font-size: 13px; }
 .ka-ok { margin: 0 0 12px; padding: 8px 12px; border-radius: var(--ka-radius-sm); background: var(--ka-green-light); color: var(--ka-green); font-size: 13px; }
 .ka-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px; }
