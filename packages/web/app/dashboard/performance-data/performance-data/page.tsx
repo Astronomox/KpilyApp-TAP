@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { BIMONTHS, BarChart, HBarChart, LineChart, Pie, Ring, StatCard } from '@/components/app/Charts'
 import Icon from '@/components/app/Icon'
 import Leaderboard from '@/components/app/Leaderboard'
+import SkeletonCard from '@/components/app/SkeletonCard'
 import { dueMs, getDashboard, getMembers, getTasks, getTeams, type Dashboard, type Member, type Task, type Team } from '@/lib/kpily'
 import '@/styles/Performance.css'
 
@@ -69,12 +70,21 @@ export default function PerformanceData() {
         </div>
       </div>
 
-      <div className="ka-perf__stats">
-        <StatCard title="Overall Task Completion Rate" rate={dash?.taskCompletionRate} />
-        <StatCard title="Overall Positive Feedback" rate={dash?.positiveFeedback} />
-        <StatCard title="Overall Response Rate" rate={dash?.responseRate} />
-        <section className="ka-card ka-statcard"><h2>Overall Achievement Areas</h2><Pie slices={areas} label="Achievement areas" /></section>
-      </div>
+      {dash === null ? (
+        <div className="ka-perf__stats">
+          <SkeletonCard lines={4} height={140} />
+          <SkeletonCard lines={4} height={140} />
+          <SkeletonCard lines={4} height={140} />
+          <SkeletonCard lines={4} height={140} />
+        </div>
+      ) : (
+        <div className="ka-perf__stats">
+          <StatCard title="Overall Task Completion Rate" rate={dash.taskCompletionRate} />
+          <StatCard title="Overall Positive Feedback" rate={dash.positiveFeedback} />
+          <StatCard title="Overall Response Rate" rate={dash.responseRate} />
+          <section className="ka-card ka-statcard"><h2>Overall Achievement Areas</h2><Pie slices={areas} label="Achievement areas" /></section>
+        </div>
+      )}
 
       <div className="ka-perf__two">
         <section className="ka-card"><h2 className="ka-perf__center">Total Team Point</h2><BarChart labels={BIMONTHS} series={[{ label: 'Points', color: GREEN.dark, values: totalPoints }]} label="Total team points" /></section>

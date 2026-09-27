@@ -119,6 +119,15 @@
 
 .ka-flip { transform: rotate(180deg); }
 
+/* Skeleton shimmer */
+@keyframes ka-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.ka-skeleton { display: flex; flex-direction: column; gap: 12px; }
+.ka-skeleton__line { height: 14px; border-radius: var(--ka-radius-sm); background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 800px 100%; animation: ka-shimmer 1.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .ka-skeleton__line { animation: none; } }
+
 /* Page headings, leaderboards, empty states */
 .ka-pagehead { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
 .ka-pagehead h1 { margin: 0; font-size: 32px; font-weight: 600; color: var(--ka-blue); }

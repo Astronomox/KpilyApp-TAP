@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Icon from '@/components/app/Icon'
 import { useProfile } from '@/components/app/ProfileContext'
+import SkeletonCard from '@/components/app/SkeletonCard'
 import { getSubscriptions, type Subscription } from '@/lib/kpily'
 import { money } from '@/lib/plans'
 import { usePlans } from '@/lib/usePlans'
@@ -56,10 +57,10 @@ export default function Billing() {
       {error && <p role="alert" className="ka-error">{error}</p>}
 
       <section className="ka-bill__sec"><h2>Current Plan</h2>
-        {subs === null ? <p className="ka-muted">Loading…</p> : current ? active.map((s, i) => <Plan key={s.id ?? i} s={s} />) : <p className="ka-bill__muted">You do not have an active subscription</p>}
+        {subs === null ? <SkeletonCard lines={3} height={72} /> : current ? active.map((s, i) => <Plan key={s.id ?? i} s={s} />) : <p className="ka-bill__muted">You do not have an active subscription</p>}
       </section>
       <section className="ka-bill__sec"><h2>Inactive Plans</h2>
-        {subs === null ? <p className="ka-muted">Loading…</p> : inactive.length ? inactive.map((s, i) => <Plan key={s.id ?? i} s={s} />) : <p className="ka-bill__muted">You do not have an inactive subscription</p>}
+        {subs === null ? <SkeletonCard lines={3} height={72} /> : inactive.length ? inactive.map((s, i) => <Plan key={s.id ?? i} s={s} />) : <p className="ka-bill__muted">You do not have an inactive subscription</p>}
       </section>
       <section className="ka-bill__sec"><h2>Charges</h2>
         {subs?.some((s) => typeof s.amount === 'number') ? (
