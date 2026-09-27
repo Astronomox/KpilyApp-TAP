@@ -10,6 +10,7 @@ import {
   API_BASE, clearSession, endSession, getActiveSessions, getSelf, logout, orgName, updateOrg, updatePassword, updateProfile,
   updateStoredProfile, uploadOrgLogo, uploadProfileImage, verifyPassword, type Organization,
 } from '@/lib/kpily'
+import { changePasswordSchema, check, orgSchema, profileFormSchema } from '@/lib/schemas'
 import '@/styles/Settings.css'
 
 const INDUSTRIES = ['Technology', 'Financial Technology', 'Finance', 'Healthcare', 'Education', 'Retail', 'Manufacturing', 'Law & Compliance', 'Media', 'Logistics', 'Other']
@@ -71,7 +72,7 @@ export default function Settings() {
     e.preventDefault()
     const f = formValues(e.currentTarget)
     act('company', async () => {
-      await updateOrg({ companyName: f.companyName.trim(), companyWebsite: f.companyWebsite.trim(), mailDomain: f.mailDomain.trim(), industry: f.industry.trim(), country: f.country.trim(), state: f.state.trim() })
+      await updateOrg(check(orgSchema, f))
       const organization = { ...org, compnayName: f.companyName.trim(), companyName: f.companyName.trim(), companyWebsite: f.companyWebsite.trim(), mailDomain: f.mailDomain.trim(), industry: f.industry.trim(), country: f.country.trim(), state: f.state.trim() }
       if (profile) setProfile({ ...profile, organization })
       updateStoredProfile({ organization })
@@ -81,13 +82,13 @@ export default function Settings() {
   function saveName(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const f = formValues(e.currentTarget)
-    act('name', async () => { await updateProfile({ fullname: f.fullname.trim(), phone: `${f.code}${f.phone.trim().replace(/^0/, '')}`, gender: f.gender }); await refresh() }, 'Profile saved.')
+    act('name', async () => { await updateProfile(check(profileFormSchema, { fullname: f.fullname, phone: f.phone.trim() ? `${f.code}${f.phone.trim().replace(/^0/, '')}` : '', gender: f.gender })); await refresh() }, 'Profile saved.')
   }
 
   function savePassword(e: React.FormEvent) {
     e.preventDefault()
-    if (pw.next.length < 8) return setSt((s) => ({ ...s, pw: { error: 'Use at least 8 characters for the new password.' } }))
-    if (pw.next !== pw.confirm) return setSt((s) => ({ ...s, pw: { error: 'The new passwords do not match.' } }))
+    const valid = changePasswordSchema.safeParse(pw)
+    if (!valid.success) return setSt((s) => ({ ...s, pw: { error: valid.error.issues[0].message } }))
     act('pw', async () => {
       try { await verifyPassword(profile?.email ?? '', pw.current) } catch { throw new Error('Your current password is incorrect.') }
       await updatePassword(pw.next)

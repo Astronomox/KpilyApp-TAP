@@ -8,6 +8,7 @@ import Modal from '@/components/app/Modal'
 import { useProfile } from '@/components/app/ProfileContext'
 import { changeUserPrivilege, changeUserStatus, getMembers, getTeams, inviteUser, type Member, type Organization, type Team } from '@/lib/kpily'
 import { ROLE, roleLabel } from '@/lib/nav'
+import { inviteSchema } from '@/lib/schemas'
 import '@/styles/People.css'
 
 const STATUS: Record<number, [string, string]> = { 1: ['Active', 'active'], 0: ['Pending', 'pending'], [-1]: ['Archived', 'archived'] }
@@ -72,7 +73,9 @@ export default function AllStaff() {
   function submitInvite(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const f = new FormData(e.currentTarget)
-    run(() => inviteUser({ fullname: String(f.get('fullname')).trim(), email: String(f.get('email')).trim(), team: String(f.get('team')) || undefined, privilege: Number(f.get('privilege')), designation: String(f.get('designation')).trim() || undefined }), () => setInviting(false))
+    const valid = inviteSchema.safeParse({ fullname: String(f.get('fullname')), email: String(f.get('email')).trim(), team: String(f.get('team')) || undefined, privilege: Number(f.get('privilege')), designation: String(f.get('designation')).trim() || undefined })
+    if (!valid.success) { setError(valid.error.issues[0].message); return }
+    run(() => inviteUser(valid.data), () => setInviting(false))
   }
 
   function submitEdit(e: React.FormEvent<HTMLFormElement>) {

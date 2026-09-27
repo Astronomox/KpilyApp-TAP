@@ -6,6 +6,7 @@ import Modal from '@/components/app/Modal'
 import TaskForm from '@/components/app/TaskForm'
 import { useProfile } from '@/components/app/ProfileContext'
 import { TASK_STATUS, createEvent, dueMs, getEvents, getMembers, getTasks, updateEvent, type CalEvent, type Member, type Task } from '@/lib/kpily'
+import { eventSchema } from '@/lib/schemas'
 import '@/styles/Calendar.css'
 
 type Kind = (typeof TASK_STATUS)[number] | 'Event'
@@ -75,7 +76,8 @@ function EventForm({ open, event, date, onClose, onSaved }: { open: boolean; eve
     e.preventDefault()
     const f = new FormData(e.currentTarget)
     const s = new Date(String(f.get('start'))), en = new Date(String(f.get('end')))
-    if (en <= s) { setError('The end time must be after the start time.'); return }
+    const valid = eventSchema.safeParse({ name: String(f.get('name')), start: s, end: en, onlineLocation: String(f.get('link')).trim() })
+    if (!valid.success) { setError(valid.error.issues[0].message); return }
     const attendees = members.filter((m) => picked.includes(m.email)).map((m) => ({ id: m.id, fullname: m.fullname, username: m.email }))
     const input = {
       name: String(f.get('name')).trim(), details: String(f.get('details')).trim(),
