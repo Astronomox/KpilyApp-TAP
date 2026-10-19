@@ -138,3 +138,53 @@ Each row is a top-level frame (screen). Open in Figma with `?node-id=<id with : 
 | Edit Employee | `1347:12092` | 703x527 |
 | Edit Employee | `1347:12180` | 703x527 |
 | Edit Employee | `1347:12253` | 703x527 |
+| Edit Employee | `1347:12327` | 703x527 |
+| Edit Employee | `1347:12397` | 703x527 |
+| Edit Employee | `1347:12454` | 703x527 |
+| Poll Type | `1924:78663` | 703x527 |
+| Edit Employee | `1347:12542` | 703x527 |
+| Edit Employee | `1347:12630` | 703x527 |
+| Edit Employee | `1347:12703` | 703x527 |
+| Edit Employee | `1347:12777` | 703x527 |
+| Edit Employee | `1347:12847` | 703x527 |
+| Edit Employee | `1347:12904` | 703x527 |
+| Edit Employee | `1347:12992` | 703x527 |
+| Edit Employee | `1347:13080` | 703x527 |
+| Edit Employee | `1347:13153` | 703x527 |
+| Edit Employee | `1347:13227` | 703x527 |
+| Edit Employee | `1347:13297` | 703x527 |
+| Add new what | `1347:13354` | 703x527 |
+| Add new Employee | `1347:13419` | 703x527 |
+| Add new employee | `1347:13484` | 703x527 |
+| Add new employee | `1347:13561` | 703x714 |
+| Add new employee | `1347:13623` | 703x714 |
+| Add new employee confirmation | `1347:13687` | 703x527 |
+| New Employee invite sent | `1347:13797` | 703x527 |
+| Add new Admin | `1347:13814` | 703x527 |
+| Current or new? | `1347:13879` | 703x527 |
+| Current or new? | `1347:13941` | 703x527 |
+| Current or new? | `1347:14003` | 703x527 |
+| Add new employee | `1347:14065` | 703x527 |
+| Add new employee | `1347:14143` | 703x527 |
+| Add new employee | `1347:14222` | 703x527 |
+| Add new employee | `1347:14302` | 703x527 |
+| Archive Employee | `1347:14390` | 703x527 |
+| New Admin invite sent | `1347:14483` | 703x527 |
+| New Admin invite sent | `1347:14499` | 703x527 |
+| Add new what | `1347:14515` | 703x527 |
+| All Staff Filtering | `1347:14581` | 1440x1024 |
+| Add new Team | `1347:15433` | 703x527 |
+| Add new team | `1347:15498` | 703x527 |
+| Add new team | `1347:15574` | 703x527 |
+| Add new team | `1347:15652` | 703x780 |
+| Add new team | `1347:15758` | 703x527 |
+| New Team invite sent | `1347:15847` | 703x527 |
+| Add new what | `1347:15863` | 703x527 |
+| Add New | `1347:15928` | 1440x1024 |
+| Edit Employee | `1347:16781` | 1440x1024 |
+| Archive Employee | `1347:17634` | 1440x1024 |
+| Archive Successful | `1347:18487` | 703x527 |
+| Org Chart  | `1467:31265` | 1440x1024 |
+| Org Chart with filter  | `1467:28293` | 1440x1024 |
+| Org Chart with side bar | `1467:32389` | 1440x1024 |
+| Polls with Menu Out | `1924:76852` | 1440x1024 |
