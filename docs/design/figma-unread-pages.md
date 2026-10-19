@@ -188,3 +188,48 @@ Each row is a top-level frame (screen). Open in Figma with `?node-id=<id with : 
 | Org Chart with filter  | `1467:28293` | 1440x1024 |
 | Org Chart with side bar | `1467:32389` | 1440x1024 |
 | Polls with Menu Out | `1924:76852` | 1440x1024 |
+| Polls Dash | `1924:77622` | 1440x1024 |
+| Polls Dash with Results | `1924:80427` | 1440x1024 |
+| Support Whats new Page | `1800:72330` | 1440x1272 |
+| Support Whats new with menu out | `1800:73694` | 1440x1272 |
+| Support Whats new Page with Filters | `1800:73043` | 1440x1272 |
+| Employee Score card _Rolling | `1563:67971` | 1440x1746 |
+| Employee Score card _Quarter | `2133:66461` | 1440x1746 |
+| Employee Score card _cut off | `1567:70014` | 1440x1746 |
+| New Goal Added! | `1884:71278` | 703x527 |
+| New Goal Added! | `1884:71377` | 703x527 |
+| Edit Employee | `1884:71759` | 703x527 |
+| Edit Badge | `1908:74348` | 703x527 |
+| Delete Badge | `1908:75381` | 703x527 |
+| Delete Badge | `1908:75483` | 703x527 |
+| Edit Badge | `1908:74967` | 703x527 |
+| Edit Badge | `1908:74518` | 703x527 |
+| Edit Badge | `1908:74615` | 703x527 |
+| Edit Badge | `1908:75064` | 703x527 |
+| Edit Badge | `1908:75170` | 703x527 |
+| Edit Badge | `1908:74736` | 703x527 |
+| Edit Employee | `1884:71895` | 703x527 |
+| Edit Employee | `1884:72079` | 703x527 |
+| Edit Employee | `1884:72447` | 703x527 |
+| Edit Employee | `1884:72535` | 703x527 |
+| Archive Successful | `1884:72659` | 703x527 |
+| Archive Successful | `1908:75588` | 703x527 |
+| Add new badge | `1908:73874` | 703x527 |
+| Add new badge | `1908:73967` | 703x527 |
+| Add new bade | `1908:74061` | 703x527 |
+| Add new badge | `1908:74835` | 703x527 |
+| Edit Badge | `1908:75258` | 703x527 |
+| New badge Added! | `1908:74130` | 703x527 |
+| New badge Added! | `1908:74951` | 703x527 |
+| New badge Added! | `1908:75365` | 703x527 |
+| New Poll | `1924:78234` | 1440x1024 |
+| Poll Pop Up for all empoyess | `1924:81261` | 1440x1024 |
+| Answer Poll | `1924:81581` | 703x527 |
+| Billing Add-Ons Edit Psychometrics pop up | `2080:66364` | 1365x1024 |
+| Billing Add-Ons Edit Brain Games pop up | `2094:66821` | 1365x1024 |
+| Employee Score card _Rolling | `2082:68450` | 1440x1746 |
+| Employee Score card _Rolling | `2082:68858` | 1440x1746 |
+| Employee Score card _Quarter | `2131:66740` | 1440x1746 |
+| Burger Menu Out Scoreboard | `2133:67223` | 363x1762 |
+| Group 1707478170 | `2091:66874` | 275x201 |
+| Group 1707478228 | `3795:66595` | 1239x418 |
