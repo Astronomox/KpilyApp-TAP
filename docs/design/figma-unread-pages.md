@@ -104,3 +104,37 @@ Each row is a top-level frame (screen). Open in Figma with `?node-id=<id with : 
 | Add new points | `1884:70553` | 703x527 |
 | Add new points | `1884:70622` | 703x527 |
 | Add new points | `1884:70886` | 703x527 |
+| Add new points | `1884:70688` | 703x527 |
+| Add new points | `1884:71983` | 703x527 |
+| Add new points | `1893:73607` | 703x527 |
+| Add new points | `1884:70948` | 703x527 |
+| Add new points | `1884:70781` | 703x527 |
+| Add new points | `1884:71144` | 703x527 |
+| Add new points | `1884:72167` | 703x527 |
+| Add new points | `1893:73762` | 703x527 |
+| Edit Points success | `1884:72675` | 703x527 |
+| Edit Title Success | `1884:72736` | 703x527 |
+| Add new points | `1884:72263` | 703x527 |
+| Add new points | `1884:72355` | 703x527 |
+| Add new points | `1884:71293` | 703x527 |
+| Add new points | `1884:71025` | 703x527 |
+| Q2 Performance Data | `1248:9497` | 1440x4360 |
+| Marketing Team Performance Data | `1248:10453` | 1440x4360 |
+| Overall Performance Data Company  | `1248:8541` | 1440x4360 |
+| Overall Performance Data Company with Side Menu | `1247:7214` | 1440x4360 |
+| All Staff | `1347:8770` | 1440x1024 |
+| All Staff | `1807:69749` | 1440x1024 |
+| All Staff with Side Bar Menu | `1807:68515` | 1440x1024 |
+| All Staff Filtering | `1347:9622` | 1440x1024 |
+| Archive Employee | `1347:11328` | 703x527 |
+| Edit Employee | `1347:11418` | 703x527 |
+| Edit Employee | `1347:11506` | 703x527 |
+| Edit Employee | `1347:11594` | 703x527 |
+| Edit Employee | `1347:11690` | 703x527 |
+| Edit Employee | `1347:11785` | 703x527 |
+| Edit Employee | `1347:11883` | 703x527 |
+| Edit Employee | `1347:11947` | 703x527 |
+| Edit Employee | `1347:12004` | 703x527 |
+| Edit Employee | `1347:12092` | 703x527 |
+| Edit Employee | `1347:12180` | 703x527 |
+| Edit Employee | `1347:12253` | 703x527 |
