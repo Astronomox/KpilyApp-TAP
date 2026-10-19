@@ -80,3 +80,27 @@ Each row is a top-level frame (screen). Open in Figma with `?node-id=<id with : 
 | Frame 427319123 | `2007:66389` | 367x128 |
 | Feedback Dash | `2086:66423` | 1458x1037 |
 
+## Admin(HR) and Data dashboard  (`1152:3576`) - 149 frames
+
+| Screen | Node ID | Size |
+|---|---|---|
+| Admin Dashboard | `1155:3578` | 1440x1024 |
+| Admin Dashboard Side Bar Menu Out | `1155:4169` | 1440x1024 |
+| Support Contact Us | `1461:44139` | 1440x1024 |
+| Support Contact Us with Menu Out | `1678:68790` | 1440x1024 |
+| Support Help Center with menu out | `1800:70879` | 1440x1024 |
+| Support Help Center | `1800:71650` | 1440x1024 |
+| Settings | `1461:9992` | 1440x1507 |
+| Settings with menu out | `1800:68285` | 1440x1507 |
+| Settings with tool tip Expansion | `1800:68032` | 1440x1507 |
+| Billing | `1487:28108` | 1440x1024 |
+| Billing menu out | `2076:66325` | 1440x1024 |
+| Billing menu out | `1487:30780` | 1440x1024 |
+| Overall Performance Data Company  | `1155:5612` | 1440x4360 |
+| Point Settings | `1884:69993` | 1440x1024 |
+| Badge Settings with Menu Out | `1893:72799` | 1440x1024 |
+| Badge Settings | `1908:75604` | 1440x1024 |
+| Point Settings with Menu out | `1884:71418` | 1440x1024 |
+| Add new points | `1884:70553` | 703x527 |
+| Add new points | `1884:70622` | 703x527 |
+| Add new points | `1884:70886` | 703x527 |
