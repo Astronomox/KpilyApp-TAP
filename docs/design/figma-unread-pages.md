@@ -19,3 +19,34 @@ Each row is a top-level frame (screen). Open in Figma with `?node-id=<id with : 
 | Burger Menu Out | `3910:69772` | 363x1024 |
 | KPILY Sidebar Performance Data | `3910:69956` | 1440x4360 |
 
+## Employee and Line manager module  (`1270:8118`) - 56 frames
+
+| Screen | Node ID | Size |
+|---|---|---|
+| Employee | `1278:24922` | 1440x1024 |
+| Employee Side Bar Menu Out | `1278:25225` | 1440x1024 |
+| Manager Dashboard | `1278:25663` | 1440x1024 |
+| Manager Dashboard Side Bar Menu Out | `1278:25993` | 1440x1024 |
+| Frame 427319073 | `1278:26459` | 340x1024 |
+| Frame 427319077 | `1278:26593` | 340x1024 |
+| Give Feedback | `1278:26724` | 1440x1024 |
+| Appeal Feedback | `1278:26881` | 1440x1024 |
+| File Upload | `1278:26987` | 703x527 |
+| Add Link | `1278:27047` | 703x527 |
+| Postitive Feedback | `1278:27102` | 1440x1024 |
+| Neg Feedback | `1278:27228` | 1440x1024 |
+| Postitive Feedback-Comment | `1278:27353` | 1440x1024 |
+| Assign Points | `1278:27483` | 1440x1024 |
+| Feedback Complete | `1278:27600` | 1365x1024 |
+| New Feedback | `1278:27611` | 1440x1024 |
+| Team "View All" | `1278:27768` | 1440x1024 |
+| Calendar | `1278:28137` | 1440x1024 |
+| Invite | `1278:28414` | 1440x1024 |
+| Frame 427319076 | `1278:28615` | 3208x2016 |
+| Goals | `1278:28723` | 1440x1024 |
+| Rewards | `1278:28955` | 1440x1024 |
+| Rewards | `1278:29267` | 1440x1024 |
+| Rewards | `1278:29424` | 1440x1024 |
+| Task Review | `1278:29581` | 1440x1024 |
+| Approval Request | `1278:29756` | 1440x1024 |
+| Task Approved | `1278:29917` | 1440x1024 |
