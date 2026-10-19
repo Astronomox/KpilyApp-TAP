@@ -50,3 +50,33 @@ Each row is a top-level frame (screen). Open in Figma with `?node-id=<id with : 
 | Task Review | `1278:29581` | 1440x1024 |
 | Approval Request | `1278:29756` | 1440x1024 |
 | Task Approved | `1278:29917` | 1440x1024 |
+| Assign Points | `1278:30087` | 703x527 |
+| Assign Points | `1807:74054` | 703x527 |
+| Approved and Confirm task as complete by releasing points  | `1807:74095` | 703x527 |
+| Ask Question | `1278:30112` | 703x527 |
+| Contributor Complete | `1278:30171` | 703x527 |
+| Collaboration Complete | `1278:30182` | 703x527 |
+| Contributor details | `1278:30193` | 703x527 |
+| File Upload | `1278:30259` | 703x527 |
+| Add Link | `1278:30319` | 703x527 |
+| Add Contributor | `1278:30374` | 703x527 |
+| Add Contributor | `1278:30443` | 703x527 |
+| Feedback Dash | `1278:30531` | 1458x1037 |
+| Task Dash | `1278:30686` | 1458x1037 |
+| Scroll | `1278:30836` | 13x280 |
+| Frame 427319078 | `1278:30839` | 340x1024 |
+| Burger Menu Out | `2123:66407` | 340x1327 |
+| Group 1707478201 | `2119:66646` | 340x44 |
+| Add task | `1278:31101` | 1440x1024 |
+| New Challenge | `1807:73879` | 1440x1024 |
+| Task Assigned! | `1278:31262` | 703x527 |
+| New Goal Added! | `1278:31273` | 703x527 |
+| Add Goal - Quarterly | `1466:27878` | 1440x1024 |
+| Add Goal - Monthly | `1466:28285` | 1440x1024 |
+| Add Goal - Year | `1466:28484` | 1440x1024 |
+| Employee/Manager Settings | `1807:72527` | 1440x1327 |
+| Employee/Manager Settings with Menu Out | `1807:72960` | 1440x1327 |
+| Task Dash | `1826:70010` | 1458x1037 |
+| Frame 427319123 | `2007:66389` | 367x128 |
+| Feedback Dash | `2086:66423` | 1458x1037 |
+
