@@ -6,13 +6,15 @@ import EmptyState from '@/components/app/EmptyState'
 import Icon from '@/components/app/Icon'
 import Modal from '@/components/app/Modal'
 import { useProfile } from '@/components/app/ProfileContext'
-import { changeUserPrivilege, changeUserStatus, getMembers, getTeams, inviteUser, type Member, type Organization, type Team } from '@/lib/kpily'
+import { API_BASE, changeUserPrivilege, changeUserStatus, getMembers, getTeams, inviteUser, type Member, type Organization, type Team } from '@/lib/kpily'
 import { ROLE, roleLabel } from '@/lib/nav'
 import { inviteSchema } from '@/lib/schemas'
 import '@/styles/People.css'
 
 const STATUS: Record<number, [string, string]> = { 1: ['Active', 'active'], 0: ['Pending', 'pending'], [-1]: ['Archived', 'archived'] }
 const title = (s?: string) => (s || '').replace(/\b\w/g, (c) => c.toUpperCase())
+// profilePicture may be a full URL or a bare file alias served by the API.
+const photoUrl = (pic?: string | null) => (pic ? (pic.startsWith('http') ? pic : `${API_BASE}/v1/file/get/${pic}`) : null)
 type Filters = { status: string; team: string; privilege: string }
 
 function csv(rows: (string | number)[][]) {
