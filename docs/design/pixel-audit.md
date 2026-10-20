@@ -60,3 +60,11 @@ different, usually richer — listed so the choice is visible, not necessarily t
 
 ---
 
+## Cross-cutting note — header pattern
+
+Several Figma frames (Tasks, Calendar) centre the page name inside the dark top bar and add
+a "< Back" link. The app instead keeps one consistent shell header (logo · search · org ·
+settings) and puts each page's title in the content area, left-aligned. This is a
+deliberate, app-wide IA decision and is more consistent than per-page centred titles;
+not treated as a defect.
+
