@@ -49,3 +49,14 @@ different, usually richer — listed so the choice is visible, not necessarily t
 - 🟡 Header: Figma centres the "Tasks" title in the dark top bar with a "< Back" link and a
   "Create New Task" button; code uses the shared shell header + a left title + "+ Add Task".
 
+## Calendar (`calendar` vs node 1278:28137)
+
+- 🔵 **Code exceeds the design**: Month / Week / Day / List views, a mini-calendar, type
+  filters, add-task and schedule-event. Figma shows only a month grid plus two buttons.
+- 🟡 Buttons: Figma "Schedule a Task" / "Schedule a Check-In"; code "+ Add Task" /
+  "+ Schedule Event". There is no "Check-In" item type in the data model.
+- 🟡 Month heading style: Figma is a large green "February 2023"; code pairs the title with
+  prev/next chevrons and a Month/Week/Day/List segmented control.
+
+---
+
