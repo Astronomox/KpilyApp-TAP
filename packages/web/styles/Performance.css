@@ -64,3 +64,19 @@
 .ka-pill--neg { background: #fcebe9; border-color: #f4d6d2; color: #a13a30; }
 .ka-pill__del { display: grid; place-items: center; width: 18px; height: 18px; border: 0; border-radius: 50%; background: rgba(0,0,0,.12); color: inherit; cursor: pointer; font-size: 13px; line-height: 1; }
 .ka-pill__del:hover { background: rgba(0,0,0,.24); }
+
+.ka-badgegrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.ka-badgecard { position: relative; display: grid; grid-template-columns: 64px 1fr; gap: 20px; padding: 20px; border: 1px solid var(--ka-border); border-radius: var(--ka-radius-md, 12px); background: var(--ka-surface); box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+.ka-badgecard__medal { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #47be94, #106190); color: #fff; }
+.ka-badgecard__medal svg { width: 30px; height: 30px; }
+.ka-badgecard__body { min-width: 0; }
+.ka-badgecard__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.ka-badgecard__top h3 { margin: 0; font-size: 17px; font-weight: 700; color: var(--ka-text); }
+.ka-badgecard__pts { flex: none; padding: 4px 12px; border-radius: 999px; background: #eaf2f7; color: var(--ka-blue); font-size: 12px; font-weight: 700; letter-spacing: .3px; }
+.ka-badgecard__desc { margin: 8px 0 0; max-width: 32ch; font-size: 14px; line-height: 1.5; color: var(--ka-muted); }
+.ka-badgecard__date { position: absolute; right: 20px; bottom: 16px; font-size: 12px; font-style: italic; color: var(--ka-muted); }
+.ka-badgecard__del { position: absolute; right: 12px; top: 12px; display: grid; place-items: center; width: 26px; height: 26px; border: 0; border-radius: 50%; background: #fcebe9; color: #a13a30; cursor: pointer; }
+
+@media (max-width: 900px) {
+  .ka-badgegrid { grid-template-columns: 1fr; }
+}
