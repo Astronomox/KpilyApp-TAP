@@ -140,7 +140,7 @@ export default function AllStaff() {
                   return (
                     <tr key={m.id}>
                       <td className="ka-table__check"><input type="checkbox" aria-label={`Select ${m.fullname}`} checked={selected.includes(m.id)} onChange={() => setSelected(selected.includes(m.id) ? selected.filter((x) => x !== m.id) : [...selected, m.id])} /></td>
-                      <td><span className="ka-staffcell"><Avatar name={m.fullname} src={null} size={40} /><div>{m.fullname}<small>{m.email}</small></div></span></td>
+                      <td><span className="ka-staffcell"><Avatar name={m.fullname} src={photoUrl(m.profilePicture)} size={40} /><div>{m.fullname}<small>{m.email}</small></div></span></td>
                       <td>{pct(m)}</td>
                       <td><span className={`ka-badge ka-badge--${tone}`}>• {label}</span></td>
                       <td>{team?.teamName ?? ''}</td>
