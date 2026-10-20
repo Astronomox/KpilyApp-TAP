@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Icon from '@/components/app/Icon'
+import Modal from '@/components/app/Modal'
 import { useLocalSetting } from '@/lib/useLocalSetting'
 import '@/styles/Performance.css'
 
@@ -18,15 +19,29 @@ const DEFAULTS: Badge[] = [
   b('Thumbs Up', 250), b('Super Thorough Work', 150),
 ]
 
+const today = () => new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+
 export default function BadgeSettings() {
   const [badges, save, loaded] = useLocalSetting<Badge[]>('kpily.badge-settings', DEFAULTS)
   const [editing, setEditing] = useState(false)
+  const [adding, setAdding] = useState(false)
+  const [draft, setDraft] = useState({ title: '', description: DESC, points: 100 })
+
+  function add(e: React.FormEvent) {
+    e.preventDefault()
+    const title = draft.title.trim()
+    if (!title) return
+    save([...badges, { id: `${Date.now()}`, title, description: draft.description.trim() || DESC, points: Math.abs(draft.points), date: today() }])
+    setDraft({ title: '', description: DESC, points: 100 })
+    setAdding(false)
+  }
 
   return (
     <div className="ka-score">
       <div className="ka-setbar">
         <h1>Badge Settings</h1>
         <div className="ka-setbar__actions">
+          <button type="button" className="ka-btn ka-btn--ghost" onClick={() => setAdding(true)}><Icon name="plus" size={16} />Add New</button>
           <button type="button" className="ka-btn" onClick={() => setEditing((v) => !v)}><Icon name="edit" size={16} />{editing ? 'Done' : 'Edit'}</button>
         </div>
       </div>
@@ -50,6 +65,18 @@ export default function BadgeSettings() {
           {!badges.length && <p className="ka-muted">No badges yet.</p>}
         </div>
       )}
+
+      <Modal open={adding} title="Add badge" onClose={() => setAdding(false)} width={460}>
+        <form onSubmit={add}>
+          <label className="ka-field">Title<input value={draft.title} onChange={(e) => setDraft({ ...draft, title: e.target.value })} required placeholder="e.g. Team Player" /></label>
+          <label className="ka-field">Description<textarea rows={3} value={draft.description} onChange={(e) => setDraft({ ...draft, description: e.target.value })} /></label>
+          <label className="ka-field">Points<input type="number" min={0} value={draft.points} onChange={(e) => setDraft({ ...draft, points: Number(e.target.value) })} required /></label>
+          <div className="ka-actions">
+            <button type="button" className="ka-btn ka-btn--ghost" onClick={() => setAdding(false)}>Cancel</button>
+            <button type="submit" className="ka-btn">Add</button>
+          </div>
+        </form>
+      </Modal>
     </div>
   )
 }
