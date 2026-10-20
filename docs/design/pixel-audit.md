@@ -38,3 +38,14 @@ different, usually richer — listed so the choice is visible, not necessarily t
   header. Per-section is lower-risk (you save only what you touched) — kept deliberately.
 - 🔵 Figma shows two logo lock-ups (dark + light); code shows the single stored logo.
 
+## Tasks (`tasks` vs node 1278:30686)
+
+- 🔵 **List vs feed.** Code is a sortable, paginated data table with column toggles and a
+  row action menu; Figma is an activity feed ("Task Assignment from Steve C. — Project X").
+  Code is the power-user view and is functionally richer. Biggest divergence on the audit.
+- 🔵 **Tabs:** code exposes the five raw statuses (New / Accepted / Reviewed / Completed /
+  Submitted) as filter chips; Figma groups into three buckets (New Tasks / Task Updates /
+  Approvals) with counts. Different grouping of the same data.
+- 🟡 Header: Figma centres the "Tasks" title in the dark top bar with a "< Back" link and a
+  "Create New Task" button; code uses the shared shell header + a left title + "+ Add Task".
+
