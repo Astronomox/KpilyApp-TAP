@@ -1,55 +1,106 @@
 'use client'
 
 import { useState } from 'react'
+import Icon from '@/components/app/Icon'
+import Modal from '@/components/app/Modal'
 import { useLocalSetting } from '@/lib/useLocalSetting'
 import '@/styles/Performance.css'
 
-type Points = { rules: { id: string; label: string; points: number }[]; grades: { A: number; B: number; C: number; D: number } }
+// Figma: Point Settings (node 1884:69993). Positive and negative point tags.
+// No API endpoint exists for these yet, so they are kept in this browser.
+type Point = { id: string; label: string; value: number }
+type Points = { positive: Point[]; negative: Point[] }
+
+function PointGroup({ title, cls, sign, items, editing, onRemove }: {
+  title: string; cls: string; sign: '+' | '-'; items: Point[]; editing: boolean; onRemove: (id: string) => void
+}) {
+  return (
+    <section className="ka-ptgroup">
+      <h2>{title}</h2>
+      <div className="ka-pills">
+        {items.map((pt) => (
+          <span key={pt.id} className={`ka-pill ${cls}`}>
+            {pt.label} {sign}{pt.value}
+            {editing && <button type="button" className="ka-pill__del" aria-label={`Remove ${pt.label}`} onClick={() => onRemove(pt.id)}>×</button>}
+          </span>
+        ))}
+        {!items.length && <span className="ka-muted">None yet.</span>}
+      </div>
+    </section>
+  )
+}
+
+const p = (label: string, value: number): Point => ({ id: `${label}-${value}`, label, value })
 const DEFAULTS: Points = {
-  rules: [
-    { id: 'on-time', label: 'Task completed on time', points: 100 },
-    { id: 'early', label: 'Task completed early (bonus)', points: 20 },
-    { id: 'late', label: 'Task completed late', points: 50 },
-    { id: 'feedback', label: 'Positive feedback received', points: 10 },
-    { id: 'recognition', label: 'Peer recognition', points: 5 },
+  positive: [
+    p('Assistance', 50), p('Great Communication', 100), p('Life Saver', 200), p('THANK YOU!', 25),
+    p('Collaboration', 100), p('High Quality', 100), p('Speedy', 100), p('Well-Balanced Work', 75),
+    p('Creative', 75), p('Inspirational', 50), p('Task Complete', 150),
+    p('Flexible', 25), p('Noticeable improvement', 75), p('Team Player', 50),
   ],
-  grades: { A: 90, B: 80, C: 70, D: 60 },
+  negative: [
+    p('Be Patient', 25), p('Too rushed', 25),
+    p('Needs Improvement', 50), p('Wrong Direction', 50),
+    p('Not thorough enough', 50),
+    p('Review again for errors', 75),
+  ],
 }
 
 export default function PointSettings() {
-  const [stored, save, loaded] = useLocalSetting<Points>('kpily.point-settings', DEFAULTS)
-  const [saved, setSaved] = useState(false)
+  const [points, save, loaded] = useLocalSetting<Points>('kpily.point-settings', DEFAULTS)
+  const [editing, setEditing] = useState(false)
+  const [adding, setAdding] = useState(false)
+  const [draft, setDraft] = useState({ label: '', value: 50, kind: 'positive' as keyof Points })
 
-  function submit(e: React.FormEvent<HTMLFormElement>) {
+  function remove(kind: keyof Points, id: string) {
+    save({ ...points, [kind]: points[kind].filter((x) => x.id !== id) })
+  }
+
+  function add(e: React.FormEvent) {
     e.preventDefault()
-    const f = new FormData(e.currentTarget)
-    save({
-      rules: stored.rules.map((r) => ({ ...r, points: Number(f.get(r.id)) })),
-      grades: { A: Number(f.get('A')), B: Number(f.get('B')), C: Number(f.get('C')), D: Number(f.get('D')) },
-    })
-    setSaved(true)
+    const label = draft.label.trim()
+    if (!label) return
+    const entry = p(label, Math.abs(draft.value))
+    save({ ...points, [draft.kind]: [...points[draft.kind], entry] })
+    setDraft({ label: '', value: 50, kind: 'positive' })
+    setAdding(false)
   }
 
   return (
     <div className="ka-score">
-      <div className="ka-pagehead"><div><h1>Point Settings</h1><p>How many points each achievement is worth, and the grade boundaries.</p></div></div>
+      <div className="ka-setbar">
+        <h1>Point Settings</h1>
+        <div className="ka-setbar__actions">
+          <button type="button" className="ka-btn ka-btn--ghost" onClick={() => setAdding(true)}><Icon name="plus" size={16} />Add New</button>
+          <button type="button" className="ka-btn" onClick={() => setEditing((v) => !v)}><Icon name="edit" size={16} />{editing ? 'Done' : 'Edit'}</button>
+        </div>
+      </div>
+
       {loaded && (
-        <form className="ka-card ka-settings-form" onSubmit={submit} onChange={() => setSaved(false)}>
-          <h2>Points per achievement</h2>
+        <>
+          <PointGroup title="Positive Points" cls="ka-pill--pos" sign="+" items={points.positive} editing={editing} onRemove={(id) => remove('positive', id)} />
+          <PointGroup title="Negative Points" cls="ka-pill--neg" sign="-" items={points.negative} editing={editing} onRemove={(id) => remove('negative', id)} />
+        </>
+      )}
+
+      <Modal open={adding} title="Add point tag" onClose={() => setAdding(false)} width={440}>
+        <form onSubmit={add}>
+          <label className="ka-field">Label<input value={draft.label} onChange={(e) => setDraft({ ...draft, label: e.target.value })} required placeholder="e.g. Great Communication" /></label>
           <div className="ka-row2">
-            {stored.rules.map((r) => <label key={r.id} className="ka-field">{r.label}<input name={r.id} type="number" min={0} required defaultValue={r.points} /></label>)}
+            <label className="ka-field">Points<input type="number" min={0} value={draft.value} onChange={(e) => setDraft({ ...draft, value: Number(e.target.value) })} required /></label>
+            <label className="ka-field">Type
+              <select value={draft.kind} onChange={(e) => setDraft({ ...draft, kind: e.target.value as keyof Points })}>
+                <option value="positive">Positive</option>
+                <option value="negative">Negative</option>
+              </select>
+            </label>
           </div>
-          <h2>Grade boundaries (% of tasks completed)</h2>
-          <div className="ka-row4">
-            {(['A', 'B', 'C', 'D'] as const).map((g) => <label key={g} className="ka-field">{g} from<input name={g} type="number" min={0} max={100} required defaultValue={stored.grades[g]} /></label>)}
-          </div>
-          <p className="ka-muted">Below D is graded F. These settings are saved in this browser.</p>
           <div className="ka-actions">
-            <button type="button" className="ka-btn ka-btn--ghost" onClick={() => { save(DEFAULTS); setSaved(false) }}>Reset to defaults</button>
-            <button type="submit" className="ka-btn">{saved ? 'Saved ✓' : 'Save'}</button>
+            <button type="button" className="ka-btn ka-btn--ghost" onClick={() => setAdding(false)}>Cancel</button>
+            <button type="submit" className="ka-btn">Add</button>
           </div>
         </form>
-      )}
+      </Modal>
     </div>
   )
 }
