@@ -68,3 +68,10 @@ settings) and puts each page's title in the content area, left-aligned. This is 
 deliberate, app-wide IA decision and is more consistent than per-page centred titles;
 not treated as a defect.
 
+## Recommended next actions
+
+1. ✅ All-Staff avatar fix (done this branch).
+2. Decide per divergence whether to converge to Figma or keep the richer build:
+   Tasks table-vs-feed and Settings Branding/Performance-type are the ones worth a call.
+3. Finish the audit on the remaining pages (Team, Organogram, Performance, Scorecard,
+   Billing) once Figma request budget resets.
