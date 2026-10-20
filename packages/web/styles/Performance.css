@@ -50,3 +50,33 @@
 .ka-badges__add .ka-btn { margin-bottom: 16px; }
 .ka-badges__add input[type=color] { padding: 4px; height: 42px; }
 @media (max-width: 640px) { .ka-row4 { grid-template-columns: 1fr 1fr; } .ka-badges__add { grid-template-columns: 1fr; } }
+
+/* ---- Point & Badge settings (Figma: nodes 1884:69993 / 1908:75604) ---- */
+.ka-setbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.ka-setbar h1 { margin: 0; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: var(--ka-blue); }
+.ka-setbar__actions { display: flex; gap: 12px; }
+
+.ka-ptgroup { margin-top: 8px; }
+.ka-ptgroup > h2 { margin: 0 0 16px; font-size: 18px; font-weight: 600; color: var(--ka-text); }
+.ka-pills { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px 24px; align-items: start; }
+.ka-pill { display: inline-flex; align-items: center; gap: 8px; justify-self: start; max-width: 100%; padding: 9px 16px; border-radius: 999px; font-size: 14px; font-weight: 500; line-height: 1.2; border: 1px solid transparent; }
+.ka-pill--pos { background: #eaf2f7; border-color: #d4e4ee; color: var(--ka-blue); }
+.ka-pill--neg { background: #fcebe9; border-color: #f4d6d2; color: #a13a30; }
+.ka-pill__del { display: grid; place-items: center; width: 18px; height: 18px; border: 0; border-radius: 50%; background: rgba(0,0,0,.12); color: inherit; cursor: pointer; font-size: 13px; line-height: 1; }
+.ka-pill__del:hover { background: rgba(0,0,0,.24); }
+
+.ka-badgegrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.ka-badgecard { position: relative; display: grid; grid-template-columns: 64px 1fr; gap: 20px; padding: 20px; border: 1px solid var(--ka-border); border-radius: var(--ka-radius-md, 12px); background: var(--ka-surface); box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+.ka-badgecard__medal { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #47be94, #106190); color: #fff; }
+.ka-badgecard__medal svg { width: 30px; height: 30px; }
+.ka-badgecard__body { min-width: 0; }
+.ka-badgecard__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.ka-badgecard__top h3 { margin: 0; font-size: 17px; font-weight: 700; color: var(--ka-text); }
+.ka-badgecard__pts { flex: none; padding: 4px 12px; border-radius: 999px; background: #eaf2f7; color: var(--ka-blue); font-size: 12px; font-weight: 700; letter-spacing: .3px; }
+.ka-badgecard__desc { margin: 8px 0 0; max-width: 32ch; font-size: 14px; line-height: 1.5; color: var(--ka-muted); }
+.ka-badgecard__date { position: absolute; right: 20px; bottom: 16px; font-size: 12px; font-style: italic; color: var(--ka-muted); }
+.ka-badgecard__del { position: absolute; right: 12px; top: 12px; display: grid; place-items: center; width: 26px; height: 26px; border: 0; border-radius: 50%; background: #fcebe9; color: #a13a30; cursor: pointer; }
+
+@media (max-width: 900px) {
+  .ka-badgegrid { grid-template-columns: 1fr; }
+}
