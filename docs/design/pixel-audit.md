@@ -27,3 +27,14 @@ different, usually richer — listed so the choice is visible, not necessarily t
 - ✅ Header actions (+Add New / +Filter / Export), checkboxes, edit/delete, pagination
   all match.
 
+## Settings (`settings` vs node 1461:9992)
+
+- 🟡 **Branding section missing** (Reports / Staff-lists "include logo" toggles).
+- 🟡 **Performance-type section missing** (Rolling vs Quarter-cut-off toggles).
+  Both would be local-only (no API endpoint), like point/badge settings.
+- 🟡 Title copy: code "Settings" vs Figma "Company Settings"; subtitle differs slightly.
+- 🟡 Verification label: code "Active ✓" vs Figma "Verified ✓".
+- 🔵 Code uses **per-section Save** buttons; Figma has one global Cancel/Save in the
+  header. Per-section is lower-risk (you save only what you touched) — kept deliberately.
+- 🔵 Figma shows two logo lock-ups (dark + light); code shows the single stored logo.
+
