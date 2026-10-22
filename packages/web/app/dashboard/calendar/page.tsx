@@ -58,7 +58,7 @@ function Chip({ it, onOpen }: { it: Item; onOpen: (it: Item) => void }) {
   )
 }
 
-function EventForm({ open, event, date, onClose, onSaved }: { open: boolean; event?: CalEvent | null; date: Date; onClose: () => void; onSaved: () => void }) {
+function EventForm({ open, event, date, checkIn, onClose, onSaved }: { open: boolean; event?: CalEvent | null; date: Date; checkIn?: boolean; onClose: () => void; onSaved: () => void }) {
   const [members, setMembers] = useState<Member[]>([])
   const [memberError, setMemberError] = useState('')
   const [picked, setPicked] = useState<string[]>([])
@@ -90,9 +90,9 @@ function EventForm({ open, event, date, onClose, onSaved }: { open: boolean; eve
   }
 
   return (
-    <Modal open={open} title={event ? 'Edit Event' : 'Schedule Event'} onClose={onClose} width={600}>
+    <Modal open={open} title={event ? 'Edit Event' : checkIn ? 'Schedule a Check-In' : 'Schedule Event'} onClose={onClose} width={600}>
       <form onSubmit={submit} key={key ?? ''}>
-        <label className="ka-field">Title<input name="name" required defaultValue={event?.name} placeholder="e.g. Project catch-up" /></label>
+        <label className="ka-field">Title<input name="name" required defaultValue={event?.name ?? (checkIn ? 'Check-In' : undefined)} placeholder="e.g. Project catch-up" /></label>
         <div className="ka-row2">
           <label className="ka-field">Starts<input name="start" type="datetime-local" required defaultValue={toLocal(start)} /></label>
           <label className="ka-field">Ends<input name="end" type="datetime-local" required defaultValue={toLocal(end)} /></label>
@@ -127,7 +127,7 @@ export default function Calendar() {
   const [shown, setShown] = useState<Kind[]>(KINDS)
   const [opened, setOpened] = useState<Item | null>(null)
   const [taskForm, setTaskForm] = useState<{ open: boolean; date?: Date }>({ open: false })
-  const [eventForm, setEventForm] = useState<{ open: boolean; event?: CalEvent | null }>({ open: false })
+  const [eventForm, setEventForm] = useState<{ open: boolean; event?: CalEvent | null; checkIn?: boolean }>({ open: false })
   const [error, setError] = useState('')
   const canManage = (profile?.privilege ?? 0) >= 40
 
@@ -158,8 +158,8 @@ export default function Calendar() {
     <div className="ka-cal ka-card">
       <aside className="ka-cal__side">
         <div className="ka-cal__btns">
-          {canManage && <button type="button" className="ka-btn" onClick={() => setTaskForm({ open: true, date })}>+ Add Task</button>}
-          {canManage && <button type="button" className="ka-btn ka-btn--ghost" onClick={() => setEventForm({ open: true, event: null })}>+ Schedule Event</button>}
+          {canManage && <button type="button" className="ka-btn" onClick={() => setTaskForm({ open: true, date })}>Schedule a Task</button>}
+          {canManage && <button type="button" className="ka-btn ka-btn--ghost" onClick={() => setEventForm({ open: true, event: null, checkIn: true })}>Schedule a Check-In</button>}
         </div>
         <MiniCalendar value={date} onPick={(d) => { setDate(d); if (view === 'Month' && d.getMonth() !== date.getMonth()) setView('Month') }} />
         <div className="ka-cal__filters">
@@ -256,7 +256,7 @@ export default function Calendar() {
       </Modal>
 
       <TaskForm open={taskForm.open} defaultDate={taskForm.date} onClose={() => setTaskForm({ open: false })} onSaved={load} />
-      <EventForm open={eventForm.open} event={eventForm.event} date={date} onClose={() => setEventForm({ open: false })} onSaved={load} />
+      <EventForm open={eventForm.open} event={eventForm.event} date={date} checkIn={eventForm.checkIn} onClose={() => setEventForm({ open: false })} onSaved={load} />
     </div>
   )
 }

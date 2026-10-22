@@ -14,6 +14,10 @@ import '@/styles/People.css'
 const STATUS: Record<number, [string, string]> = { 1: ['Active', 'active'], 0: ['Pending', 'pending'], [-1]: ['Archived', 'archived'] }
 const title = (s?: string) => (s || '').replace(/\b\w/g, (c) => c.toUpperCase())
 // profilePicture may be a full URL or a bare file alias served by the API.
+// Team pills (Figma): the team's own colour, or a stable pick from this palette.
+const PILL = ['#1e7a5a', '#2f6fb0', '#8a4fc7', '#c0612b', '#b0306b', '#2b8c9c']
+const pillColor = (t: Team) => (typeof t.color === 'string' && t.color) || PILL[[...t.teamName].reduce((h, c) => h + c.charCodeAt(0), 0) % PILL.length]
+
 type Filters = { status: string; team: string; privilege: string }
 
 function csv(rows: (string | number)[][]) {
@@ -142,7 +146,7 @@ export default function AllStaff() {
                       <td><span className="ka-staffcell"><Avatar name={m.fullname} src={fileUrl(m.profilePicture)} size={40} /><div>{m.fullname}<small>{m.email}</small></div></span></td>
                       <td>{pct(m)}</td>
                       <td><span className={`ka-badge ka-badge--${tone}`}>• {label}</span></td>
-                      <td>{team?.teamName ?? ''}</td>
+                      <td>{team && <span className="ka-teampill" style={{ '--pill': pillColor(team) } as React.CSSProperties}>{team.teamName}</span>}</td>
                       <td><span className="ka-badge ka-badge--role">{roleLabel(m.privilege)}</span></td>
                       <td>{m.designation ?? ''}</td>
                       <td>{team?.teamLeader && team.teamLeader !== m.email ? team.teamLeader : ''}</td>

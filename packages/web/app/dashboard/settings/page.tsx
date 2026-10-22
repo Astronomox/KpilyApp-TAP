@@ -6,6 +6,7 @@ import Avatar from '@/components/app/Avatar'
 import Icon from '@/components/app/Icon'
 import Modal from '@/components/app/Modal'
 import { useProfile } from '@/components/app/ProfileContext'
+import { useLocalSetting } from '@/lib/useLocalSetting'
 import {
   fileUrl, clearSession, endSession, getActiveSessions, getSelf, logout, orgName, updateOrg, updatePassword, updateProfile,
   updateStoredProfile, uploadOrgLogo, uploadProfileImage, verifyPassword, type Organization,
@@ -19,6 +20,18 @@ const pretty = (s?: string) => (s || '').replace(/-/g, ' ').replace(/\b\w/g, (c)
 const formValues = (form: HTMLFormElement) => { const out: Record<string, string> = {}; new FormData(form).forEach((v, k) => { out[k] = String(v) }); return out }
 
 type Status = { busy?: boolean; error?: string; ok?: string }
+// Figma "Branding" and "Performance type" sections. No API endpoint yet, so kept in this browser.
+type Branding = { reports: boolean; staffLists: boolean }
+type PerfType = 'rolling' | 'quarter'
+
+function Toggle({ label, on, onChange }: { label: string; on: boolean; onChange: (on: boolean) => void }) {
+  return (
+    <label className="ka-toggle">
+      <input type="checkbox" role="switch" checked={on} onChange={(e) => onChange(e.target.checked)} />
+      <span className="ka-toggle__track" aria-hidden="true" />{label}
+    </label>
+  )
+}
 
 function Row({ title, hint, children }: { title: string; hint?: string; children: React.ReactNode }) {
   return (
@@ -60,6 +73,8 @@ export default function Settings() {
   const [confirmAll, setConfirmAll] = useState(false)
   const [leaving, setLeaving] = useState(false)
   const [pw, setPw] = useState({ current: '', next: '', confirm: '' })
+  const [branding, setBranding] = useLocalSetting<Branding>('kpily.settings.branding', { reports: true, staffLists: true })
+  const [perfType, setPerfType] = useLocalSetting<PerfType>('kpily.settings.perf-type', 'rolling')
 
   async function act(key: string, fn: () => Promise<unknown>, ok: string) {
     setSt((s) => ({ ...s, [key]: { busy: true } }))
@@ -111,7 +126,7 @@ export default function Settings() {
 
   return (
     <div className="ka-set">
-      <div className="ka-pagehead"><div><h1>Settings</h1><p>Update your details and photo here</p></div></div>
+      <div className="ka-pagehead"><div><h1>Company Settings</h1><p>Update your company and personal details here</p></div></div>
 
       {isAdmin && (
         <Row title="Company Name">
@@ -137,6 +152,24 @@ export default function Settings() {
             <Upload label="Upload company logo" busy={st.logo?.busy} onFile={(f) => act('logo', () => uploadOrgLogo(f), 'Logo uploaded.')} />
           </div>
           <Note s={st.logo ?? {}} />
+        </Row>
+      )}
+
+      {isAdmin && (
+        <Row title="Branding" hint="Show your company logo on exported documents">
+          <div className="ka-set__toggles">
+            <Toggle label="Include logo on reports" on={branding.reports} onChange={(reports) => setBranding({ ...branding, reports })} />
+            <Toggle label="Include logo on staff lists" on={branding.staffLists} onChange={(staffLists) => setBranding({ ...branding, staffLists })} />
+          </div>
+        </Row>
+      )}
+
+      {isAdmin && (
+        <Row title="Performance Type" hint="How points and scores are totalled over time">
+          <div className="ka-set__toggles">
+            <Toggle label="Rolling (last 12 months)" on={perfType === 'rolling'} onChange={(on) => setPerfType(on ? 'rolling' : 'quarter')} />
+            <Toggle label="Quarter cut-off (resets each quarter)" on={perfType === 'quarter'} onChange={(on) => setPerfType(on ? 'quarter' : 'rolling')} />
+          </div>
         </Row>
       )}
 
@@ -167,7 +200,7 @@ export default function Settings() {
 
       <Row title="Personal Email"><input className="ka-set__ro" value={profile?.email ?? ''} readOnly aria-label="Personal email" /></Row>
       <Row title="Language"><select className="ka-set__ro" aria-label="Language" defaultValue="en" disabled title="More languages coming soon"><option value="en">English</option></select></Row>
-      <Row title="Verification Status"><span className="ka-set__ro ka-set__verified">Active <Icon name="check" size={16} /></span></Row>
+      <Row title="Verification Status"><span className="ka-set__ro ka-set__verified">Verified <Icon name="check" size={16} /></span></Row>
 
       <Row title="Password" hint="Enter your current password to change your account">
         <form onSubmit={savePassword}>

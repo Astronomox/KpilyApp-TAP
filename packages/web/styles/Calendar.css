@@ -24,7 +24,7 @@
 
 .ka-cal__main { min-width: 0; display: flex; flex-direction: column; }
 .ka-cal__bar { display: flex; align-items: center; gap: 4px; padding: 20px 24px; border-bottom: 1px solid var(--ka-border); flex-wrap: wrap; }
-.ka-cal__bar h1 { margin: 0 12px 0 16px; font-size: 18px; font-weight: 500; }
+.ka-cal__bar h1 { margin: 0 12px 0 16px; font-size: 26px; font-weight: 600; color: var(--ka-green); }
 .ka-cal__nav { color: var(--ka-blue); }
 .ka-flip { transform: rotate(180deg); }
 .ka-cal__err { margin: 12px 24px 0; }
