@@ -7,14 +7,13 @@ import Icon from '@/components/app/Icon'
 import Modal from '@/components/app/Modal'
 import { useProfile } from '@/components/app/ProfileContext'
 import {
-  API_BASE, clearSession, endSession, getActiveSessions, getSelf, logout, orgName, updateOrg, updatePassword, updateProfile,
+  fileUrl, clearSession, endSession, getActiveSessions, getSelf, logout, orgName, updateOrg, updatePassword, updateProfile,
   updateStoredProfile, uploadOrgLogo, uploadProfileImage, verifyPassword, type Organization,
 } from '@/lib/kpily'
 import { changePasswordSchema, check, orgSchema, profileFormSchema } from '@/lib/schemas'
 import '@/styles/Settings.css'
 
 const INDUSTRIES = ['Technology', 'Financial Technology', 'Finance', 'Healthcare', 'Education', 'Retail', 'Manufacturing', 'Law & Compliance', 'Media', 'Logistics', 'Other']
-const fileUrl = (alias: unknown) => (typeof alias === 'string' && alias ? (alias.startsWith('http') ? alias : `${API_BASE}/v1/file/get/${alias}`) : null)
 const pretty = (s?: string) => (s || '').replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
 const formValues = (form: HTMLFormElement) => { const out: Record<string, string> = {}; new FormData(form).forEach((v, k) => { out[k] = String(v) }); return out }

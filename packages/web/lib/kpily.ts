@@ -59,6 +59,9 @@ export async function request<T>(path: string, { method = 'GET', data, form, aut
   return body!.content as T
 }
 
+/** URL for a file the API stores by alias (profile pictures, logos, attachments). */
+export const fileUrl = (alias: unknown) => (typeof alias === 'string' && alias ? (alias.startsWith('http') ? alias : `${API_BASE}/v1/file/get/${alias}`) : null)
+
 // ---------- Session ----------
 
 export type Profile = {
@@ -238,6 +241,27 @@ export function reviewTask(taskID: string, message: string) {
   return request<unknown>('/v1/org/review-task', { method: 'PUT', form, auth: true })
 }
 
+export const getTask = (id: string) => request<{ data: Task }>(`/v1/org/get-task/${id}`, { auth: true }).then((c) => c.data)
+/** Adds a person to a task (admins and the task owner). */
+export const assignTask = (id: string, assignee: string) => request<unknown>('/v1/org/assign-task', { method: 'POST', data: { id, assignee }, auth: true })
+const b64 = (s: string) => btoa(unescape(encodeURIComponent(s)))
+export const searchTasks = (term: string) => request<{ data: Task[] }>(`/v1/org/search-task/${encodeURIComponent(b64(term))}`, { auth: true }).then((c) => c.data || [])
+
+export type Comment = {
+  id: string; message: string; transDate: number; readBy: string[]; orgID: string; replies: number; parent: string
+  files: unknown; owner?: Person | string; [key: string]: unknown
+}
+/** Comments under a task, or replies under a comment. */
+export const getComments = (parent: string) => request<{ chats: Comment[] }>(`/v1/org/get-comment/${parent}`, { auth: true }).then((c) => c.chats || [])
+export function submitComment(c: { taskID: string; message: string; parent?: string; files?: File[] }) {
+  const form = new FormData()
+  form.append('taskID', c.taskID)
+  form.append('message', c.message)
+  if (c.parent) form.append('parent', c.parent)
+  for (const f of c.files || []) form.append('rawFiles', f)
+  return request<unknown>('/v1/org/submit-comment', { method: 'POST', form, auth: true })
+}
+
 // ---------- Calendar ----------
 
 export type Person = { id: string; fullname: string | null; username: string }
@@ -252,6 +276,12 @@ export const createEvent = (e: EventInput) => request<unknown>('/v1/org/create-e
 export const updateEvent = (id: string, e: EventInput) => request<unknown>('/v1/org/update-event', { method: 'PUT', data: { ...e, id }, auth: true })
 
 // ---------- Staff & teams ----------
+
+export type Account = { id: string; fullname: string; username: string; orgID?: string; status?: number; privilege?: number }
+/** Finds people by any part of their name (for @mentions and assigning). */
+export const searchUsers = (term: string) => request<{ accounts: Account[] }>('/v1/org/search-user', { method: 'POST', data: { term }, auth: true }).then((c) => c.accounts || [])
+export const getAccount = (id: string) =>
+  request<{ redactedAccount: { id: string; fullname: string; profile: string | null; username: string; team: string | null } }>(`/v1/get-account/${id}`, { auth: true }).then((c) => c.redactedAccount)
 
 export type InviteInput = { email: string; fullname: string; team?: string; privilege: number; designation?: string }
 export const inviteUser = (data: InviteInput) => request<unknown>('/v1/invite-user', { method: 'POST', data, auth: true })
