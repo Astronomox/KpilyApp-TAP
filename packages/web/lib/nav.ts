@@ -1,6 +1,6 @@
 // App navigation, mirroring kpily-dashboard.netlify.app (privileges per item).
 export type NavItem = { title: string; icon: IconName; path: string; privileges: number[]; children?: NavItem[] }
-export type IconName = 'overview' | 'performance' | 'team' | 'staff' | 'tasks' | 'calendar' | 'pricing' | 'billing' | 'settings' | 'support'
+export type IconName = 'overview' | 'performance' | 'team' | 'staff' | 'tasks' | 'calendar' | 'pricing' | 'billing' | 'settings' | 'support' | 'feedback' | 'goals' | 'rewards'
 
 const ALL = [200, 100, 50, 40, 35, 30]
 const LEADS = [200, 100, 50, 40]
@@ -21,6 +21,9 @@ export const NAV: NavItem[] = [
   ] },
   { title: 'Tasks', icon: 'tasks', path: '/dashboard/tasks', privileges: ALL },
   { title: 'Calendar', icon: 'calendar', path: '/dashboard/calendar', privileges: ALL },
+  { title: 'Feedback', icon: 'feedback', path: '/dashboard/feedback', privileges: ALL },
+  { title: 'Goals', icon: 'goals', path: '/dashboard/goals', privileges: ALL },
+  { title: 'Rewards', icon: 'rewards', path: '/dashboard/rewards', privileges: ALL },
   { title: 'Pricing', icon: 'pricing', path: '/dashboard/pricing', privileges: ADMINS },
   { title: 'Billing', icon: 'billing', path: '/dashboard/billing', privileges: ADMINS },
   { title: 'Settings', icon: 'settings', path: '/dashboard/settings', privileges: ALL },

@@ -3,13 +3,12 @@
 import { useState } from 'react'
 import Icon from '@/components/app/Icon'
 import Modal from '@/components/app/Modal'
+import { POINT_DEFAULTS, POINTS_KEY, pointTag, type Point, type Points } from '@/lib/engagement'
 import { useLocalSetting } from '@/lib/useLocalSetting'
 import '@/styles/Performance.css'
 
 // Figma: Point Settings (node 1884:69993). Positive and negative point tags.
 // No API endpoint exists for these yet, so they are kept in this browser.
-type Point = { id: string; label: string; value: number }
-type Points = { positive: Point[]; negative: Point[] }
 
 function PointGroup({ title, cls, sign, items, editing, onRemove }: {
   title: string; cls: string; sign: '+' | '-'; items: Point[]; editing: boolean; onRemove: (id: string) => void
@@ -30,24 +29,8 @@ function PointGroup({ title, cls, sign, items, editing, onRemove }: {
   )
 }
 
-const p = (label: string, value: number): Point => ({ id: `${label}-${value}`, label, value })
-const DEFAULTS: Points = {
-  positive: [
-    p('Assistance', 50), p('Great Communication', 100), p('Life Saver', 200), p('THANK YOU!', 25),
-    p('Collaboration', 100), p('High Quality', 100), p('Speedy', 100), p('Well-Balanced Work', 75),
-    p('Creative', 75), p('Inspirational', 50), p('Task Complete', 150),
-    p('Flexible', 25), p('Noticeable improvement', 75), p('Team Player', 50),
-  ],
-  negative: [
-    p('Be Patient', 25), p('Too rushed', 25),
-    p('Needs Improvement', 50), p('Wrong Direction', 50),
-    p('Not thorough enough', 50),
-    p('Review again for errors', 75),
-  ],
-}
-
 export default function PointSettings() {
-  const [points, save, loaded] = useLocalSetting<Points>('kpily.point-settings', DEFAULTS)
+  const [points, save, loaded] = useLocalSetting<Points>(POINTS_KEY, POINT_DEFAULTS)
   const [editing, setEditing] = useState(false)
   const [adding, setAdding] = useState(false)
   const [draft, setDraft] = useState({ label: '', value: 50, kind: 'positive' as keyof Points })
@@ -60,7 +43,7 @@ export default function PointSettings() {
     e.preventDefault()
     const label = draft.label.trim()
     if (!label) return
-    const entry = p(label, Math.abs(draft.value))
+    const entry = pointTag(label, Math.abs(draft.value))
     save({ ...points, [draft.kind]: [...points[draft.kind], entry] })
     setDraft({ label: '', value: 50, kind: 'positive' })
     setAdding(false)

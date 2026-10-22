@@ -1,7 +1,7 @@
 import type { IconName } from '@/lib/nav'
 
 // Menu icons (teal→blue brand gradient), 22px.
-const paths: Record<IconName | 'search' | 'cog' | 'logout' | 'menu' | 'chevron' | 'close' | 'user' | 'caret' | 'edit' | 'trash' | 'plus' | 'filter' | 'download' | 'upload' | 'check' | 'up' | 'mail' | 'chat' | 'help' | 'folder' | 'sparkle' | 'wave', string> = {
+const paths: Record<IconName | 'search' | 'cog' | 'logout' | 'menu' | 'chevron' | 'close' | 'user' | 'caret' | 'edit' | 'trash' | 'plus' | 'filter' | 'download' | 'upload' | 'check' | 'up' | 'mail' | 'chat' | 'help' | 'folder' | 'sparkle' | 'wave' | 'link' | 'heart', string> = {
   overview: 'M4 6h2M4 12h2M4 18h2M9 6h11M9 12h11M9 18h11',
   performance: 'M3 17l5-5 4 4 8-8M15 8h5v5',
   team: 'M8 11a3 3 0 100-6 3 3 0 000 6zm8 0a3 3 0 100-6 3 3 0 000 6zM2 20c0-3 3-5 6-5s6 2 6 5M14 15c3 0 8 1 8 5',
@@ -12,6 +12,9 @@ const paths: Record<IconName | 'search' | 'cog' | 'logout' | 'menu' | 'chevron' 
   billing: 'M3 6h18v12H3zM3 10h18M16 15h2',
   settings: 'M12 15a3 3 0 100-6 3 3 0 000 6zM19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z',
   support: 'M4 4h16v13H9l-5 4zM10 9a2 2 0 113 1.7c-.6.4-1 .8-1 1.3M12 14.5v.5',
+  feedback: 'M4 4h16v13H9l-5 4zM12 13.5l-2.6-2.5a1.6 1.6 0 012.3-2.3l.3.3.3-.3a1.6 1.6 0 012.3 2.3z',
+  goals: 'M12 21a9 9 0 100-18 9 9 0 000 18zM12 16a4 4 0 100-8 4 4 0 000 8zM12 12h.01',
+  rewards: 'M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0zM7 6H4a3 3 0 003 4M17 6h3a3 3 0 01-3 4',
   search: 'M11 18a7 7 0 100-14 7 7 0 000 14zM21 21l-4.3-4.3',
   cog: 'M12 15a3 3 0 100-6 3 3 0 000 6zM19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z',
   logout: 'M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11',
@@ -33,6 +36,8 @@ const paths: Record<IconName | 'search' | 'cog' | 'logout' | 'menu' | 'chevron' 
   help: 'M12 21a9 9 0 100-18 9 9 0 000 18zM9.5 9a2.5 2.5 0 114 2c-.9.6-1.5 1-1.5 2M12 16.5v.5',
   folder: 'M3 7V5h7l2 2h9v12H3zM3 9h18',
   sparkle: 'M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2zM19 3v4M17 5h4',
+  link: 'M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1',
+  heart: 'M12 20l-7.5-7.3a4.5 4.5 0 016.4-6.4l1.1 1.1 1.1-1.1a4.5 4.5 0 016.4 6.4z',
   wave: 'M7 11V6a1.5 1.5 0 013 0v5M10 10V4.5a1.5 1.5 0 013 0V10M13 10V5.5a1.5 1.5 0 013 0V13c0 4-2.5 7-6 7-2.5 0-4-1.5-5.5-4L3 12.5a1.5 1.5 0 012.5-1.5L7 13',
 }
 

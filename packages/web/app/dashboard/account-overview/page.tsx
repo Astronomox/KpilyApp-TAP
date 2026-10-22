@@ -103,6 +103,10 @@ export default function AccountOverview() {
         <h1>{profile?.fullname}</h1>
         <p>{roleLabel(profile?.privilege)}</p>
         <p className="ka-ov-profile__report">REPORTING TO: {myTeam?.teamLeader && myTeam.teamLeader !== profile?.email ? myTeam.teamLeader : ''}</p>
+        <div className="ka-ov-profile__quick">
+          <Link className="ka-btn ka-btn--sm" href="/dashboard/feedback#give"><Icon name="heart" size={16} />Give Feedback</Link>
+          <Link className="ka-btn ka-btn--sm ka-btn--ghost" href="/dashboard/goals">My Goals</Link>
+        </div>
       </section>
 
       <section className="ka-card ka-ov-perf">
