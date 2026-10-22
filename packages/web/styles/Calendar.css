@@ -28,11 +28,6 @@
 .ka-cal__nav { color: var(--ka-blue); }
 .ka-flip { transform: rotate(180deg); }
 .ka-cal__err { margin: 12px 24px 0; }
-.ka-seg { display: flex; margin-left: auto; border: 1px solid var(--ka-green); border-radius: var(--ka-radius-sm); overflow: hidden; }
-.ka-seg button { padding: 8px 18px; border: 0; border-left: 1px solid var(--ka-green); background: #eef6f2; color: var(--ka-green); font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; transition: background .15s; }
-.ka-seg button:first-child { border-left: 0; }
-.ka-seg button.is-on { background: var(--ka-green); color: #fff; }
-.ka-seg button:hover:not(.is-on) { background: var(--ka-cal-segment-hover); }
 
 .ka-month { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); grid-template-rows: 40px; grid-auto-rows: minmax(120px, 1fr); flex: 1; }
 .ka-month__dow { display: grid; place-items: center; height: 40px; border-bottom: 1px solid var(--ka-border); color: var(--ka-blue); font-weight: 500; }
@@ -101,3 +96,4 @@
   .ka-week__col { border-left: 0; border-bottom: 1px solid var(--ka-border); }
   .ka-list__time { width: 90px; }
 }
+.ka-cal__bar .ka-seg { margin-left: auto; }
