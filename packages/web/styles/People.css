@@ -53,3 +53,6 @@
 .ka-sq:disabled { opacity: .35; cursor: default; }
 
 .ka-teampill { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 500; white-space: nowrap; color: var(--pill); background: color-mix(in srgb, var(--pill) 12%, #fff); border: 1px solid color-mix(in srgb, var(--pill) 30%, #fff); }
+.ka-org__legend { display: grid; gap: 8px; margin: 24px 0 0; padding: 0; list-style: none; font-size: 14px; }
+.ka-org__legend li { display: flex; align-items: center; gap: 10px; }
+.ka-org__legend span { width: 16px; height: 16px; border-radius: 50%; }

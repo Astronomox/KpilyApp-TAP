@@ -230,3 +230,5 @@
 .ka-seg button:first-child { border-left: 0; }
 .ka-seg button.is-on { background: var(--ka-green); color: #fff; }
 .ka-seg button:hover:not(.is-on) { background: var(--ka-cal-segment-hover); }
+.ka-board__you { color: var(--ka-blue); }
+.ka-board__you + small { font-size: 11px; color: #777; }
