@@ -4,15 +4,8 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Icon from './Icon'
 import Avatar from './Avatar'
-import { getMembers, getNotifications, type Member, type Notification } from '@/lib/kpily'
-
-const ago = (unix: number) => {
-  const s = Math.max(0, Date.now() / 1000 - unix)
-  if (s < 60) return 'just now'
-  const [n, u] = s < 3600 ? [s / 60, 'minute'] : s < 86400 ? [s / 3600, 'hour'] : s < 2592000 ? [s / 86400, 'day'] : s < 31536000 ? [s / 2592000, 'month'] : [s / 31536000, 'year']
-  const v = Math.floor(n)
-  return `${v} ${u}${v === 1 ? '' : 's'} ago`
-}
+import { timeAgo } from './TaskBits'
+import { fileUrl, getMembers, getNotifications, type Member, type Notification } from '@/lib/kpily'
 
 // Right-hand rail: recent notifications ("Feed") and the organisation's members ("Your Team").
 export default function FeedRail() {
@@ -33,7 +26,7 @@ export default function FeedRail() {
             {feed.slice(0, 8).map((n) => (
               <li key={n.id} className={n.read ? '' : 'is-unread'}>
                 <span className="ka-feed__icon"><Icon name="user" size={18} /></span>
-                <div><p>{n.message}</p><small>{ago(n.transDate)}</small></div>
+                <div><p>{n.message}</p><small>{timeAgo(n.transDate)}</small></div>
               </li>
             ))}
           </ul>
@@ -44,7 +37,7 @@ export default function FeedRail() {
         {team === null ? <p className="ka-rail__muted">Loading…</p> : !team.length ? <p className="ka-rail__muted">No team members yet.</p> : (
           <ul className="ka-team">
             {team.slice(0, 8).map((m) => (
-              <li key={m.id}><Avatar name={m.fullname} src={m.profilePicture} size={40} /><span>{m.fullname}</span></li>
+              <li key={m.id}><Avatar name={m.fullname} src={fileUrl(m.profilePicture)} size={40} /><span>{m.fullname}</span></li>
             ))}
           </ul>
         )}
