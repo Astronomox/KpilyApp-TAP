@@ -257,7 +257,9 @@ export function submitComment(c: { taskID: string; message: string; parent?: str
   const form = new FormData()
   form.append('taskID', c.taskID)
   form.append('message', c.message)
-  if (c.parent) form.append('parent', c.parent)
+  // The API accepts a comment with status 0 even when parent is missing, but only links
+  // it to the thread when parent is set (a task id for a top-level comment, else a comment id).
+  form.append('parent', c.parent || c.taskID)
   for (const f of c.files || []) form.append('rawFiles', f)
   return request<unknown>('/v1/org/submit-comment', { method: 'POST', form, auth: true })
 }
