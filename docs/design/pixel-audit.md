@@ -1,12 +1,10 @@
 # Pixel audit — dashboard pages vs Figma
 
 Compared the built pages against their Figma frames (file `Y1OoVxv0KwePZAr6VE9xvS`,
-screenshots in `docs/design/screens/`). Audited 2026-10-20.
+screenshots in `docs/design/screens/`). Audited 2026-10-20; second pass and fixes 2026-10-23.
 
-Scope this pass: **Settings, All Staff, Tasks, Calendar** (the four highest-traffic
-screens). The dashboard home was reviewed earlier. Remaining pages (Team, Organogram,
-Performance data, Scorecard, Billing) are not yet audited — Figma Starter-plan request
-budget was nearly spent.
+First pass: **Settings, All Staff, Tasks, Calendar**. Second pass: **Team, Organogram,
+Performance Data, Scorecard, Billing**, plus the new **Feedback, Goals, Rewards** pages.
 
 Legend: 🔴 bug / clear defect · 🟡 gap vs design · 🔵 intentional divergence (code is
 different, usually richer — listed so the choice is visible, not necessarily to "fix").
@@ -17,9 +15,9 @@ different, usually richer — listed so the choice is visible, not necessarily t
 
 - 🔴 **Avatars never show photos.** The table passes `src={null}` to every `<Avatar>`,
   so members with a `profilePicture` still render as initials. Figma shows real photos.
-  → fixed in this branch (use the member's picture via the file endpoint).
-- 🟡 **Team column** shows plain team-name text; Figma shows coloured role pills
-  (Admin / Sales / Design / PM / HR …), sometimes several per person.
+  ✅ fixed (member picture via the file endpoint).
+- ✅ **Team column** is now a coloured pill (the team's colour, or a stable palette pick).
+  Figma sometimes shows several pills per person; the API gives one team per member.
 - 🔵 Extra **Privilege** column present in code, not in Figma (Figma folds role into the
   Team pills). Code is more explicit.
 - 🔵 Status label **"Pending"** (API status 0) where Figma says "Offline". Kept "Pending"
@@ -29,34 +27,33 @@ different, usually richer — listed so the choice is visible, not necessarily t
 
 ## Settings (`settings` vs node 1461:9992)
 
-- 🟡 **Branding section missing** (Reports / Staff-lists "include logo" toggles).
-- 🟡 **Performance-type section missing** (Rolling vs Quarter-cut-off toggles).
-  Both would be local-only (no API endpoint), like point/badge settings.
-- 🟡 Title copy: code "Settings" vs Figma "Company Settings"; subtitle differs slightly.
-- 🟡 Verification label: code "Active ✓" vs Figma "Verified ✓".
+- ✅ **Branding** section added (Reports / Staff-lists "include logo" toggles).
+- ✅ **Performance type** section added (Rolling vs Quarter cut-off).
+  Both are stored in the browser (no API endpoint), like point/badge settings.
+- ✅ Title is now "Company Settings".
+- ✅ Verification label is now "Verified ✓".
 - 🔵 Code uses **per-section Save** buttons; Figma has one global Cancel/Save in the
   header. Per-section is lower-risk (you save only what you touched) — kept deliberately.
 - 🔵 Figma shows two logo lock-ups (dark + light); code shows the single stored logo.
 
 ## Tasks (`tasks` vs node 1278:30686)
 
-- 🔵 **List vs feed.** Code is a sortable, paginated data table with column toggles and a
-  row action menu; Figma is an activity feed ("Task Assignment from Steve C. — Project X").
-  Code is the power-user view and is functionally richer. Biggest divergence on the audit.
-- 🔵 **Tabs:** code exposes the five raw statuses (New / Accepted / Reviewed / Completed /
-  Submitted) as filter chips; Figma groups into three buckets (New Tasks / Task Updates /
-  Approvals) with counts. Different grouping of the same data.
-- 🟡 Header: Figma centres the "Tasks" title in the dark top bar with a "< Back" link and a
+- ✅ **Feed view added**, matching Figma (NEW marker, avatar, "Task Assignment from …",
+  time ago), with the **New Tasks / Task Updates / Approvals** tabs and counts. A
+  **Feed | Table** toggle keeps the richer table; the choice is remembered per browser.
+- ✅ Task detail now covers Figma's Task Review / Ask Question / Add Contributor: progress
+  steps, a comment thread with replies and attachments, and adding contributors.
+- ✅ Button reads "+ Create New Task".
+- 🔵 Header: Figma centres the "Tasks" title in the dark top bar with a "< Back" link and a
   "Create New Task" button; code uses the shared shell header + a left title + "+ Add Task".
 
 ## Calendar (`calendar` vs node 1278:28137)
 
 - 🔵 **Code exceeds the design**: Month / Week / Day / List views, a mini-calendar, type
   filters, add-task and schedule-event. Figma shows only a month grid plus two buttons.
-- 🟡 Buttons: Figma "Schedule a Task" / "Schedule a Check-In"; code "+ Add Task" /
-  "+ Schedule Event". There is no "Check-In" item type in the data model.
-- 🟡 Month heading style: Figma is a large green "February 2023"; code pairs the title with
-  prev/next chevrons and a Month/Week/Day/List segmented control.
+- ✅ Buttons are "Schedule a Task" / "Schedule a Check-In". A check-in is an event whose
+  title is prefilled "Check-In" (the data model has no separate type).
+- ✅ Month heading is large and green; the chevrons and view switcher stay.
 
 ---
 
@@ -68,10 +65,49 @@ settings) and puts each page's title in the content area, left-aligned. This is 
 deliberate, app-wide IA decision and is more consistent than per-page centred titles;
 not treated as a defect.
 
+## Team (`team` vs node 1278:27768)
+
+- ✅ Member and leaderboard avatars show photos (were always initials).
+- ✅ Leaderboard marks your row "It's YOU! Keep up the good work!" as in Figma.
+- 🔵 Figma's per-member "Team Progress Overview" bars and "Chat" buttons: there is no chat,
+  and the API reports progress per team, not per person. The code shows team progress.
+- 🔵 Figma's mini calendar card is not repeated here; Calendar has its own page.
+
+## Organogram (`staff/organogram` vs node 1467:31265)
+
+- ✅ Photos on every node (were initials).
+- ✅ Title "<Company> Organogram", an Add Team action and a team-colour legend, as in Figma.
+- 🔵 Figma charts **people** (CEO → heads → staff, with location). The API only records who
+  each **team** reports to, so the code charts teams with their leader and members.
+
+## Performance Data (`performance-data/performance-data` vs node 1155:5612)
+
+- ✅ Added the bottom row of rate tiles: Employee Feedback, Improvement, Recognition.
+  The API's `get-dashboard` already returned them.
+- 🔵 Badge Engagement per Month, Badges per Team and Contest Engagement have no API data.
+
+## Scorecard (`performance-data/scorecard` vs node 1563:67971)
+
+- ✅ Progress grade + gauge, task completion, Great Job, Tip of the day, leaderboard and
+  "Your Scorecard" bars all match.
+- 🔵 Psychometrics and Suggested Games are paid add-ons with no backend.
+
+## Billing (`billing` vs node 1487:28108)
+
+- ✅ Header copy, Change billing period / Make Payment, contact email radios and charges match.
+- 🔵 Add-ons (Polls, Psychometrics, Brain Games) and saved cards are not offered by the API;
+  payment goes through Paystack checkout.
+
+## New pages built from Figma
+
+| Page | Frames | Notes |
+|---|---|---|
+| Feedback | 1278:30531, 1278:26724, 1278:27483, 1278:26881 | Feed + tabs, give with tags, assign points, appeal with evidence. Browser-stored. |
+| Goals | 1278:28723, 1466:27878/28285/28484 | KPI tiles and chart are live; goals are browser-stored. Add Goal is a dialog rather than a separate page. |
+| Rewards | 1278:28955 | Podium + ranked list use live points; given badges are browser-stored. |
+
 ## Recommended next actions
 
-1. ✅ All-Staff avatar fix (done this branch).
-2. Decide per divergence whether to converge to Figma or keep the richer build:
-   Tasks table-vs-feed and Settings Branding/Performance-type are the ones worth a call.
-3. Finish the audit on the remaining pages (Team, Organogram, Performance, Scorecard,
-   Billing) once Figma request budget resets.
+1. Backend endpoints for feedback, goals and badges (see `lib/engagement.ts`), so these
+   records are shared between users instead of living in one browser.
+2. Re-check the new pages against Figma at full resolution once more request budget is free.
