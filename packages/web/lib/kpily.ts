@@ -241,7 +241,6 @@ export function reviewTask(taskID: string, message: string) {
   return request<unknown>('/v1/org/review-task', { method: 'PUT', form, auth: true })
 }
 
-export const getTask = (id: string) => request<{ data: Task }>(`/v1/org/get-task/${id}`, { auth: true }).then((c) => c.data)
 /** Adds a person to a task (admins and the task owner). */
 export const assignTask = (id: string, assignee: string) => request<unknown>('/v1/org/assign-task', { method: 'POST', data: { id, assignee }, auth: true })
 const b64 = (s: string) => btoa(unescape(encodeURIComponent(s)))
@@ -282,8 +281,6 @@ export const updateEvent = (id: string, e: EventInput) => request<unknown>('/v1/
 export type Account = { id: string; fullname: string; username: string; orgID?: string; status?: number; privilege?: number }
 /** Finds people by any part of their name (for @mentions and assigning). */
 export const searchUsers = (term: string) => request<{ accounts: Account[] }>('/v1/org/search-user', { method: 'POST', data: { term }, auth: true }).then((c) => c.accounts || [])
-export const getAccount = (id: string) =>
-  request<{ redactedAccount: { id: string; fullname: string; profile: string | null; username: string; team: string | null } }>(`/v1/get-account/${id}`, { auth: true }).then((c) => c.redactedAccount)
 
 export type InviteInput = { email: string; fullname: string; team?: string; privilege: number; designation?: string }
 export const inviteUser = (data: InviteInput) => request<unknown>('/v1/invite-user', { method: 'POST', data, auth: true })
