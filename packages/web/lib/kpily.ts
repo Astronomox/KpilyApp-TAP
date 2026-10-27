@@ -2,7 +2,16 @@
 // Every request body is wrapped as { data: {...} }; every response is
 // { result: { status, message, details }, content } where status 0 = success.
 
-import { envelopeSchema, sessionSchema } from './schemas'
+import {
+  accountsSchema,
+  commentsSchema,
+  envelopeSchema,
+  loginSessionsSchema,
+  membersSchema,
+  notificationsSchema,
+  sessionSchema,
+  tasksSchema,
+} from './schemas'
 
 export const API_BASE = (process.env.NEXT_PUBLIC_KPILY_API_BASE || 'https://kpapis-cac9fhczeadxbvhm.uksouth-01.azurewebsites.net').replace(/\/$/, '')
 
@@ -169,13 +178,16 @@ export const getPlans = () => request<{ plans: Plan[] }>('/v1/get-plans').then((
 
 export type Notification = { id: string; owner: string; transDate: number; message: string; orgID: string; read: boolean; action: number; actionID: string | null }
 export const getNotifications = () => request<{ notifications: Notification[] }>('/v1/get-notification', { auth: true }).then((c) => c.notifications || [])
+  .then((c) => notificationsSchema.parse({ notifications: c }).notifications as Notification[])
 
 export type Member = { id: string; fullname: string; email: string; team: string | null; point: number; privilege: number; designation: string | null; status: number; profilePicture: string | null; externalID?: string }
 /** Members of a team; '-' = the whole organisation. */
 export const getMembers = (team = '-') => request<{ users: Member[] }>(`/v1/get-member/${team}`, { auth: true }).then((c) => c.users || [])
+  .then((users) => membersSchema.parse({ users }).users as Member[])
 
 export type LoginSession = { id: string; username: string; dateCreated: number; ip: string; useragent: string; active: boolean }
 export const getActiveSessions = () => request<{ logins: LoginSession[] }>('/v1/get-active-session', { auth: true }).then((c) => c.logins || [])
+  .then((logins) => loginSessionsSchema.parse({ logins }).logins as LoginSession[])
 
 /** Revokes every signed-in session, or just one when an id is given. */
 export const endSession = (sessionID: string) => request<unknown>(`/v1/logout/${sessionID}`, { method: 'POST', auth: true })
@@ -214,6 +226,7 @@ export type Task = {
 export const dueMs = (t: { dueDate: number }) => (t.dueDate > 1e12 ? t.dueDate : t.dueDate * 1000)
 
 export const getTasks = () => request<{ data: Task[] }>('/v1/org/get-task', { method: 'POST', data: {}, auth: true }).then((c) => c.data || [])
+  .then((data) => tasksSchema.parse({ data }).data as Task[])
 
 export type TaskInput = { name: string; details: string; dueDate: Date; goal: number; assignee: string; reward: number; files?: File[] }
 function taskForm(t: TaskInput & { id?: string }) {
@@ -245,6 +258,7 @@ export function reviewTask(taskID: string, message: string) {
 export const assignTask = (id: string, assignee: string) => request<unknown>('/v1/org/assign-task', { method: 'POST', data: { id, assignee }, auth: true })
 const b64 = (s: string) => btoa(unescape(encodeURIComponent(s)))
 export const searchTasks = (term: string) => request<{ data: Task[] }>(`/v1/org/search-task/${encodeURIComponent(b64(term))}`, { auth: true }).then((c) => c.data || [])
+  .then((data) => tasksSchema.parse({ data }).data as Task[])
 
 export type Comment = {
   id: string; message: string; transDate: number; readBy: string[]; orgID: string; replies: number; parent: string
@@ -252,6 +266,7 @@ export type Comment = {
 }
 /** Comments under a task, or replies under a comment. */
 export const getComments = (parent: string) => request<{ chats: Comment[] }>(`/v1/org/get-comment/${parent}`, { auth: true }).then((c) => c.chats || [])
+  .then((chats) => commentsSchema.parse({ chats }).chats as Comment[])
 export function submitComment(c: { taskID: string; message: string; parent?: string; files?: File[] }) {
   const form = new FormData()
   form.append('taskID', c.taskID)
@@ -281,6 +296,7 @@ export const updateEvent = (id: string, e: EventInput) => request<unknown>('/v1/
 export type Account = { id: string; fullname: string; username: string; orgID?: string; status?: number; privilege?: number }
 /** Finds people by any part of their name (for @mentions and assigning). */
 export const searchUsers = (term: string) => request<{ accounts: Account[] }>('/v1/org/search-user', { method: 'POST', data: { term }, auth: true }).then((c) => c.accounts || [])
+  .then((accounts) => accountsSchema.parse({ accounts }).accounts as Account[])
 
 export type InviteInput = { email: string; fullname: string; team?: string; privilege: number; designation?: string }
 export const inviteUser = (data: InviteInput) => request<unknown>('/v1/invite-user', { method: 'POST', data, auth: true })
