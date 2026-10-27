@@ -104,6 +104,53 @@ export const accountSchema = z.looseObject({
 })
 export const accountsSchema = z.object({ accounts: z.array(accountSchema).catch([]) })
 
+export const selfSchema = z.object({ user: profileSchema })
+
+export const planApiSchema = z.looseObject({
+  id: z.string(),
+  planName: z.string().catch(''),
+  maxEmployee: z.number().catch(0),
+  minEmployee: z.number().catch(0),
+  costPerMonth: z.number().catch(0),
+  costPerYear: z.number().catch(0),
+  details: z.string().catch(''),
+})
+export const plansSchema = z.object({ plans: z.array(planApiSchema).catch([]) })
+
+export const teamApiSchema = z.looseObject({
+  id: z.string(),
+  teamName: z.string().catch('Untitled Team'),
+  teamLeader: z.string().optional(),
+  color: z.string().optional(),
+  reportsTo: z.string().optional(),
+  members: z.number().optional(),
+})
+export const teamsSchema = z.object({ teams: z.array(teamApiSchema).catch([]) })
+
+export const rateApiSchema = z.looseObject({
+  title: z.string().nullable().catch(null),
+  value: z.number().catch(0),
+  lastMonthValue: z.number().catch(0),
+  difference: z.union([z.number(), z.string()]).catch(0),
+  increase: z.boolean().catch(false),
+})
+export const dashboardSchema = z.looseObject({
+  taskCompletionRate: rateApiSchema.catch({ title: null, value: 0, lastMonthValue: 0, difference: 0, increase: false }),
+  positiveFeedback: rateApiSchema.catch({ title: null, value: 0, lastMonthValue: 0, difference: 0, increase: false }),
+  responseRate: rateApiSchema.catch({ title: null, value: 0, lastMonthValue: 0, difference: 0, increase: false }),
+  feedBackRate: rateApiSchema.catch({ title: null, value: 0, lastMonthValue: 0, difference: 0, increase: false }),
+  improvementRate: rateApiSchema.catch({ title: null, value: 0, lastMonthValue: 0, difference: 0, increase: false }),
+  recognitionRate: rateApiSchema.catch({ title: null, value: 0, lastMonthValue: 0, difference: 0, increase: false }),
+  pointsThisYear: z.array(z.object({ month: z.number(), value: z.number() })).catch([]),
+  teamProgress: z.array(z.object({
+    teamName: z.string().nullable().catch(null),
+    teamID: z.string(),
+    workInProgress: z.number().catch(0),
+    completed: z.number().catch(0),
+    awaitingApproval: z.number().catch(0),
+  })).catch([]),
+})
+
 // ---------- Forms ----------
 
 const email = z.email('Enter a valid email address.')

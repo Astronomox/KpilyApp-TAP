@@ -5,11 +5,15 @@
 import {
   accountsSchema,
   commentsSchema,
+  dashboardSchema,
   envelopeSchema,
   loginSessionsSchema,
   membersSchema,
   notificationsSchema,
+  plansSchema,
+  selfSchema,
   sessionSchema,
+  teamsSchema,
   tasksSchema,
 } from './schemas'
 
@@ -132,7 +136,8 @@ export async function logout() {
   try { await request('/v1/logout', { method: 'POST', auth: true }) } finally { clearSession() }
 }
 
-export const getSelf = () => request<{ user: Profile }>('/v1/get-self', { auth: true }).then((c) => c.user)
+export const getSelf = () => request<{ user: Profile }>('/v1/get-self', { auth: true })
+  .then((c) => selfSchema.parse(c).user as Profile)
 
 /** Step 1 of registration: emails a verification link to a work address. */
 export const requestVerification = (email: string) =>
@@ -172,7 +177,8 @@ export const updatePassword = (password: string) =>
 
 export type Plan = { id: string; planName: string; maxEmployee: number; minEmployee: number; costPerMonth: number; costPerYear: number; details: string }
 
-export const getPlans = () => request<{ plans: Plan[] }>('/v1/get-plans').then((c) => c.plans)
+export const getPlans = () => request<{ plans: Plan[] }>('/v1/get-plans')
+  .then((c) => plansSchema.parse(c).plans as Plan[])
 
 // ---------- App shell ----------
 
@@ -210,9 +216,11 @@ export type Dashboard = {
   teamProgress: { teamName: string | null; teamID: string; workInProgress: number; completed: number; awaitingApproval: number }[]
 }
 export const getDashboard = () => request<Dashboard>('/v1/get-dashboard', { auth: true })
+  .then((c) => dashboardSchema.parse(c) as Dashboard)
 
 export type Team = { id: string; teamName: string; teamLeader?: string; color?: string; reportsTo?: string; members?: number; [key: string]: unknown }
-export const getTeams = () => request<{ teams: Team[] }>('/v1/org/get-team/-', { auth: true }).then((c) => c.teams || [])
+export const getTeams = () => request<{ teams: Team[] }>('/v1/org/get-team/-', { auth: true })
+  .then((c) => teamsSchema.parse(c).teams as Team[])
 
 // ---------- Tasks ----------
 
