@@ -80,5 +80,3 @@
 @media (max-width: 900px) {
   .ka-badgegrid { grid-template-columns: 1fr; }
 }
-.ka-perf__stats--3 { grid-template-columns: repeat(3, 1fr); }
-@media (max-width: 900px) { .ka-perf__stats--3 { grid-template-columns: 1fr; } }
