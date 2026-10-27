@@ -2,7 +2,20 @@
 // Every request body is wrapped as { data: {...} }; every response is
 // { result: { status, message, details }, content } where status 0 = success.
 
-import { envelopeSchema, sessionSchema } from './schemas'
+import {
+  accountsSchema,
+  commentsSchema,
+  dashboardSchema,
+  envelopeSchema,
+  loginSessionsSchema,
+  membersSchema,
+  notificationsSchema,
+  plansSchema,
+  selfSchema,
+  sessionSchema,
+  teamsSchema,
+  tasksSchema,
+} from './schemas'
 
 export const API_BASE = (process.env.NEXT_PUBLIC_KPILY_API_BASE || 'https://kpapis-cac9fhczeadxbvhm.uksouth-01.azurewebsites.net').replace(/\/$/, '')
 
@@ -58,6 +71,9 @@ export async function request<T>(path: string, { method = 'GET', data, form, aut
   }
   return body!.content as T
 }
+
+/** URL for a file the API stores by alias (profile pictures, logos, attachments). */
+export const fileUrl = (alias: unknown) => (typeof alias === 'string' && alias ? (alias.startsWith('http') ? alias : `${API_BASE}/v1/file/get/${alias}`) : null)
 
 // ---------- Session ----------
 
@@ -120,7 +136,8 @@ export async function logout() {
   try { await request('/v1/logout', { method: 'POST', auth: true }) } finally { clearSession() }
 }
 
-export const getSelf = () => request<{ user: Profile }>('/v1/get-self', { auth: true }).then((c) => c.user)
+export const getSelf = () => request<{ user: Profile }>('/v1/get-self', { auth: true })
+  .then((c) => selfSchema.parse(c).user as Profile)
 
 /** Step 1 of registration: emails a verification link to a work address. */
 export const requestVerification = (email: string) =>
@@ -160,19 +177,23 @@ export const updatePassword = (password: string) =>
 
 export type Plan = { id: string; planName: string; maxEmployee: number; minEmployee: number; costPerMonth: number; costPerYear: number; details: string }
 
-export const getPlans = () => request<{ plans: Plan[] }>('/v1/get-plans').then((c) => c.plans)
+export const getPlans = () => request<{ plans: Plan[] }>('/v1/get-plans')
+  .then((c) => plansSchema.parse(c).plans as Plan[])
 
 // ---------- App shell ----------
 
 export type Notification = { id: string; owner: string; transDate: number; message: string; orgID: string; read: boolean; action: number; actionID: string | null }
 export const getNotifications = () => request<{ notifications: Notification[] }>('/v1/get-notification', { auth: true }).then((c) => c.notifications || [])
+  .then((c) => notificationsSchema.parse({ notifications: c }).notifications as Notification[])
 
 export type Member = { id: string; fullname: string; email: string; team: string | null; point: number; privilege: number; designation: string | null; status: number; profilePicture: string | null; externalID?: string }
 /** Members of a team; '-' = the whole organisation. */
 export const getMembers = (team = '-') => request<{ users: Member[] }>(`/v1/get-member/${team}`, { auth: true }).then((c) => c.users || [])
+  .then((users) => membersSchema.parse({ users }).users as Member[])
 
 export type LoginSession = { id: string; username: string; dateCreated: number; ip: string; useragent: string; active: boolean }
 export const getActiveSessions = () => request<{ logins: LoginSession[] }>('/v1/get-active-session', { auth: true }).then((c) => c.logins || [])
+  .then((logins) => loginSessionsSchema.parse({ logins }).logins as LoginSession[])
 
 /** Revokes every signed-in session, or just one when an id is given. */
 export const endSession = (sessionID: string) => request<unknown>(`/v1/logout/${sessionID}`, { method: 'POST', auth: true })
@@ -195,9 +216,11 @@ export type Dashboard = {
   teamProgress: { teamName: string | null; teamID: string; workInProgress: number; completed: number; awaitingApproval: number }[]
 }
 export const getDashboard = () => request<Dashboard>('/v1/get-dashboard', { auth: true })
+  .then((c) => dashboardSchema.parse(c) as Dashboard)
 
 export type Team = { id: string; teamName: string; teamLeader?: string; color?: string; reportsTo?: string; members?: number; [key: string]: unknown }
-export const getTeams = () => request<{ teams: Team[] }>('/v1/org/get-team/-', { auth: true }).then((c) => c.teams || [])
+export const getTeams = () => request<{ teams: Team[] }>('/v1/org/get-team/-', { auth: true })
+  .then((c) => teamsSchema.parse(c).teams as Team[])
 
 // ---------- Tasks ----------
 
@@ -211,6 +234,7 @@ export type Task = {
 export const dueMs = (t: { dueDate: number }) => (t.dueDate > 1e12 ? t.dueDate : t.dueDate * 1000)
 
 export const getTasks = () => request<{ data: Task[] }>('/v1/org/get-task', { method: 'POST', data: {}, auth: true }).then((c) => c.data || [])
+  .then((data) => tasksSchema.parse({ data }).data as Task[])
 
 export type TaskInput = { name: string; details: string; dueDate: Date; goal: number; assignee: string; reward: number; files?: File[] }
 function taskForm(t: TaskInput & { id?: string }) {
@@ -238,6 +262,30 @@ export function reviewTask(taskID: string, message: string) {
   return request<unknown>('/v1/org/review-task', { method: 'PUT', form, auth: true })
 }
 
+/** Adds a person to a task (admins and the task owner). */
+export const assignTask = (id: string, assignee: string) => request<unknown>('/v1/org/assign-task', { method: 'POST', data: { id, assignee }, auth: true })
+const b64 = (s: string) => btoa(unescape(encodeURIComponent(s)))
+export const searchTasks = (term: string) => request<{ data: Task[] }>(`/v1/org/search-task/${encodeURIComponent(b64(term))}`, { auth: true }).then((c) => c.data || [])
+  .then((data) => tasksSchema.parse({ data }).data as Task[])
+
+export type Comment = {
+  id: string; message: string; transDate: number; readBy: string[]; orgID: string; replies: number; parent: string
+  files: unknown; owner?: Person | string; [key: string]: unknown
+}
+/** Comments under a task, or replies under a comment. */
+export const getComments = (parent: string) => request<{ chats: Comment[] }>(`/v1/org/get-comment/${parent}`, { auth: true }).then((c) => c.chats || [])
+  .then((chats) => commentsSchema.parse({ chats }).chats as Comment[])
+export function submitComment(c: { taskID: string; message: string; parent?: string; files?: File[] }) {
+  const form = new FormData()
+  form.append('taskID', c.taskID)
+  form.append('message', c.message)
+  // The API accepts a comment with status 0 even when parent is missing, but only links
+  // it to the thread when parent is set (a task id for a top-level comment, else a comment id).
+  form.append('parent', c.parent || c.taskID)
+  for (const f of c.files || []) form.append('rawFiles', f)
+  return request<unknown>('/v1/org/submit-comment', { method: 'POST', form, auth: true })
+}
+
 // ---------- Calendar ----------
 
 export type Person = { id: string; fullname: string | null; username: string }
@@ -252,6 +300,11 @@ export const createEvent = (e: EventInput) => request<unknown>('/v1/org/create-e
 export const updateEvent = (id: string, e: EventInput) => request<unknown>('/v1/org/update-event', { method: 'PUT', data: { ...e, id }, auth: true })
 
 // ---------- Staff & teams ----------
+
+export type Account = { id: string; fullname: string; username: string; orgID?: string; status?: number; privilege?: number }
+/** Finds people by any part of their name (for @mentions and assigning). */
+export const searchUsers = (term: string) => request<{ accounts: Account[] }>('/v1/org/search-user', { method: 'POST', data: { term }, auth: true }).then((c) => c.accounts || [])
+  .then((accounts) => accountsSchema.parse({ accounts }).accounts as Account[])
 
 export type InviteInput = { email: string; fullname: string; team?: string; privilege: number; designation?: string }
 export const inviteUser = (data: InviteInput) => request<unknown>('/v1/invite-user', { method: 'POST', data, auth: true })

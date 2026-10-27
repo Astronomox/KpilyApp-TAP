@@ -25,6 +25,132 @@ export const sessionSchema = z.object({
   redirectToPlanPage: z.boolean().optional(),
 })
 
+export const notificationSchema = z.looseObject({
+  id: z.string(),
+  owner: z.string().catch(''),
+  transDate: z.number(),
+  message: z.string().catch(''),
+  orgID: z.string().catch(''),
+  read: z.boolean().catch(false),
+  action: z.number().catch(0),
+  actionID: z.string().nullable().optional(),
+})
+export const notificationsSchema = z.object({ notifications: z.array(notificationSchema).catch([]) })
+
+export const memberSchema = z.looseObject({
+  id: z.string(),
+  fullname: z.string().catch('Unknown'),
+  email: z.string().catch(''),
+  team: z.string().nullable().catch(null),
+  point: z.number().catch(0),
+  privilege: z.number().catch(30),
+  designation: z.string().nullable().optional(),
+  status: z.number().catch(0),
+  profilePicture: z.string().nullable().optional(),
+  externalID: z.string().optional(),
+})
+export const membersSchema = z.object({ users: z.array(memberSchema).catch([]) })
+
+export const loginSessionSchema = z.looseObject({
+  id: z.string(),
+  username: z.string().catch(''),
+  dateCreated: z.number(),
+  ip: z.string().catch(''),
+  useragent: z.string().catch(''),
+  active: z.boolean().catch(false),
+})
+export const loginSessionsSchema = z.object({ logins: z.array(loginSessionSchema).catch([]) })
+
+export const taskApiSchema = z.looseObject({
+  id: z.string(),
+  name: z.string().catch('Untitled task'),
+  details: z.string().catch(''),
+  dueDate: z.number().catch(0),
+  goal: z.number().catch(0),
+  assignee: z.string().catch(''),
+  createdBy: z.string().catch(''),
+  reward: z.number().catch(0),
+  finalReward: z.number().catch(0),
+  status: z.number().catch(0),
+  replies: z.number().catch(0),
+  teamID: z.string().catch(''),
+  teamName: z.string().nullable().optional(),
+  dateCreated: z.string().catch(''),
+  contributors: z.array(z.unknown()).catch([]),
+  attachment: z.unknown().optional(),
+})
+export const tasksSchema = z.object({ data: z.array(taskApiSchema).catch([]) })
+
+export const commentSchema = z.looseObject({
+  id: z.string(),
+  message: z.string().catch(''),
+  transDate: z.number().catch(0),
+  readBy: z.array(z.string()).catch([]),
+  orgID: z.string().catch(''),
+  replies: z.number().catch(0),
+  parent: z.string().catch(''),
+  files: z.unknown().optional(),
+  owner: z.union([z.string(), z.unknown()]).optional(),
+})
+export const commentsSchema = z.object({ chats: z.array(commentSchema).catch([]) })
+
+export const accountSchema = z.looseObject({
+  id: z.string(),
+  fullname: z.string().catch(''),
+  username: z.string().catch(''),
+  orgID: z.string().optional(),
+  status: z.number().optional(),
+  privilege: z.number().optional(),
+})
+export const accountsSchema = z.object({ accounts: z.array(accountSchema).catch([]) })
+
+export const selfSchema = z.object({ user: profileSchema })
+
+export const planApiSchema = z.looseObject({
+  id: z.string(),
+  planName: z.string().catch(''),
+  maxEmployee: z.number().catch(0),
+  minEmployee: z.number().catch(0),
+  costPerMonth: z.number().catch(0),
+  costPerYear: z.number().catch(0),
+  details: z.string().catch(''),
+})
+export const plansSchema = z.object({ plans: z.array(planApiSchema).catch([]) })
+
+export const teamApiSchema = z.looseObject({
+  id: z.string(),
+  teamName: z.string().catch('Untitled Team'),
+  teamLeader: z.string().optional(),
+  color: z.string().optional(),
+  reportsTo: z.string().optional(),
+  members: z.number().optional(),
+})
+export const teamsSchema = z.object({ teams: z.array(teamApiSchema).catch([]) })
+
+export const rateApiSchema = z.looseObject({
+  title: z.string().nullable().catch(null),
+  value: z.number().catch(0),
+  lastMonthValue: z.number().catch(0),
+  difference: z.union([z.number(), z.string()]).catch(0),
+  increase: z.boolean().catch(false),
+})
+export const dashboardSchema = z.looseObject({
+  taskCompletionRate: rateApiSchema.catch({ title: null, value: 0, lastMonthValue: 0, difference: 0, increase: false }),
+  positiveFeedback: rateApiSchema.catch({ title: null, value: 0, lastMonthValue: 0, difference: 0, increase: false }),
+  responseRate: rateApiSchema.catch({ title: null, value: 0, lastMonthValue: 0, difference: 0, increase: false }),
+  feedBackRate: rateApiSchema.catch({ title: null, value: 0, lastMonthValue: 0, difference: 0, increase: false }),
+  improvementRate: rateApiSchema.catch({ title: null, value: 0, lastMonthValue: 0, difference: 0, increase: false }),
+  recognitionRate: rateApiSchema.catch({ title: null, value: 0, lastMonthValue: 0, difference: 0, increase: false }),
+  pointsThisYear: z.array(z.object({ month: z.number(), value: z.number() })).catch([]),
+  teamProgress: z.array(z.object({
+    teamName: z.string().nullable().catch(null),
+    teamID: z.string(),
+    workInProgress: z.number().catch(0),
+    completed: z.number().catch(0),
+    awaitingApproval: z.number().catch(0),
+  })).catch([]),
+})
+
 // ---------- Forms ----------
 
 const email = z.email('Enter a valid email address.')

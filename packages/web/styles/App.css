@@ -223,3 +223,12 @@
 .ka-ring figcaption { max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #555; }
 .ka-ov-grade { font-size: 56px; font-weight: 700; line-height: 1; color: var(--ka-green); }
 .ka-planbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin: 0 0 24px; padding: 12px 16px; border: 1px solid #f2d27a; border-radius: var(--ka-radius-md); background: var(--ka-warn-light); font-size: 14px; }
+
+/* Segmented control (Calendar views, Tasks layout) */
+.ka-seg { display: flex; border: 1px solid var(--ka-green); border-radius: var(--ka-radius-sm); overflow: hidden; }
+.ka-seg button { padding: 8px 18px; border: 0; border-left: 1px solid var(--ka-green); background: #eef6f2; color: var(--ka-green); font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; transition: background .15s; }
+.ka-seg button:first-child { border-left: 0; }
+.ka-seg button.is-on { background: var(--ka-green); color: #fff; }
+.ka-seg button:hover:not(.is-on) { background: var(--ka-cal-segment-hover); }
+.ka-board__you { color: var(--ka-blue); }
+.ka-board__you + small { font-size: 11px; color: #777; }

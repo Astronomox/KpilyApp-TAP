@@ -10,7 +10,7 @@ import Modal from '@/components/app/Modal'
 import { useProfile } from '@/components/app/ProfileContext'
 import SkeletonCard from '@/components/app/SkeletonCard'
 import {
-  API_BASE, clearSession, endSession, getActiveSessions, getDashboard, getSelf, getTasks, getTeams, updateProfile, uploadProfileImage,
+  fileUrl, clearSession, endSession, getActiveSessions, getDashboard, getSelf, getTasks, getTeams, updateProfile, uploadProfileImage,
   type Dashboard, type Task, type Team,
 } from '@/lib/kpily'
 import { roleLabel } from '@/lib/nav'
@@ -18,7 +18,6 @@ import { check, profileFormSchema } from '@/lib/schemas'
 import '@/styles/Overview.css'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-const photoUrl = (alias: unknown) => (typeof alias === 'string' && alias ? `${API_BASE}/v1/file/get/${alias}` : null)
 
 function PointsChart({ points }: { points: Dashboard['pointsThisYear'] }) {
   const values = MONTHS.map((_, i) => points.find((p) => p.month === i + 1)?.value ?? 0)
@@ -61,7 +60,7 @@ export default function AccountOverview() {
   const myTeam = teams?.find((t) => t.id === profile?.teamID || t.id === profile?.team)
   const done = tasks?.filter((t) => t.status === 3).length ?? 0
   const pct = tasks?.length ? (done / tasks.length) * 100 : 0
-  const picture = photoUrl(profile?.profile)
+  const picture = fileUrl(profile?.profile)
 
   async function refresh() {
     const me = await getSelf()
@@ -104,6 +103,10 @@ export default function AccountOverview() {
         <h1>{profile?.fullname}</h1>
         <p>{roleLabel(profile?.privilege)}</p>
         <p className="ka-ov-profile__report">REPORTING TO: {myTeam?.teamLeader && myTeam.teamLeader !== profile?.email ? myTeam.teamLeader : ''}</p>
+        <div className="ka-ov-profile__quick">
+          <Link className="ka-btn ka-btn--sm" href="/dashboard/feedback#give"><Icon name="heart" size={16} />Give Feedback</Link>
+          <Link className="ka-btn ka-btn--sm ka-btn--ghost" href="/dashboard/goals">My Goals</Link>
+        </div>
       </section>
 
       <section className="ka-card ka-ov-perf">

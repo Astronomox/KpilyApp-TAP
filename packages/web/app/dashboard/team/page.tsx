@@ -8,7 +8,7 @@ import Icon from '@/components/app/Icon'
 import Leaderboard from '@/components/app/Leaderboard'
 import Modal from '@/components/app/Modal'
 import { useProfile } from '@/components/app/ProfileContext'
-import { createTeam, getMembers, getTeams, updateTeam, type Member, type Team } from '@/lib/kpily'
+import { fileUrl, createTeam, getMembers, getTeams, updateTeam, type Member, type Team } from '@/lib/kpily'
 import { teamSchema } from '@/lib/schemas'
 import '@/styles/People.css'
 
@@ -90,7 +90,7 @@ export default function TeamPage() {
           <div className="ka-card__head"><h2>Team Members</h2><Link className="ka-link" href="/dashboard/staff/all-staff">See all</Link></div>
           {members === null ? <p className="ka-muted">Loading…</p> : !members.length ? <p className="ka-muted">No members yet.</p> : (
             <ul className="ka-board__list ka-board__list--plain">
-              {members.slice(0, 5).map((m) => <li key={m.id}><Avatar name={m.fullname} src={null} size={32} /><span>{m.fullname}</span></li>)}
+              {members.slice(0, 5).map((m) => <li key={m.id}><Avatar name={m.fullname} src={fileUrl(m.profilePicture)} size={32} /><span>{m.fullname}</span></li>)}
             </ul>
           )}
         </section>

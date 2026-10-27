@@ -44,3 +44,5 @@
   .ka-points__plot { height: 220px; gap: 2px; }
   .ka-points__val { display: none; }
 }
+.ka-ov-profile__quick { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
+.ka-ov-profile__quick .ka-btn { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
