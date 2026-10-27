@@ -15,6 +15,7 @@ const STATUS: Record<number, [string, string]> = { 1: ['Active', 'active'], 0: [
 const title = (s?: string) => (s || '').replace(/\b\w/g, (c) => c.toUpperCase())
 // profilePicture may be a full URL or a bare file alias served by the API.
 const photoUrl = (pic?: string | null) => (pic ? (pic.startsWith('http') ? pic : `${API_BASE}/v1/file/get/${pic}`) : null)
+const pillColor = (team?: Team | null) => (team?.color && String(team.color).trim()) || '#8B5CF6'
 type Filters = { status: string; team: string; privilege: string }
 
 function csv(rows: (string | number)[][]) {
