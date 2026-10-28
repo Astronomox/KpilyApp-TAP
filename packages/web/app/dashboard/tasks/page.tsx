@@ -1,57 +1,27 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Avatar from '@/components/app/Avatar'
 import Icon from '@/components/app/Icon'
 import Modal from '@/components/app/Modal'
+import TaskDetail from '@/components/app/TaskDetail'
+import TaskFeed from '@/components/app/TaskFeed'
 import TaskForm from '@/components/app/TaskForm'
+import { RowMenu, StatusIcon, fmtDue, type TaskAction } from '@/components/app/TaskBits'
 import { useProfile } from '@/components/app/ProfileContext'
-import { TASK_STATUS, acceptTask, completeTask, deleteTask, dueMs, getTasks, reviewTask, submitTask, type Task } from '@/lib/kpily'
+import { TASK_STATUS, acceptTask, completeTask, deleteTask, dueMs, getTasks, reviewTask, searchTasks, submitTask, type Task } from '@/lib/kpily'
+import { useLocalSetting } from '@/lib/useLocalSetting'
 import '@/styles/Tasks.css'
 
 type Col = 'name' | 'assignee' | 'createdBy' | 'point' | 'status' | 'due'
 const COLS: [Col, string][] = [['name', 'Task'], ['assignee', 'Assignee'], ['createdBy', 'Assigned By'], ['point', 'Point'], ['status', 'Status'], ['due', 'Due Date']]
 const CARD_ORDER = [0, 1, 2, 3, 4]
-const fmtDue = (t: Task) => {
-  const d = new Date(dueMs(t))
-  return `${d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} ${d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })} ${d.getHours() < 12 ? 'AM' : 'PM'}`
-}
+// Figma groups the five statuses into three feed tabs.
+type Bucket = 'new' | 'updates' | 'approvals'
+const BUCKETS: [Bucket, string][] = [['new', 'New Tasks'], ['updates', 'Task Updates'], ['approvals', 'Approvals']]
+const inBucket = (t: Task, b: Bucket, me: string | undefined, canManage: boolean) =>
+  b === 'new' ? t.status === 0 : b === 'updates' ? [1, 2, 4].includes(t.status) : t.status === 4 && (canManage || t.createdBy === me)
 const sortVal = (t: Task, c: Col) => (c === 'point' ? t.finalReward : c === 'status' ? t.status : c === 'due' ? dueMs(t) : String(t[c]).toLowerCase())
-
-function StatusIcon({ status }: { status: number }) {
-  return <span className={`ka-status ka-status--${status}`} aria-hidden="true" />
-}
-
-function RowMenu({ task, me, canManage, onAction }: { task: Task; me?: string; canManage: boolean; onAction: (a: string, t: Task) => void }) {
-  const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (!open) return
-    const close = (e: MouseEvent) => { if (!ref.current?.contains(e.target as Node)) setOpen(false) }
-    document.addEventListener('mousedown', close)
-    return () => document.removeEventListener('mousedown', close)
-  }, [open])
-  const mine = task.assignee === me
-  const owner = canManage || task.createdBy === me
-  const items: [string, string][] = [['view', 'View']]
-  if (mine && task.status === 0) items.push(['accept', 'Accept'])
-  if (mine && (task.status === 1 || task.status === 2)) items.push(['submit', 'Submit'])
-  if (owner && task.status === 4) items.push(['review', 'Send back for review'], ['complete', 'Mark complete'])
-  if (owner && task.status !== 3) items.push(['edit', 'Edit'])
-  if (owner) items.push(['delete', 'Delete'])
-  return (
-    <div className="ka-rowmenu" ref={ref}>
-      <button type="button" className="ka-iconbtn" aria-label={`Actions for ${task.name}`} aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen(!open)}>•••</button>
-      {open && (
-        <div className="ka-cog__menu ka-rowmenu__list" role="menu">
-          {items.map(([a, label]) => (
-            <button key={a} type="button" role="menuitem" className={a === 'delete' ? 'is-danger' : ''} onClick={() => { setOpen(false); onAction(a, task) }}>{label}</button>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
 
 export default function Tasks() {
   const { profile } = useProfile()
@@ -71,17 +41,33 @@ export default function Tasks() {
   const [pending, setPending] = useState<{ action: 'review' | 'complete' | 'delete'; task: Task } | null>(null)
   const [busy, setBusy] = useState(false)
   const canManage = (profile?.privilege ?? 0) >= 40
+  const me = profile?.email
+  const [mode, setMode] = useLocalSetting<'feed' | 'table'>('kpily.tasks.view', 'feed')
+  const [bucket, setBucket] = useState<Bucket | null>(null)
+  // Server-side keyword search (names and details); the local name filter still applies meanwhile.
+  const [hits, setHits] = useState<{ q: string; ids: Set<string> } | null>(null)
+  useEffect(() => {
+    const q = query.trim()
+    if (q.length < 2) return
+    const id = setTimeout(() => { searchTasks(q).then((r) => setHits({ q, ids: new Set(r.map((t) => t.id)) })).catch(() => {}) }, 300)
+    return () => clearTimeout(id)
+  }, [query])
 
   const load = useCallback(() => { getTasks().then(setTasks).catch((e) => { setError(e instanceof Error ? e.message : String(e)); setTasks([]) }) }, [])
   useEffect(load, [load])
 
   const counts = useMemo(() => TASK_STATUS.map((_, i) => tasks?.filter((t) => t.status === i).length ?? 0), [tasks])
+  const bucketCounts = useMemo(() => Object.fromEntries(BUCKETS.map(([b]) => [b, tasks?.filter((t) => inBucket(t, b, me, canManage)).length ?? 0])) as Record<Bucket, number>, [tasks, me, canManage])
   const rows = useMemo(() => {
     const q = query.trim().toLowerCase()
+    const serverHits = hits && hits.q.toLowerCase() === q ? hits.ids : null
     return (tasks ?? [])
-      .filter((t) => (!q || t.name.toLowerCase().includes(q)) && (!statuses.length || statuses.includes(t.status)))
+      .filter((t) => (!q || t.name.toLowerCase().includes(q) || !!serverHits?.has(t.id)) && (!statuses.length || statuses.includes(t.status)))
       .sort((a, b) => { const x = sortVal(a, sort.col), y = sortVal(b, sort.col); return (x < y ? -1 : x > y ? 1 : 0) * sort.dir })
-  }, [tasks, query, statuses, sort])
+  }, [tasks, query, statuses, sort, hits])
+  const feed = useMemo(() => rows
+    .filter((t) => (!bucket || inBucket(t, bucket, me, canManage)))
+    .sort((a, b) => Date.parse(b.dateCreated) - Date.parse(a.dateCreated) || b.dueDate - a.dueDate), [rows, bucket, me, canManage])
   const pages = Math.max(1, Math.ceil(rows.length / perPage))
   const current = Math.min(page, pages - 1)
   const visible = rows.slice(current * perPage, current * perPage + perPage)
@@ -92,12 +78,12 @@ export default function Tasks() {
     try { await fn(); setPending(null); load() } catch (e) { setError(e instanceof Error ? e.message : String(e)) } finally { setBusy(false) }
   }
 
-  function onAction(a: string, t: Task) {
+  function onAction(a: TaskAction, t: Task) {
     if (a === 'view') setViewing(t)
-    else if (a === 'edit') setForm({ open: true, task: t })
+    else if (a === 'edit') { setViewing(null); setForm({ open: true, task: t }) }
     else if (a === 'accept') run(() => acceptTask(t.id))
     else if (a === 'submit') run(() => submitTask(t.id))
-    else setPending({ action: a as 'review' | 'complete' | 'delete', task: t })
+    else { setViewing(null); setPending({ action: a, task: t }) }
   }
 
   function confirmPending(e: React.FormEvent<HTMLFormElement>) {
@@ -114,9 +100,31 @@ export default function Tasks() {
     <div className="ka-tasks">
       <div className="ka-tasks__head">
         <h1>Tasks</h1>
-        {canManage && <button type="button" className="ka-btn" onClick={() => setForm({ open: true, task: null })}>+ Add Task</button>}
+        <div className="ka-seg ka-tasks__mode" role="group" aria-label="Layout">
+          {(['feed', 'table'] as const).map((m) => <button key={m} type="button" aria-pressed={mode === m} className={mode === m ? 'is-on' : ''} onClick={() => setMode(m)}>{m === 'feed' ? 'Feed' : 'Table'}</button>)}
+        </div>
+        {canManage && <button type="button" className="ka-btn" onClick={() => setForm({ open: true, task: null })}>+ Create New Task</button>}
       </div>
 
+      {mode === 'feed' ? (
+        <section className="ka-card ka-taskfeed">
+          <div className="ka-buckets" role="tablist" aria-label="Task groups">
+            {BUCKETS.map(([b, label]) => (
+              <button key={b} type="button" role="tab" aria-selected={bucket === b} className={`ka-bucket ka-bucket--${b} ${bucket === b ? 'is-on' : ''}`} onClick={() => setBucket(bucket === b ? null : b)}>
+                <strong>{bucketCounts[b]}</strong>{label}
+              </button>
+            ))}
+          </div>
+          <div className="ka-taskfeed__search">
+            <Icon name="search" size={22} />
+            <input placeholder="Search tasks by name, keyword, team member, etc." aria-label="Search tasks" value={query} onChange={(e) => setQuery(e.target.value)} />
+            {(query || bucket !== null) && <button type="button" className="ka-link" onClick={() => { setQuery(''); setBucket(null) }}>Reset</button>}
+          </div>
+          {error && <p role="alert" className="ka-error">{error}</p>}
+          {tasks === null ? <p className="ka-table__empty">Loading…</p> : !feed.length ? <p className="ka-table__empty">No tasks here yet.</p>
+            : <TaskFeed tasks={feed} me={me} canManage={canManage} onOpen={setViewing} onAction={onAction} />}
+        </section>
+      ) : (<>
       <div className="ka-tasks__stats">
         {CARD_ORDER.map((i) => (
           <button key={i} type="button" className={`ka-stat ${statuses.length === 1 && statuses[0] === i ? 'is-on' : ''}`} aria-pressed={statuses.length === 1 && statuses[0] === i}
@@ -183,7 +191,7 @@ export default function Tasks() {
                   {show('point') && <td>{t.finalReward}/{t.reward}</td>}
                   {show('status') && <td><span className="ka-statuscell"><StatusIcon status={t.status} />{TASK_STATUS[t.status] ?? ''}</span></td>}
                   {show('due') && <td className="ka-nowrap">{fmtDue(t)}</td>}
-                  <td><RowMenu task={t} me={profile?.email} canManage={canManage} onAction={onAction} /></td>
+                  <td><RowMenu task={t} me={me} canManage={canManage} onAction={onAction} /></td>
                 </tr>
               ))}
             </tbody>
@@ -204,23 +212,11 @@ export default function Tasks() {
           </div>
         </div>
       </section>
+      </>)}
 
       <TaskForm open={form.open} task={form.task} onClose={() => setForm({ open: false })} onSaved={load} />
 
-      <Modal open={!!viewing} title={viewing?.name ?? ''} onClose={() => setViewing(null)} width={600}>
-        {viewing && (
-          <dl className="ka-detail">
-            <dt>Status</dt><dd><span className="ka-statuscell"><StatusIcon status={viewing.status} />{TASK_STATUS[viewing.status]}</span></dd>
-            <dt>Assignee</dt><dd>{viewing.assignee}</dd>
-            <dt>Assigned by</dt><dd>{viewing.createdBy}</dd>
-            <dt>Points</dt><dd>{viewing.finalReward}/{viewing.reward}</dd>
-            <dt>Goal</dt><dd>{viewing.goal}</dd>
-            <dt>Due</dt><dd>{fmtDue(viewing)}</dd>
-            {viewing.teamName && <><dt>Team</dt><dd>{viewing.teamName}</dd></>}
-            <dt>Details</dt><dd className="ka-detail__text">{viewing.details}</dd>
-          </dl>
-        )}
-      </Modal>
+      <TaskDetail task={viewing} me={me} canManage={canManage} onClose={() => setViewing(null)} onAction={onAction} onChanged={load} />
 
       <Modal open={!!pending} title={pending?.action === 'delete' ? 'Delete task' : pending?.action === 'complete' ? 'Mark task complete' : 'Send back for review'} onClose={() => setPending(null)} width={460}>
         <form onSubmit={confirmPending}>

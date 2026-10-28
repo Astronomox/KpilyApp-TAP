@@ -21,15 +21,16 @@ packages/web/
 ├── app/            routes (App Router)
 │   ├── page.tsx    marketing site: /, /about, /blogs, /pricing …
 │   ├── login …     auth: login, register, forgot/change password, email links
-│   └── dashboard/  signed-in app: overview, tasks, calendar, …
+│   └── dashboard/  signed-in app: overview, tasks, calendar, feedback, goals, rewards, …
 ├── components/
 │   ├── figma/      site + auth building blocks (pixel-matched to Figma)
-│   └── app/        app shell: header, menu, ⌘K search, feed, modals
-├── lib/            API client (kpily.ts), navigation, plans, hooks
+│   └── app/        app shell, modals, task feed/detail, feedback form, charts
+├── lib/            API client (kpily.ts), engagement data (engagement.ts), navigation, hooks
 ├── styles/         plain CSS (kp- site/auth, ka- app)
 └── public/         images and fonts
 ```
 
 ## Progress
 
-See [docs/COMPLETION_PLAN.md](docs/COMPLETION_PLAN.md).
+See [docs/COMPLETION_PLAN.md](docs/COMPLETION_PLAN.md). Feedback, goals, badges and point settings
+are stored in the browser until the API has endpoints for them.

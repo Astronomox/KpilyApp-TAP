@@ -1,0 +1,123 @@
+/* Feedback, Goals, Rewards (Figma Employee and Line manager module). */
+.ka-eng { max-width: 1180px; }
+.ka-btn--lg { min-width: 180px; padding: 12px 32px; border-radius: 999px; font-size: 17px; }
+.ka-back { display: inline-flex; align-items: center; gap: 4px; margin-bottom: 20px; padding: 0; border: 0; background: none; color: var(--ka-blue); font: inherit; font-size: 13px; cursor: pointer; }
+.ka-back:hover { text-decoration: underline; }
+.ka-fab { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--ka-green); color: #fff; cursor: pointer; box-shadow: 0 4px 12px rgba(30,122,90,.3); }
+.ka-fab:hover { filter: brightness(1.1); }
+.ka-localnote { margin: 0 0 16px; font-size: 13px; color: #888; }
+.ka-card .ka-localnote { margin: 16px 0 0; }
+
+/* Feedback list: the third tab is a call to action */
+.ka-bucket--create { gap: 18px; color: #7b3fbf; }
+.ka-bucket--create span { color: var(--ka-text); text-align: left; line-height: 1.25; }
+
+/* Give feedback / appeal */
+.ka-fbform h1 { margin: 0 0 24px; font-size: 30px; font-weight: 600; }
+.ka-fbform h1 span { font-size: 24px; font-weight: 500; }
+.ka-fbprogress { height: 6px; margin: -8px 0 24px; border-radius: 3px; background: #ddd; overflow: hidden; }
+.ka-fbprogress span { display: block; height: 100%; background: linear-gradient(90deg, #3cb68a, var(--ka-blue)); transition: width .3s; }
+.ka-fbpair { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px; align-items: start; margin-top: 28px; }
+.ka-fbbox { display: block; padding: 14px 22px; border-radius: 10px; background: #fff; box-shadow: inset 0 2px 8px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04); }
+.ka-fbbox span { display: block; font-size: 14px; color: #888; }
+.ka-fbbox textarea { width: 100%; box-sizing: border-box; margin-top: 6px; padding: 0; border: 0; background: none; font: inherit; font-size: 17px; line-height: 1.45; resize: vertical; outline: none; }
+.ka-fbbox:focus-within { box-shadow: inset 0 2px 8px rgba(0,0,0,.08), 0 0 0 2px var(--ka-green); }
+.ka-fbtags { display: flex; flex-wrap: wrap; gap: 10px 12px; }
+.ka-fbtag { padding: 8px 18px; border: 0; border-radius: 999px; font: inherit; font-size: 14px; cursor: pointer; transition: background .15s, color .15s; }
+.ka-fbtag--pos { background: #e2ecf3; color: var(--ka-text); }
+.ka-fbtag--pos.is-on { background: var(--ka-blue); color: #fff; }
+.ka-fbtag--neg { background: #f4dcd9; color: var(--ka-text); }
+.ka-fbtag--neg.is-on { background: #a13a30; color: #fff; }
+.ka-fbpoints { display: grid; gap: 20px; padding: 24px; border-radius: var(--ka-radius-card); background: #fff; }
+.ka-fbpoints p { margin: 0; }
+.ka-fbpoints__total { max-width: 200px; }
+.ka-fbform .ka-actions { margin-top: 32px; }
+
+/* Reading feedback */
+.ka-fbread { display: grid; gap: 20px; }
+.ka-fbread header { display: flex; align-items: center; gap: 16px; }
+.ka-fbread header small { color: #777; }
+.ka-fbread header h1 { margin: 2px 0 0; font-size: 24px; font-weight: 600; }
+.ka-fbread__pts { margin-left: auto; padding: 6px 14px; border-radius: 999px; background: #e3f3ec; color: var(--ka-green); font-weight: 600; white-space: nowrap; }
+.ka-fbread__pts.is-neg { background: #fcebe9; color: #a13a30; }
+.ka-fbread h2 { margin: 0 0 6px; font-size: 14px; font-weight: 500; color: #888; }
+.ka-fbread p { margin: 0; font-size: 16px; line-height: 1.5; white-space: pre-wrap; }
+.ka-fbread__appeal { padding: 16px; border-radius: var(--ka-radius-sm); background: #fdf6e7; }
+
+/* Evidence (files and links) */
+.ka-evidence { display: grid; gap: 16px; align-content: start; }
+.ka-evidence__title { margin: 0 0 16px; font-size: 16px; font-weight: 500; text-align: center; }
+.ka-evidence__btn { display: flex; align-items: center; gap: 20px; padding: 16px 24px; border: 0; border-radius: 10px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.1); color: var(--ka-text); font: inherit; font-size: 17px; cursor: pointer; }
+.ka-evidence__btn svg { color: var(--ka-green); }
+.ka-evidence__btn:hover { box-shadow: 0 4px 16px rgba(0,0,0,.14); }
+.ka-evidence__link { display: flex; gap: 8px; }
+.ka-evidence__link input { flex: 1; min-width: 0; padding: 10px 12px; border: 1px solid var(--ka-border-mid); border-radius: var(--ka-radius-sm); font: inherit; }
+.ka-evidence__list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
+.ka-evidence__list li { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.ka-evidence__list a { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ka-blue); }
+.ka-evidence__list button { margin-left: auto; border: 0; background: none; color: #999; font-size: 16px; cursor: pointer; }
+
+/* Done states */
+.ka-done { display: grid; justify-items: center; gap: 12px; padding: 64px 16px; text-align: center; }
+.ka-done h1 { margin: 8px 0 0; font-size: 30px; font-weight: 600; }
+.ka-done p { margin: 0 0 16px; color: #666; }
+.ka-done__icon { display: grid; place-items: center; width: 88px; height: 88px; border-radius: 50%; background: var(--ka-green); color: #fff; }
+.ka-done--modal { padding: 8px 0 0; }
+.ka-done--modal .ka-done__icon { width: 64px; height: 64px; }
+
+/* Goals */
+.ka-goals .ka-card__head h2 small { margin-left: 6px; font-size: 13px; font-weight: 400; color: #888; }
+.ka-goals__periods { display: flex; font-size: 13px; }
+.ka-goals__periods button { padding: 2px 8px; border: 0; border-left: 1px solid #ccc; background: none; font: inherit; cursor: pointer; color: #555; }
+.ka-goals__periods button:first-child { border-left: 0; }
+.ka-goals__periods button.is-on { color: var(--ka-green); font-weight: 600; }
+.ka-goals__list { margin: 20px 0 0; padding: 0; list-style: none; max-height: 240px; overflow-y: auto; }
+.ka-goals__list li { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+.ka-goals__title { flex: 1; min-width: 0; }
+.ka-goals__title small { display: block; font-size: 12px; color: #888; }
+.ka-goals__check { display: grid; place-items: center; flex: none; width: 24px; height: 24px; padding: 0; border: 1.5px solid #bbb; border-radius: 5px; background: #fff; color: #bbb; cursor: pointer; }
+.ka-goals__check.is-done { border-color: var(--ka-green); background: #e3f3ec; color: var(--ka-green); }
+.ka-goals__check:disabled { cursor: default; opacity: .6; }
+.ka-goalform { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; }
+.ka-goalform__when { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; font-size: 13px; color: #777; }
+.ka-goalform__when select { padding: 6px 12px; border: 1px solid #aaa; border-radius: 999px; background: #fff; font: inherit; font-size: 13px; }
+.ka-goalform__actions, .ka-goalform .ka-error { grid-column: 1 / -1; }
+
+/* Rewards */
+.ka-rewards { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; align-items: start; max-width: 1180px; }
+.ka-rewards__h { margin: 0 0 16px; font-size: 22px; font-weight: 600; color: var(--ka-blue); }
+.ka-rewards__mine { display: grid; }
+.ka-rewards__badges { display: grid; gap: 20px; }
+.ka-podium { display: grid; grid-template-columns: repeat(3, 1fr); align-items: end; max-width: 300px; margin: 0 auto 24px; }
+.ka-podium__col { display: grid; justify-items: center; gap: 6px; text-align: center; }
+.ka-podium__name { font-size: 13px; line-height: 1.2; }
+.ka-podium__bar { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; width: 100%; padding: 10px 4px; box-sizing: border-box; border-radius: 40px 40px 0 0; }
+.ka-podium__bar strong { font-size: 12px; }
+.ka-podium__bar span { padding: 2px 8px; border-radius: 999px; background: #fff; font-size: 10px; white-space: nowrap; }
+.ka-podium__col--1 .ka-podium__bar { height: 150px; background: #a7c4d6; }
+.ka-podium__col--2 .ka-podium__bar { height: 120px; background: #e5d9ef; }
+.ka-podium__col--3 .ka-podium__bar { height: 96px; background: #f2dfa6; }
+.ka-rank { margin: 0 -24px; padding: 0; list-style: none; max-height: 520px; overflow-y: auto; }
+.ka-rank li { display: grid; grid-template-columns: 64px 36px 1fr auto; align-items: center; gap: 12px; padding: 10px 24px; }
+.ka-rank li.is-me { background: #fbf4dc; }
+.ka-rank__pos { display: flex; flex-direction: column; font-size: 11px; }
+.ka-rank__pos strong { font-size: 13px; }
+.ka-rank__who { display: flex; flex-direction: column; min-width: 0; font-size: 14px; }
+.ka-rank__who small { font-size: 11px; color: #777; }
+.ka-rank__you { color: var(--ka-blue); font-size: 17px; }
+.ka-badgepick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-height: 360px; overflow-y: auto; }
+.ka-badgepick label { display: flex; align-items: center; gap: 10px; padding: 12px; border: 1.5px solid var(--ka-border); border-radius: var(--ka-radius-sm); cursor: pointer; font-size: 14px; }
+.ka-badgepick label.is-on { border-color: var(--ka-green); background: #f3faf7; }
+.ka-badgepick input { position: absolute; opacity: 0; }
+.ka-badgepick svg { color: var(--ka-green); flex: none; }
+.ka-badgepick small { margin-left: auto; color: var(--ka-blue); font-weight: 600; }
+
+@media (max-width: 900px) {
+  .ka-fbpair, .ka-goalform, .ka-rewards { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .ka-badgepick { grid-template-columns: 1fr; }
+  .ka-rank { margin: 0 -16px; }
+  .ka-rank li { grid-template-columns: 52px 32px 1fr; padding: 10px 16px; }
+  .ka-rank li .ka-btn { grid-column: 2 / -1; justify-self: start; }
+}

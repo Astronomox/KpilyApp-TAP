@@ -6,13 +6,16 @@ import EmptyState from '@/components/app/EmptyState'
 import Icon from '@/components/app/Icon'
 import Modal from '@/components/app/Modal'
 import { useProfile } from '@/components/app/ProfileContext'
-import { changeUserPrivilege, changeUserStatus, getMembers, getTeams, inviteUser, type Member, type Organization, type Team } from '@/lib/kpily'
+import { API_BASE, changeUserPrivilege, changeUserStatus, getMembers, getTeams, inviteUser, type Member, type Organization, type Team } from '@/lib/kpily'
 import { ROLE, roleLabel } from '@/lib/nav'
 import { inviteSchema } from '@/lib/schemas'
 import '@/styles/People.css'
 
 const STATUS: Record<number, [string, string]> = { 1: ['Active', 'active'], 0: ['Pending', 'pending'], [-1]: ['Archived', 'archived'] }
 const title = (s?: string) => (s || '').replace(/\b\w/g, (c) => c.toUpperCase())
+// profilePicture may be a full URL or a bare file alias served by the API.
+const photoUrl = (pic?: string | null) => (pic ? (pic.startsWith('http') ? pic : `${API_BASE}/v1/file/get/${pic}`) : null)
+const pillColor = (team?: Team | null) => (team?.color && String(team.color).trim()) || '#8B5CF6'
 type Filters = { status: string; team: string; privilege: string }
 
 function csv(rows: (string | number)[][]) {
@@ -138,10 +141,10 @@ export default function AllStaff() {
                   return (
                     <tr key={m.id}>
                       <td className="ka-table__check"><input type="checkbox" aria-label={`Select ${m.fullname}`} checked={selected.includes(m.id)} onChange={() => setSelected(selected.includes(m.id) ? selected.filter((x) => x !== m.id) : [...selected, m.id])} /></td>
-                      <td><span className="ka-staffcell"><Avatar name={m.fullname} src={null} size={40} /><div>{m.fullname}<small>{m.email}</small></div></span></td>
+                      <td><span className="ka-staffcell"><Avatar name={m.fullname} src={photoUrl(m.profilePicture)} size={40} /><div>{m.fullname}<small>{m.email}</small></div></span></td>
                       <td>{pct(m)}</td>
                       <td><span className={`ka-badge ka-badge--${tone}`}>• {label}</span></td>
-                      <td>{team?.teamName ?? ''}</td>
+                      <td>{team && <span className="ka-teampill" style={{ '--pill': pillColor(team) } as React.CSSProperties}>{team.teamName}</span>}</td>
                       <td><span className="ka-badge ka-badge--role">{roleLabel(m.privilege)}</span></td>
                       <td>{m.designation ?? ''}</td>
                       <td>{team?.teamLeader && team.teamLeader !== m.email ? team.teamLeader : ''}</td>

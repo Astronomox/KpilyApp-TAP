@@ -41,3 +41,12 @@
 @media (max-width: 700px) {
   .ka-set__row { grid-template-columns: 1fr; gap: 12px; }
 }
+
+.ka-set__toggles { display: grid; gap: 16px; }
+.ka-toggle { display: inline-flex; align-items: center; gap: 12px; font-size: 16px; cursor: pointer; }
+.ka-toggle input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.ka-toggle__track { position: relative; flex: none; width: 40px; height: 22px; border-radius: 999px; background: #d0d5dd; transition: background .2s; }
+.ka-toggle__track::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.2); transition: transform .2s; }
+.ka-toggle input:checked + .ka-toggle__track { background: var(--ka-green); }
+.ka-toggle input:checked + .ka-toggle__track::after { transform: translateX(18px); }
+.ka-toggle input:focus-visible + .ka-toggle__track { outline: 2px solid var(--ka-green); outline-offset: 2px; }

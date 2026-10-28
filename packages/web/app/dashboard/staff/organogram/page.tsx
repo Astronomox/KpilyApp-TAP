@@ -1,10 +1,11 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Avatar from '@/components/app/Avatar'
 import EmptyState from '@/components/app/EmptyState'
 import { useProfile } from '@/components/app/ProfileContext'
-import { getMembers, getTeams, orgName, type Member, type Organization, type Team } from '@/lib/kpily'
+import { fileUrl, getMembers, getTeams, orgName, type Member, type Organization, type Team } from '@/lib/kpily'
 import { roleLabel } from '@/lib/nav'
 import '@/styles/People.css'
 
@@ -30,10 +31,10 @@ function Branch({ node, members }: { node: Node; members: Member[] }) {
     <li>
       <div className="ka-org__node" style={{ '--c': team.color || '#106190' } as React.CSSProperties}>
         <strong>{team.teamName}</strong>
-        <Avatar name={leader?.fullname ?? team.teamLeader} src={null} size={40} />
+        <Avatar name={leader?.fullname ?? team.teamLeader} src={fileUrl(leader?.profilePicture)} size={40} />
         <span>{leader?.fullname ?? team.teamLeader ?? 'No leader'}</span>
         <small>Team Lead · {crew.length} member{crew.length === 1 ? '' : 's'}</small>
-        {crew.length > 0 && <div className="ka-org__members">{crew.slice(0, 8).map((m) => <span key={m.id} title={m.fullname}><Avatar name={m.fullname} src={null} size={26} /></span>)}</div>}
+        {crew.length > 0 && <div className="ka-org__members">{crew.slice(0, 8).map((m) => <span key={m.id} title={m.fullname}><Avatar name={m.fullname} src={fileUrl(m.profilePicture)} size={26} /></span>)}</div>}
       </div>
       {node.children.length > 0 && <ul>{node.children.map((c) => <Branch key={c.team.id} node={c} members={members} />)}</ul>}
     </li>
@@ -55,7 +56,9 @@ export default function Organogram() {
 
   return (
     <div className="ka-people">
-      <div className="ka-pagehead"><div><h1>Organogram</h1><p>How your teams report to each other</p></div></div>
+      <div className="ka-pagehead"><div><h1>{orgName(org) ? `${orgName(org)} Organogram` : 'Organogram'}</h1><p>How your teams report to each other</p></div>
+        <Link className="ka-btn" href="/dashboard/team">+ Add Team</Link>
+      </div>
       <section className="ka-card ka-org">
         {teams === null ? <p className="ka-muted">Loading…</p> : (
           <ul className="ka-org__tree">
@@ -72,7 +75,7 @@ export default function Organogram() {
                     <li>
                       <div className="ka-org__node" style={{ '--c': '#9a9a9a' } as React.CSSProperties}>
                         <strong>Not in a team</strong>
-                        <div className="ka-org__members">{unassigned.map((m) => <span key={m.id} title={m.fullname}><Avatar name={m.fullname} src={null} size={26} /></span>)}</div>
+                        <div className="ka-org__members">{unassigned.map((m) => <span key={m.id} title={m.fullname}><Avatar name={m.fullname} src={fileUrl(m.profilePicture)} size={26} /></span>)}</div>
                         <small>{unassigned.map((m) => m.fullname).join(', ')}</small>
                       </div>
                     </li>
@@ -83,6 +86,11 @@ export default function Organogram() {
           </ul>
         )}
         {teams !== null && !teams.length && !members.length && <EmptyState />}
+        {!!teams?.length && (
+          <ul className="ka-org__legend" aria-label="Team colours">
+            {teams.map((t) => <li key={t.id}><span style={{ background: t.color || '#106190' }} />{t.teamName}</li>)}
+          </ul>
+        )}
       </section>
     </div>
   )

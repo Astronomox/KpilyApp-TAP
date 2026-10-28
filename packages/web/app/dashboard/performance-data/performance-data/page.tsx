@@ -126,6 +126,14 @@ export default function PerformanceData() {
           {teams.length ? <div className="ka-perf__rings">{teams.map((t, i) => <Ring key={t.id} pct={teamRates[i]} color={RING[i % RING.length]} label={t.teamName} />)}</div> : <p className="ka-muted ka-perf__center">No teams yet.</p>}
         </section>
       </div>
+
+      {dash && (
+        <div className="ka-perf__stats ka-perf__stats--3">
+          <StatCard title="Employee Feedback Rate" rate={dash.feedBackRate} />
+          <StatCard title="Employee Improvement Rate" rate={dash.improvementRate} />
+          <StatCard title="Recognition Rate" rate={dash.recognitionRate} />
+        </div>
+      )}
     </div>
   )
 }
